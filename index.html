@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' 'sha256-lyO2NR4dXe1gNSdXPikqSMZf05qLTdTFhvW3mvcwm+A='; style-src 'unsafe-inline'; img-src 'self' data: https://*.tile.openstreetmap.org https://tile.openstreetmap.org; connect-src 'none'; base-uri 'none'; form-action 'none'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' 'sha256-CChIyw9A3ywuHX7z/rLYIKnIgOHKJuOFLh/FZMsXsnk='; style-src 'unsafe-inline'; img-src 'self' data: https://*.tile.openstreetmap.org https://tile.openstreetmap.org; connect-src 'none'; base-uri 'none'; form-action 'none'">
 <meta name="referrer" content="no-referrer">
 <meta name="theme-color" content="#0b2545">
 <title>Smart Navigation – Hệ thống dẫn đường số</title>
@@ -674,52 +674,57 @@ svg.leaflet-image-layer.leaflet-interactive path {
 *{box-sizing:border-box}
 html,body{height:100%;margin:0}
 body{font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;background:var(--bg);color:var(--ink)}
-#app{display:grid;grid-template-columns:410px 1fr;height:100%}
-#side{display:flex;flex-direction:column;min-height:0;background:var(--bg);border-right:1px solid var(--line)}
-header{background:#0b2545;color:#fff;padding:calc(12px + env(safe-area-inset-top,0px)) 16px 14px;background-image:radial-gradient(circle at 100% 0,rgba(200,146,26,.35),transparent 55%)}
-.brand{display:flex;gap:11px;align-items:center}
-.logo{width:42px;height:42px;border-radius:12px;background:var(--gold);color:#0b2545;display:grid;place-items:center;font-size:1.7rem;font-weight:800}
-h1{margin:0;font-size:1.25rem;letter-spacing:.2px}
-header p{margin:1px 0 0;font-size:.8rem;opacity:.85}
-.tools{display:flex;gap:8px;margin-top:12px;flex-wrap:wrap}
-.chips{display:flex;gap:6px;flex-wrap:wrap}
-.chip,#ap{font:inherit;font-size:.82rem;padding:7px 12px;border-radius:16px;border:1px solid rgba(255,255,255,.35);background:rgba(255,255,255,.1);color:#fff;cursor:pointer}
-.chip[aria-pressed=true]{background:var(--gold);border-color:var(--gold);color:#241800;font-weight:700}
-#ap option{color:#111}
-.priv{font-size:.75rem!important;margin-top:8px!important;opacity:.8!important}
-#view{flex:1;overflow:auto;padding:12px 12px calc(16px + env(safe-area-inset-bottom,0px))}
-.card{display:flex;gap:12px;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:10px;margin-bottom:10px;cursor:pointer;align-items:center;transition:transform .15s,box-shadow .15s}
-.card:hover,.card:focus{transform:translateY(-1px);box-shadow:0 6px 16px rgba(11,37,69,.14);outline:none}
+#app{display:grid;grid-template-columns:410px 1fr;grid-template-rows:auto minmax(0,1fr);grid-template-areas:"top map" "sheet map";height:100dvh}
+#top{grid-area:top;background:#0b2545;color:#fff;padding:calc(12px + env(safe-area-inset-top,0px)) 14px 12px;background-image:radial-gradient(circle at 100% 0,rgba(200,146,26,.35),transparent 55%)}
+#map{grid-area:map;position:relative;z-index:0;min-height:0}
+#sheet{grid-area:sheet;min-height:0;display:flex;flex-direction:column;background:var(--bg);border-right:1px solid var(--line)}
+#view{flex:1;overflow:auto;padding:12px 12px calc(20px + env(safe-area-inset-bottom,0px));-webkit-overflow-scrolling:touch}
+#grip{display:none}
+.brand{display:flex;gap:10px;align-items:center}
+.logo{width:40px;height:40px;border-radius:12px;background:var(--gold);color:#0b2545;display:grid;place-items:center;font-size:1.6rem;font-weight:800;flex:none}
+h1{margin:0;font-size:1.2rem}
+.brand p{margin:1px 0 0;font-size:.78rem;opacity:.85}
+.menu{display:flex;gap:7px;margin-top:11px;overflow-x:auto;scrollbar-width:none;padding-bottom:2px}
+.menu::-webkit-scrollbar{display:none}
+.pill{flex:none;font:inherit;font-size:.85rem;padding:8px 14px;border-radius:20px;border:1px solid rgba(255,255,255,.35);background:rgba(255,255,255,.12);color:#fff;cursor:pointer;display:flex;align-items:center;gap:7px;white-space:nowrap}
+.pill i{width:9px;height:9px;border-radius:50%;background:var(--c,#fff);box-shadow:0 0 0 2px rgba(255,255,255,.7)}
+.pill.live i{box-shadow:0 0 0 2px #4fd1a0}
+.pill.gps{background:var(--gold);border-color:var(--gold);color:#241800;font-weight:700}
+.pill.on{background:#fff;color:#0b2545;font-weight:700}
+.priv{font-size:.75rem;margin:8px 0 0;opacity:.85}
+.fl{display:flex;gap:7px;flex-wrap:wrap;margin-bottom:12px}
+.fchip,#ap{font:inherit;font-size:.8rem;padding:6px 11px;border-radius:15px;border:1px solid var(--line);background:var(--card);color:var(--ink);cursor:pointer}
+.fchip[aria-pressed=true]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.card{display:flex;gap:12px;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:10px;margin-bottom:10px;cursor:pointer;align-items:center}
+.card:hover,.card:focus{box-shadow:0 6px 16px rgba(11,37,69,.14);outline:none}
 .th{width:84px;height:68px;border-radius:10px;background-size:cover;background-position:center;flex:none;background-color:var(--line)}
 .card b{display:block;font-size:.98rem}
-.meta{font-size:.78rem;color:var(--mute);margin-top:2px}
-.badge{display:inline-block;font-size:.7rem;font-weight:700;padding:2px 8px;border-radius:10px;color:#fff;margin-bottom:4px}
-.st{font-size:.76rem;font-weight:700}
+.meta{font-size:.8rem;color:var(--mute);margin-top:2px}
+.badge{display:inline-block;font-size:.7rem;font-weight:700;padding:2px 8px;border-radius:10px;color:#fff}
+.st{font-size:.78rem;font-weight:700}
 .st.on{color:var(--ok)}.st.off{color:var(--off)}
-h2.sec{font-size:.8rem;text-transform:uppercase;letter-spacing:.08em;color:var(--mute);margin:16px 4px 8px}
+h2.sec{font-size:.78rem;text-transform:uppercase;letter-spacing:.08em;color:var(--mute);margin:16px 4px 8px}
 .sv{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:10px 12px;margin-bottom:8px;font-size:.88rem}
-.sv b{display:block}
-.sv span{color:var(--mute);font-size:.82rem}
+.sv b{display:block}.sv span{color:var(--mute);font-size:.82rem}
 .tagon{font-size:.68rem;background:#16794f;color:#fff;border-radius:8px;padding:1px 7px;margin-left:6px;vertical-align:middle}
 .foot{font-size:.75rem;color:var(--mute);margin:18px 4px 4px;line-height:1.6}
-.foot a,.sv a,.box a{color:inherit}
-.hero{height:210px;border-radius:14px;background-size:cover;background-position:center;position:relative;background-color:var(--line);margin-bottom:12px}
-.back{position:absolute;top:10px;left:10px;border:0;border-radius:16px;padding:7px 12px;font:inherit;font-size:.82rem;background:rgba(11,37,69,.78);color:#fff;cursor:pointer}
-.det h2{margin:4px 0 2px;font-size:1.22rem;line-height:1.25}
+a{color:inherit}
+.dnav{display:flex;justify-content:space-between;align-items:center;margin-bottom:6px}
+.link{background:none;border:0;padding:0;font:inherit;font-size:.85rem;color:var(--mute);text-decoration:underline;cursor:pointer}
+.ic{width:34px;height:34px;border-radius:50%;border:1px solid var(--line);background:var(--card);color:var(--ink);font-size:1.2rem;line-height:1;cursor:pointer;margin-left:6px}
+.det h2{margin:6px 0 2px;font-size:1.3rem}
+.eta{display:inline-block;margin-top:4px;font-size:.8rem;background:var(--card);border:1px solid var(--line);border-radius:10px;padding:3px 9px}
+.hero{height:200px;border-radius:14px;background-size:cover;background-position:center;background-color:var(--line);margin:12px 0}
 .chipsrow{display:flex;gap:6px;flex-wrap:wrap;margin:8px 0}
-.pill{font-size:.78rem;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:4px 10px}
+.pillx{font-size:.78rem;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:4px 10px}
 .box{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:11px 13px;margin:10px 0;font-size:.88rem;line-height:1.55}
-.box h3{margin:0 0 6px;font-size:.88rem}
-.box ul{margin:0;padding-left:18px}
+.box h3{margin:0 0 6px;font-size:.88rem}.box ul{margin:0;padding-left:18px}
 .box.warn{border-left:4px solid var(--gold)}
-.row{display:flex;gap:8px;flex-wrap:wrap;margin:12px 0}
+.row{display:flex;gap:8px;flex-wrap:wrap;margin:10px 0}
 .btn{flex:1 1 auto;text-align:center;padding:12px 14px;border-radius:12px;background:#0b2545;color:#fff;text-decoration:none;font:inherit;font-size:.92rem;font-weight:700;border:0;cursor:pointer}
-.btn.go{background:var(--gold);color:#241800}
+.btn.go{background:var(--gold);color:#241800;flex:2 1 100%}
 .btn.alt{background:var(--card);color:var(--ink);border:1px solid var(--line);font-weight:500}
-table{width:100%;border-collapse:collapse;font-size:.84rem}
-td,th{padding:5px 4px;text-align:left;border-bottom:1px solid var(--line)}
-.link{background:none;border:0;padding:0;font:inherit;color:inherit;text-decoration:underline;cursor:pointer}
-#map{min-height:0}
+table{width:100%;border-collapse:collapse;font-size:.84rem}td,th{padding:5px 4px;text-align:left;border-bottom:1px solid var(--line)}
 .pw{display:flex;flex-direction:column;align-items:center;transform:translate(-50%,-100%)}
 .pin{width:38px;height:38px;border-radius:50% 50% 50% 0;transform:rotate(-45deg);background:var(--c);border:3px solid #fff;box-shadow:0 3px 8px rgba(0,0,0,.45);display:grid;place-items:center}
 .pin i{transform:rotate(45deg);font-style:normal;color:#fff;font-size:15px;font-weight:800}
@@ -727,35 +732,36 @@ td,th{padding:5px 4px;text-align:left;border-bottom:1px solid var(--line)}
 .sel .pin{animation:bob .9s ease-in-out infinite alternate;width:46px;height:46px}
 @keyframes bob{to{transform:rotate(-45deg) translate(3px,3px)}}
 @media(prefers-reduced-motion:reduce){.sel .pin{animation:none}}
-#grip{display:none}
 @media(max-width:800px){
- #app{grid-template-columns:1fr;grid-template-rows:var(--mh,30%) minmax(0,1fr);height:100dvh}
- #map{order:-1}
- #side{display:block;overflow:auto;border-right:0;border-top:1px solid var(--line);-webkit-overflow-scrolling:touch}
- #view{overflow:visible;padding-bottom:calc(60px + env(safe-area-inset-bottom,0px))}
- #grip{display:flex;position:sticky;top:0;z-index:6;justify-content:center;align-items:center;gap:8px;padding:7px;background:var(--card);border-bottom:1px solid var(--line);touch-action:none;cursor:row-resize;font-size:.72rem;color:var(--mute);user-select:none}
- #grip:before{content:"";width:46px;height:5px;border-radius:3px;background:var(--mute);opacity:.6}
- header{padding:8px 14px 10px}
- .logo{width:34px;height:34px;font-size:1.4rem}
- .hero{height:150px}
+ #app{display:block;position:relative;overflow:hidden}
+ #map{position:absolute;inset:0}
+ #top{position:absolute;top:0;left:0;right:0;z-index:5;padding:calc(8px + env(safe-area-inset-top,0px)) 12px 10px;border-radius:0 0 16px 16px;box-shadow:0 4px 16px rgba(0,0,0,.3)}
+ .logo{width:32px;height:32px;font-size:1.3rem}
+ h1{font-size:1.05rem}
+ .menu{margin-top:8px}
+ #sheet{position:absolute;left:0;right:0;bottom:0;height:var(--sh,210px);z-index:6;border-radius:18px 18px 0 0;border-right:0;box-shadow:0 -6px 24px rgba(0,0,0,.28);transition:height .22s ease}
+ #sheet.drag{transition:none}
+ #grip{display:flex;justify-content:center;align-items:center;padding:9px 0 7px;touch-action:none;cursor:row-resize;flex:none}
+ #grip:before{content:"";width:48px;height:5px;border-radius:3px;background:var(--mute);opacity:.55}
+ .leaflet-top{margin-top:118px}
+ .leaflet-bottom{bottom:var(--sh,210px);transition:bottom .22s ease}
+ .hero{height:170px}
 }
+@media(prefers-reduced-motion:reduce){#sheet,.leaflet-bottom{transition:none}}
 </style>
 </head>
 <body>
 <div id="app">
-  <aside id="side">
-    <div id="grip" role="separator" tabindex="0" aria-label="Kéo lên xuống để đổi kích thước bản đồ">kéo hoặc chạm để đổi kích thước</div>
-    <header>
-      <div class="brand"><span class="logo">⌖</span><div><h1>Smart Navigation</h1><p id="sub"></p></div></div>
-      <div class="tools">
-        <div class="chips" id="chips"></div>
-        <select id="ap" aria-label="Con em học tại ấp"></select>
-      </div>
-      <p class="priv" id="priv" hidden></p>
-    </header>
-    <div id="view" aria-live="polite"></div>
-  </aside>
+  <header id="top">
+    <div class="brand"><span class="logo">⌖</span><div><h1>Smart Navigation</h1><p id="sub"></p></div></div>
+    <div class="menu" id="menu" aria-label="Chọn địa điểm"></div>
+    <p class="priv" id="priv" hidden></p>
+  </header>
   <div id="map" role="application" aria-label="Bản đồ các trụ sở"></div>
+  <section id="sheet" aria-label="Thông tin địa điểm">
+    <div id="grip" role="separator" tabindex="0" aria-label="Kéo lên xuống để xem thêm hoặc xem bản đồ rộng hơn"></div>
+    <div id="view" aria-live="polite"></div>
+  </section>
 </div>
 <script src="du-lieu.js"></script>
 <script>/* @preserve
@@ -770,32 +776,17 @@ const D=window.DU_LIEU,$=id=>document.getElementById(id);
 const esc=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
 const safeUrl=u=>/^https?:\/\//i.test(u)?u:"#";
 const byId=id=>D.diem.find(d=>d.id===id);
-let sel=null,userPos=null,filter="all",markers={};
+const isM=()=>matchMedia("(max-width:800px)").matches;
+let sel=null,userPos=null,loaiF="all",apF="",userMk=null,sheetH=210;
 
 $("sub").textContent=D.donVi+" · "+D.xa;
 document.title=D.tenHeThong+" – "+D.donVi;
 
 /* ---------- bản đồ ---------- */
-const map=L.map("map",{zoomControl:true,attributionControl:true});
+const map=L.map("map",{zoomControl:true});
 L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png",{maxZoom:19,attribution:"© OpenStreetMap"}).addTo(map);
 const lg=L.layerGroup().addTo(map);
-
-function mk(d){
-  const t=D.loai[d.loai];
-  return L.divIcon({className:"",iconSize:[0,0],html:`<div class="pw ${sel===d.id?"sel":""}"><div class="pin" style="--c:${esc(t.mau)}"><i>${esc(t.icon)}</i></div><div class="lbl">${esc(d.ngan)}</div></div>`});
-}
-function draw(list){
-  lg.clearLayers();markers={};
-  list.forEach(d=>{
-    if(d.truc&&list.includes(byId(d.truc))){const p=byId(d.truc);
-      L.polyline([[p.lat,p.lng],[d.lat,d.lng]],{color:D.loai[p.loai].mau,weight:3,opacity:.7,dashArray:"4 9"}).addTo(lg)}
-  });
-  list.forEach(d=>{markers[d.id]=L.marker([d.lat,d.lng],{icon:mk(d),title:d.ten,keyboard:true}).on("click",()=>open(d.id)).addTo(lg)});
-}
-function fit(list){
-  if(list.length>1)map.fitBounds(list.map(d=>[d.lat,d.lng]),{padding:[60,60],maxZoom:15});
-  else if(list.length)map.setView([list[0].lat,list[0].lng],16);
-}
+map.setView([D.diem[0].lat,D.diem[0].lng],12);
 
 /* ---------- tiện ích ---------- */
 const km=(a,b)=>{const r=x=>x*Math.PI/180,dl=r(b.lat-a.lat),dg=r(b.lng-a.lng);
@@ -807,76 +798,135 @@ function trangThai(d){
   const ok=d.khung.some(k=>{const g=D.gio[k];return [g.sang,g.chieu].some(w=>m>=p(w[0])&&m<=p(w[1]))});
   return ok?{on:true,t:"Đang trong giờ học"}:{on:false,t:"Ngoài giờ học"};
 }
+function eta(d){
+  if(!userPos)return "";
+  const k=km(userPos,d),min=Math.max(1,Math.round(k*1.35/30*60));
+  const t=min>=60?Math.floor(min/60)+" giờ "+(min%60)+" phút":min+" phút";
+  return `≈ ${k.toFixed(1)} km · khoảng ${t} đi xe máy (ước tính)`;
+}
 const distTxt=d=>userPos?` · ≈ ${km(userPos,d).toFixed(1)} km`:"";
 const dirUrl=d=>`https://www.google.com/maps/dir/?api=1&destination=${d.lat},${d.lng}&travelmode=driving`;
 const thumb=(d,c)=>`<div class="${c}" style="background-image:url('${esc(d.anh)}')"></div>`;
+function vis(){
+  const r=D.diem.filter(d=>(loaiF==="all"||d.loai===loaiF)&&(!apF||d.ap===apF));
+  if(userPos)r.sort((a,b)=>km(userPos,a)-km(userPos,b));
+  return r;
+}
 
-/* ---------- bộ lọc ---------- */
-const aps=[...new Set(D.diem.map(d=>d.ap))];
-$("ap").innerHTML='<option value="">🎒 Con em học tại ấp…</option>'+aps.map(a=>`<option>${esc(a)}</option>`).join("");
-const CH=[["all","Tất cả"],["near","📍 Gần tôi nhất"],...Object.keys(D.loai).map(k=>[k,D.loai[k].ten])];
-$("chips").innerHTML=CH.map(([k,t])=>`<button class="chip" data-k="${esc(k)}" aria-pressed="${k==="all"}">${esc(t)}</button>`).join("");
-function pressed(k){document.querySelectorAll(".chip").forEach(c=>c.setAttribute("aria-pressed",c.dataset.k===k))}
+/* ---------- bảng trượt (điện thoại) ---------- */
+const snaps=()=>[210,Math.round(innerHeight*.55),Math.round(innerHeight*.88)];
+function setSh(px,anim){
+  if(!isM())return;
+  sheetH=Math.max(130,Math.min(Math.round(innerHeight*.9),px));
+  $("sheet").classList.toggle("drag",!anim);
+  $("app").style.setProperty("--sh",sheetH+"px");
+}
+const grip=$("grip");let gy=0,gm=false,gd=false;
+grip.addEventListener("pointerdown",e=>{if(!isM())return;grip.setPointerCapture(e.pointerId);gd=true;gm=false;gy=e.clientY});
+grip.addEventListener("pointermove",e=>{if(!gd)return;if(Math.abs(e.clientY-gy)>6)gm=true;if(gm)setSh(innerHeight-e.clientY,false)});
+function endDrag(){
+  if(!gd)return;gd=false;const s=snaps();
+  if(!gm){setSh(sheetH<s[1]-20?s[1]:(sheetH<s[2]-20?s[2]:s[0]),true)}
+  else setSh(s.reduce((a,b)=>Math.abs(b-sheetH)<Math.abs(a-sheetH)?b:a),true);
+  if(sel)focus(byId(sel),map.getZoom());
+}
+grip.addEventListener("pointerup",endDrag);
+grip.addEventListener("pointercancel",()=>{gd=false});
+grip.addEventListener("keydown",e=>{if(e.key==="ArrowUp")setSh(sheetH+60,true);if(e.key==="ArrowDown")setSh(sheetH-60,true)});
 
-$("chips").addEventListener("click",e=>{
-  const b=e.target.closest(".chip");if(!b)return;
-  $("ap").value="";filter=b.dataset.k;pressed(filter);
-  if(filter==="near"){locate();return}
-  sel=null;history.replaceState(null,"","#");list();
+/* ---------- vẽ bản đồ ---------- */
+function mk(d){
+  const t=D.loai[d.loai];
+  return L.divIcon({className:"",iconSize:[0,0],html:`<div class="pw ${sel===d.id?"sel":""}"><div class="pin" style="--c:${esc(t.mau)}"><i>${esc(t.icon)}</i></div><div class="lbl">${esc(d.ngan)}</div></div>`});
+}
+function draw(){
+  const r=vis();lg.clearLayers();
+  r.forEach(d=>{const p=d.truc&&r.find(x=>x.id===d.truc);
+    if(p)L.polyline([[p.lat,p.lng],[d.lat,d.lng]],{color:D.loai[p.loai].mau,weight:3,opacity:.7,dashArray:"4 9"}).addTo(lg)});
+  r.forEach(d=>L.marker([d.lat,d.lng],{icon:mk(d),title:d.ten,keyboard:true}).on("click",()=>open(d.id)).addTo(lg));
+}
+function focus(d,z){
+  const off=isM()?(sheetH-118)/2:0,p=map.project([d.lat,d.lng],z);p.y+=off;
+  map.flyTo(map.unproject(p,z),z,{duration:.7});
+}
+function fit(){
+  const r=vis();
+  if(r.length>1){
+    const o=isM()?{paddingTopLeft:[30,125],paddingBottomRight:[30,sheetH+30],maxZoom:15}:{padding:[60,60],maxZoom:15};
+    map.fitBounds(r.map(d=>[d.lat,d.lng]),o);
+  }else if(r.length)focus(r[0],16);
+}
+
+/* ---------- menu ngang ---------- */
+function menu(){
+  const r=vis();
+  $("menu").innerHTML=`<button class="pill gps" data-near="1">📍 Gần tôi</button>`+r.map((d,i)=>{
+    const live=trangThai(d).on;
+    return `<button class="pill ${sel===d.id?"on":""} ${live?"live":""}" data-id="${esc(d.id)}" style="--c:${esc(D.loai[d.loai].mau)}"><i></i>${esc(d.ngan)}${userPos&&i===0?" · gần nhất":""}</button>`}).join("");
+  const b=document.querySelector(".pill.on");
+  if(b&&b.scrollIntoView)b.scrollIntoView({inline:"center",block:"nearest"});
+}
+$("menu").addEventListener("click",e=>{
+  const b=e.target.closest(".pill");if(!b)return;
+  if(b.dataset.near)locate();else open(b.dataset.id);
 });
-$("ap").addEventListener("change",e=>{filter=e.target.value?"ap:"+e.target.value:"all";pressed(e.target.value?"":"all");sel=null;list()});
-
 function locate(){
   const p=$("priv");p.hidden=false;
-  p.textContent="Vị trí của bạn chỉ được xử lý ngay trên thiết bị này, không gửi hay lưu ở đâu.";
-  if(!navigator.geolocation){p.textContent="Thiết bị không hỗ trợ định vị.";filter="all";pressed("all");return}
-  navigator.geolocation.getCurrentPosition(
-    pos=>{userPos={lat:pos.coords.latitude,lng:pos.coords.longitude};sel=null;list()},
-    ()=>{p.textContent="Không lấy được vị trí. Bạn hãy bật định vị hoặc chọn ấp ở ô bên cạnh.";filter="all";pressed("all");list()},
-    {timeout:10000,maximumAge:60000});
-}
-function current(){
-  let r=D.diem.slice();
-  if(filter.startsWith("ap:"))r=r.filter(d=>d.ap===filter.slice(3));
-  else if(D.loai[filter])r=r.filter(d=>d.loai===filter);
-  if(userPos&&filter==="near")r.sort((a,b)=>km(userPos,a)-km(userPos,b));
-  return r;
+  p.textContent="Vị trí chỉ xử lý ngay trên thiết bị này, không gửi hay lưu ở đâu.";
+  if(!navigator.geolocation){p.textContent="Thiết bị không hỗ trợ định vị.";return}
+  navigator.geolocation.getCurrentPosition(pos=>{
+    userPos={lat:pos.coords.latitude,lng:pos.coords.longitude};
+    if(userMk)userMk.remove();
+    userMk=L.circleMarker([userPos.lat,userPos.lng],{radius:8,color:"#fff",weight:3,fillColor:"#1a73e8",fillOpacity:1}).addTo(map).bindTooltip("Bạn ở đây");
+    const r=vis();if(r.length)open(r[0].id);
+    setTimeout(()=>{p.hidden=true},7000);
+  },()=>{p.textContent="Không lấy được vị trí. Hãy bật định vị hoặc chọn điểm ở thanh trên."},{timeout:10000,maximumAge:60000});
 }
 
 /* ---------- danh sách ---------- */
 function list(){
-  const r=current();draw(r);fit(r);
+  sel=null;history.replaceState(null,"","#");
+  draw();menu();
+  const aps=[...new Set(D.diem.map(d=>d.ap))],r=vis();
   const sv=D.dichVu.map(s=>`<div class="sv"><b>${esc(s.ten)}${s.online?'<span class="tagon">Trực tuyến</span>':""}</b><span>${esc(s.mota)}</span></div>`).join("");
-  $("view").innerHTML=(r.length?r.map((d,i)=>{const s=trangThai(d),t=D.loai[d.loai];
-    return `<div class="card" tabindex="0" data-id="${esc(d.id)}">${thumb(d,"th")}<div><span class="badge" style="background:${esc(t.mau)}">${esc(t.ten)}</span>${filter==="near"&&i===0?' <span class="badge" style="background:#16794f">Gần nhất</span>':""}
+  const chips=[["all","Tất cả"],...Object.keys(D.loai).map(k=>[k,D.loai[k].ten])].map(([k,t])=>`<button class="fchip" data-f="${esc(k)}" aria-pressed="${loaiF===k}">${esc(t)}</button>`).join("");
+  $("view").innerHTML=`<div class="fl">${chips}<select id="ap" aria-label="Con em học tại ấp"><option value="">🎒 Con em học tại ấp…</option>${aps.map(a=>`<option ${apF===a?"selected":""}>${esc(a)}</option>`).join("")}</select></div>`+
+  (r.length?r.map((d,i)=>{const s=trangThai(d),t=D.loai[d.loai];
+    return `<div class="card" tabindex="0" data-id="${esc(d.id)}">${thumb(d,"th")}<div><span class="badge" style="background:${esc(t.mau)}">${esc(t.ten)}</span>${userPos&&i===0?' <span class="badge" style="background:#16794f">Gần nhất</span>':""}
     <b>${esc(d.ngan)}</b><div class="meta">Ấp ${esc(d.ap)} · ${esc(d.capHoc)}${distTxt(d)}</div><div class="st ${s.on?"on":"off"}">${s.on?"● ":"○ "}${esc(s.t)}</div></div></div>`}).join(""):'<div class="box">Không có điểm phù hợp.</div>')+
   `<h2 class="sec">Dịch vụ & thủ tục</h2>${sv}
   <div class="box"><h3>Cổng thông tin</h3>🌐 <a href="${esc(safeUrl(D.website))}" target="_blank" rel="noopener noreferrer">${esc(D.website.replace(/^https?:\/\//,""))}</a><br>✉ <a href="mailto:${esc(D.email)}">${esc(D.email)}</a></div>
   <p class="foot">Dữ liệu v${esc(D.phienBan)} · cập nhật ${esc(D.capNhat)}.<br>Đường dây nóng bảo vệ trẻ em: <b>111</b>.<br>Hệ thống không thu thập hay lưu thông tin cá nhân.</p>`;
+  $("view").scrollTop=0;
 }
 $("view").addEventListener("click",e=>{
-  const c=e.target.closest(".card");if(c)open(c.dataset.id);
-  const l=e.target.closest("[data-go]");if(l)open(l.dataset.go);
-  if(e.target.closest("#back")){sel=null;history.replaceState(null,"","#");list()}
-  const sh=e.target.closest("#share");if(sh)share();
+  const c=e.target.closest(".card");if(c){open(c.dataset.id);return}
+  const g=e.target.closest("[data-go]");if(g){open(g.dataset.go);return}
+  const f=e.target.closest(".fchip");if(f){loaiF=f.dataset.f;list();fit();return}
+  const st=e.target.closest("[data-step]");if(st){step(+st.dataset.step);return}
+  if(e.target.closest("#back")){list();setSh(snaps()[0],true);fit();return}
+  if(e.target.closest("#share"))share();
 });
+$("view").addEventListener("change",e=>{if(e.target.id==="ap"){apF=e.target.value;list();fit()}});
 $("view").addEventListener("keydown",e=>{if(e.key==="Enter"){const c=e.target.closest(".card");if(c)open(c.dataset.id)}});
 
 /* ---------- chi tiết ---------- */
+function step(n){const r=vis(),i=r.findIndex(x=>x.id===sel);if(r.length)open(r[(i+n+r.length)%r.length].id)}
 function open(id){
-  const d=byId(id);if(!d)return;sel=id;
-  history.replaceState(null,"","#"+id);
-  const t=D.loai[d.loai],s=trangThai(d),cha=d.truc?byId(d.truc):null,con=D.diem.filter(x=>x.truc===id);
+  const d=byId(id);if(!d)return;
+  if(!vis().some(x=>x.id===id)){loaiF="all";apF=""}
+  sel=id;history.replaceState(null,"","#"+id);
+  const t=D.loai[d.loai],s=trangThai(d),cha=d.truc?byId(d.truc):null,con=D.diem.filter(x=>x.truc===id),e=eta(d);
   const gio=d.khung.map(k=>{const g=D.gio[k];return `<tr><th>${esc(g.ten)}</th><td>${esc(g.sang.join(" – "))}</td><td>${esc(g.chieu.join(" – "))}</td></tr>`}).join("");
   const dv=D.dichVu.filter(x=>x.tai==="all"||x.tai.includes(id)).map(x=>`<li>${esc(x.ten)}${x.online?" (trực tuyến)":""}</li>`).join("");
-  draw(D.diem);
-  if(isM()&&mh>28)setMh(26);
-  map.flyTo([d.lat,d.lng],16,{duration:.8});
-  $("view").innerHTML=`<div class="det"><div class="hero" style="background-image:url('${esc(d.anh)}')"><button class="back" id="back">← Tất cả điểm</button></div>
+  draw();menu();
+  $("view").innerHTML=`<div class="det"><div class="dnav"><button class="link" id="back">← Tất cả điểm</button><span><button class="ic" data-step="-1" aria-label="Điểm trước">‹</button><button class="ic" data-step="1" aria-label="Điểm sau">›</button></span></div>
   <span class="badge" style="background:${esc(t.mau)}">${esc(t.ten)}</span> <span class="st ${s.on?"on":"off"}">${s.on?"● ":"○ "}${esc(s.t)}</span>
-  <h2>${esc(d.ten)}</h2><div class="meta">Ấp ${esc(d.ap)}, ${esc(D.xa)}${distTxt(d)}</div>
-  <div class="chipsrow"><span class="pill">🎓 ${esc(d.capHoc)}</span><span class="pill">👥 ${esc(d.quyMo)}</span>${d.khoangCach?`<span class="pill">🛣 ${esc(d.khoangCach)}</span>`:""}</div>
+  <h2>${esc(d.ngan)}</h2><div class="meta">Ấp ${esc(d.ap)}, ${esc(D.xa)}</div>${e?`<span class="eta">🛵 ${esc(e)}</span>`:""}
   <div class="row"><a class="btn go" href="${esc(dirUrl(d))}" target="_blank" rel="noopener noreferrer">➜ Dẫn đường đến đây</a><a class="btn alt" href="${esc(safeUrl(d.maps))}" target="_blank" rel="noopener noreferrer">Mở Google Maps</a><button class="btn alt" id="share">Chia sẻ</button></div>
+  <div class="hero" style="background-image:url('${esc(d.anh)}')" role="img" aria-label="Ảnh ${esc(d.ngan)}"></div>
+  <div class="box"><h3>Tên đầy đủ</h3>${esc(d.ten)}</div>
+  <div class="chipsrow"><span class="pillx">🎓 ${esc(d.capHoc)}</span><span class="pillx">👥 ${esc(d.quyMo)}</span>${d.khoangCach?`<span class="pillx">🛣 ${esc(d.khoangCach)}</span>`:""}</div>
   <div class="box"><h3>Chức năng & nhiệm vụ</h3><ul>${d.chucNang.map(x=>`<li>${esc(x)}</li>`).join("")}</ul></div>
   ${d.luuY?`<div class="box warn"><h3>Lưu ý</h3>${esc(d.luuY)}</div>`:""}
   ${cha?`<div class="box"><h3>Trực thuộc</h3><button class="link" data-go="${esc(cha.id)}">${esc(cha.ngan)}</button></div>`:""}
@@ -884,27 +934,19 @@ function open(id){
   <div class="box"><h3>Thời gian học</h3><table><tr><th></th><th>Sáng</th><th>Chiều</th></tr>${gio}</table><div class="meta" style="margin-top:6px">Giải lao: ${esc(D.gio[d.khung[d.khung.length-1]].nghi)}</div></div>
   <div class="box"><h3>Có thể làm tại đây</h3><ul>${dv}</ul></div></div>`;
   $("view").scrollTop=0;
+  if(isM()&&sheetH<snaps()[1]-20)setSh(snaps()[1],true);
+  focus(d,16);
 }
 async function share(){
-  const u=location.href.split("#")[0]+"#"+sel,d=byId(sel);
-  try{if(navigator.share){await navigator.share({title:d.ten,url:u});return}await navigator.clipboard.writeText(u);$("share").textContent="Đã chép liên kết ✓"}
-  catch(_){$("share").textContent="Hãy sao chép địa chỉ trên trình duyệt"}
+  const u=location.href.split("#")[0]+"#"+sel,d=byId(sel),b=$("share");
+  try{if(navigator.share){await navigator.share({title:d.ten,url:u});return}await navigator.clipboard.writeText(u);b.textContent="Đã chép liên kết ✓"}
+  catch(_){b.textContent="Hãy sao chép địa chỉ trên trình duyệt"}
 }
 
-/* ---------- kéo đổi kích thước bảng (điện thoại) ---------- */
-const appEl=$("app"),grip=$("grip");let mh=30;
-function isM(){return matchMedia("(max-width:800px)").matches}
-function setMh(p){mh=Math.max(14,Math.min(72,p));appEl.style.setProperty("--mh",mh+"%");map.invalidateSize()}
-grip.addEventListener("pointerdown",e=>{if(!isM())return;grip.setPointerCapture(e.pointerId);grip.dataset.drag="1";grip.dataset.y=e.clientY;grip.dataset.moved=""});
-grip.addEventListener("pointermove",e=>{if(grip.dataset.drag!=="1")return;if(Math.abs(e.clientY-grip.dataset.y)>6)grip.dataset.moved="1";if(grip.dataset.moved){const r=appEl.getBoundingClientRect();setMh((e.clientY-r.top)/r.height*100)}});
-const endDrag=()=>{if(grip.dataset.drag==="1"&&!grip.dataset.moved)setMh(mh>40?30:(mh>22?16:55));grip.dataset.drag=""};
-grip.addEventListener("pointerup",endDrag);grip.addEventListener("pointercancel",()=>{grip.dataset.drag=""});
-grip.addEventListener("keydown",e=>{if(e.key==="ArrowUp")setMh(mh-6);if(e.key==="ArrowDown")setMh(mh+6)});
-window.addEventListener("resize",()=>map.invalidateSize());
-
 /* ---------- khởi động ---------- */
+setSh(snaps()[0],true);
+list();fit();
 const h=decodeURIComponent(location.hash.slice(1));
-list();
 if(h&&byId(h))open(h);
 window.addEventListener("hashchange",()=>{const x=decodeURIComponent(location.hash.slice(1));if(x&&byId(x)&&x!==sel)open(x)});
 })();
