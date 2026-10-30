@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' 'sha256-OVc0MO5Z7Q7DjI5K2KMe8CccxvtpfWv38hklc6qY+ys='; style-src 'unsafe-inline'; img-src 'self' data: https://*.tile.openstreetmap.org https://tile.openstreetmap.org; connect-src 'none'; base-uri 'none'; form-action 'none'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' 'sha256-lyO2NR4dXe1gNSdXPikqSMZf05qLTdTFhvW3mvcwm+A='; style-src 'unsafe-inline'; img-src 'self' data: https://*.tile.openstreetmap.org https://tile.openstreetmap.org; connect-src 'none'; base-uri 'none'; form-action 'none'">
 <meta name="referrer" content="no-referrer">
 <meta name="theme-color" content="#0b2545">
 <title>Smart Navigation – Hệ thống dẫn đường số</title>
@@ -727,18 +727,24 @@ td,th{padding:5px 4px;text-align:left;border-bottom:1px solid var(--line)}
 .sel .pin{animation:bob .9s ease-in-out infinite alternate;width:46px;height:46px}
 @keyframes bob{to{transform:rotate(-45deg) translate(3px,3px)}}
 @media(prefers-reduced-motion:reduce){.sel .pin{animation:none}}
+#grip{display:none}
 @media(max-width:800px){
- #app{grid-template-columns:1fr;grid-template-rows:44% 1fr}
+ #app{grid-template-columns:1fr;grid-template-rows:var(--mh,30%) minmax(0,1fr);height:100dvh}
  #map{order:-1}
- #side{border-right:0;border-top:1px solid var(--line)}
- header{padding-top:10px}
- .hero{height:160px}
+ #side{display:block;overflow:auto;border-right:0;border-top:1px solid var(--line);-webkit-overflow-scrolling:touch}
+ #view{overflow:visible;padding-bottom:calc(60px + env(safe-area-inset-bottom,0px))}
+ #grip{display:flex;position:sticky;top:0;z-index:6;justify-content:center;align-items:center;gap:8px;padding:7px;background:var(--card);border-bottom:1px solid var(--line);touch-action:none;cursor:row-resize;font-size:.72rem;color:var(--mute);user-select:none}
+ #grip:before{content:"";width:46px;height:5px;border-radius:3px;background:var(--mute);opacity:.6}
+ header{padding:8px 14px 10px}
+ .logo{width:34px;height:34px;font-size:1.4rem}
+ .hero{height:150px}
 }
 </style>
 </head>
 <body>
 <div id="app">
   <aside id="side">
+    <div id="grip" role="separator" tabindex="0" aria-label="Kéo lên xuống để đổi kích thước bản đồ">kéo hoặc chạm để đổi kích thước</div>
     <header>
       <div class="brand"><span class="logo">⌖</span><div><h1>Smart Navigation</h1><p id="sub"></p></div></div>
       <div class="tools">
@@ -864,6 +870,7 @@ function open(id){
   const gio=d.khung.map(k=>{const g=D.gio[k];return `<tr><th>${esc(g.ten)}</th><td>${esc(g.sang.join(" – "))}</td><td>${esc(g.chieu.join(" – "))}</td></tr>`}).join("");
   const dv=D.dichVu.filter(x=>x.tai==="all"||x.tai.includes(id)).map(x=>`<li>${esc(x.ten)}${x.online?" (trực tuyến)":""}</li>`).join("");
   draw(D.diem);
+  if(isM()&&mh>28)setMh(26);
   map.flyTo([d.lat,d.lng],16,{duration:.8});
   $("view").innerHTML=`<div class="det"><div class="hero" style="background-image:url('${esc(d.anh)}')"><button class="back" id="back">← Tất cả điểm</button></div>
   <span class="badge" style="background:${esc(t.mau)}">${esc(t.ten)}</span> <span class="st ${s.on?"on":"off"}">${s.on?"● ":"○ "}${esc(s.t)}</span>
@@ -883,6 +890,17 @@ async function share(){
   try{if(navigator.share){await navigator.share({title:d.ten,url:u});return}await navigator.clipboard.writeText(u);$("share").textContent="Đã chép liên kết ✓"}
   catch(_){$("share").textContent="Hãy sao chép địa chỉ trên trình duyệt"}
 }
+
+/* ---------- kéo đổi kích thước bảng (điện thoại) ---------- */
+const appEl=$("app"),grip=$("grip");let mh=30;
+function isM(){return matchMedia("(max-width:800px)").matches}
+function setMh(p){mh=Math.max(14,Math.min(72,p));appEl.style.setProperty("--mh",mh+"%");map.invalidateSize()}
+grip.addEventListener("pointerdown",e=>{if(!isM())return;grip.setPointerCapture(e.pointerId);grip.dataset.drag="1";grip.dataset.y=e.clientY;grip.dataset.moved=""});
+grip.addEventListener("pointermove",e=>{if(grip.dataset.drag!=="1")return;if(Math.abs(e.clientY-grip.dataset.y)>6)grip.dataset.moved="1";if(grip.dataset.moved){const r=appEl.getBoundingClientRect();setMh((e.clientY-r.top)/r.height*100)}});
+const endDrag=()=>{if(grip.dataset.drag==="1"&&!grip.dataset.moved)setMh(mh>40?30:(mh>22?16:55));grip.dataset.drag=""};
+grip.addEventListener("pointerup",endDrag);grip.addEventListener("pointercancel",()=>{grip.dataset.drag=""});
+grip.addEventListener("keydown",e=>{if(e.key==="ArrowUp")setMh(mh-6);if(e.key==="ArrowDown")setMh(mh+6)});
+window.addEventListener("resize",()=>map.invalidateSize());
 
 /* ---------- khởi động ---------- */
 const h=decodeURIComponent(location.hash.slice(1));
