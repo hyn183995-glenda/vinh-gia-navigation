@@ -3,7 +3,7 @@
    Chỉ ghi thông tin công khai của đơn vị, không ghi thông tin cá nhân.
    ===================================================================== */
 window.DU_LIEU = {
-  phienBan: "3.0",
+  phienBan: "4.0",
   capNhat: "01/11/2026",
   tenHeThong: "Smart Navigation",
   donVi: "Trường TH & THCS Vĩnh Gia 2",
@@ -22,22 +22,27 @@ window.DU_LIEU = {
     hieuLuc: "01/07/2025", truSoUBND: "UBND xã Lương An Trà (cũ)",
     tamBan: [10.4311, 104.86],
     web: "http://vinhgia.angiang.gov.vn", webTinh: "https://angiang.gov.vn",
-    nguon: "tinhthanhvn.com", capNhatNguon: "26/08/2026"
+    cong: [
+      { icon: "🌐", ten: "Cổng thông tin xã Vĩnh Gia", url: "http://vinhgia.angiang.gov.vn" },
+      { icon: "🏛️", ten: "Cổng thông tin tỉnh An Giang", url: "https://angiang.gov.vn" },
+      { icon: "🧾", ten: "Dịch vụ công Quốc gia", url: "https://dichvucong.gov.vn/dvc-dich-vu-cong-truc-tuyen" }
+    ]
   },
+  hotlineTreEm: "111",      // chỉ hiện khi chọn địa điểm thuộc nhóm Trường học
 
-  /* ====== CÁC ẤP — điền lat, lng (toạ độ) và anh (tên file ảnh) khi có; ấp sẽ tự hiện trên bản đồ ====== */
+  /* ====== CÁC ẤP — điền lat, lng (toạ độ), anh (tên file ảnh), dienTich (vd "12,5 km²"), danSo (vd "1.850 người") khi có ====== */
   ap: [
-    { ten: "Cà Na",      lat: null, lng: null, anh: "", mota: "" },
-    { ten: "Cây Gòn",    lat: null, lng: null, anh: "", mota: "" },
-    { ten: "Giồng Cát",  lat: null, lng: null, anh: "", mota: "" },
-    { ten: "Ninh Phước", lat: null, lng: null, anh: "", mota: "" },
-    { ten: "Phú Lâm",    lat: null, lng: null, anh: "", mota: "" },
-    { ten: "Vĩnh An",    lat: null, lng: null, anh: "", mota: "" },
-    { ten: "Vĩnh Cầu",   lat: null, lng: null, anh: "", mota: "" },
-    { ten: "Vĩnh Hiệp",  lat: null, lng: null, anh: "", mota: "" },
-    { ten: "Vĩnh Hòa",   lat: null, lng: null, anh: "", mota: "" },
-    { ten: "Vĩnh Lạc",   lat: null, lng: null, anh: "", mota: "" },
-    { ten: "Vĩnh Thành", lat: null, lng: null, anh: "", mota: "" }
+    { ten: "Cà Na",      lat: null, lng: null, anh: "", mota: "", dienTich: "", danSo: "" },
+    { ten: "Cây Gòn",    lat: null, lng: null, anh: "", mota: "", dienTich: "", danSo: "" },
+    { ten: "Giồng Cát",  lat: null, lng: null, anh: "", mota: "", dienTich: "", danSo: "" },
+    { ten: "Ninh Phước", lat: null, lng: null, anh: "", mota: "", dienTich: "", danSo: "" },
+    { ten: "Phú Lâm",    lat: null, lng: null, anh: "", mota: "", dienTich: "", danSo: "" },
+    { ten: "Vĩnh An",    lat: null, lng: null, anh: "", mota: "", dienTich: "", danSo: "" },
+    { ten: "Vĩnh Cầu",   lat: null, lng: null, anh: "", mota: "", dienTich: "", danSo: "" },
+    { ten: "Vĩnh Hiệp",  lat: null, lng: null, anh: "", mota: "", dienTich: "", danSo: "" },
+    { ten: "Vĩnh Hòa",   lat: null, lng: null, anh: "", mota: "", dienTich: "", danSo: "" },
+    { ten: "Vĩnh Lạc",   lat: null, lng: null, anh: "", mota: "", dienTich: "", danSo: "" },
+    { ten: "Vĩnh Thành", lat: null, lng: null, anh: "", mota: "", dienTich: "", danSo: "" }
   ],
 
   /* ====== DỊCH VỤ CÔNG TRỰC TUYẾN ====== */
@@ -57,15 +62,17 @@ window.DU_LIEU = {
 
   /* Danh mục sổ xuống */
   nhom: {
-    giaoduc:  { ten: "Trường học", icon: "🎓" },
-    hanhchinh:{ ten: "Cơ quan hành chính", icon: "🏛️" },
-    yte:      { ten: "Y tế", icon: "➕" },
-    anninh:   { ten: "Biên phòng – An ninh", icon: "🛡️" },
-    danhthang:{ ten: "Danh thắng & di tích", icon: "🌅" },
-    ap:       { ten: "Các ấp", icon: "🏘️" },
-    buudien:  { ten: "Bưu điện", icon: "📮" },
-    cho:      { ten: "Chợ & siêu thị", icon: "🛒" },
-    cayxang:  { ten: "Cây xăng", icon: "⛽" }
+    giaoduc:  { ten: "Trường học", icon: "🎓", mau: "#c8921a" },
+    hanhchinh:{ ten: "Cơ quan hành chính", icon: "🏛️", mau: "#5b4bb7" },
+    yte:      { ten: "Y tế", icon: "➕", mau: "#c62839" },
+    anuong:   { ten: "Ăn uống", icon: "🍜", mau: "#d1451f" },
+    giaitri:  { ten: "Giải trí", icon: "🎡", mau: "#9b3fb8" },
+    danhthang:{ ten: "Danh thắng & di tích", icon: "🌅", mau: "#d9631e" },
+    anninh:   { ten: "Biên phòng – An ninh", icon: "🛡️", mau: "#3d6b2e" },
+    cho:      { ten: "Chợ & siêu thị", icon: "🛒", mau: "#1c8a68" },
+    buudien:  { ten: "Bưu điện", icon: "📮", mau: "#1f6fb2" },
+    cayxang:  { ten: "Cây xăng", icon: "⛽", mau: "#d9a21b" },
+    ap:       { ten: "Các ấp", icon: "🏘️", mau: "#51627d" }
   },
   /* Loại đơn vị (màu và biểu tượng ghim) — mỗi loại thuộc 1 nhóm */
   loai: {
@@ -76,6 +83,8 @@ window.DU_LIEU = {
     yte:        { ten: "Y tế",         mau: "#c62839", icon: "✚", nhom: "yte" },
     anninh:     { ten: "Biên phòng",   mau: "#3d6b2e", icon: "⚑", nhom: "anninh" },
     danhthang:  { ten: "Danh thắng",   mau: "#d9631e", icon: "❖", nhom: "danhthang" },
+    anuong:     { ten: "Quán ăn",      mau: "#d1451f", icon: "♨", nhom: "anuong" },
+    giaitri:    { ten: "Giải trí",     mau: "#9b3fb8", icon: "♪", nhom: "giaitri" },
     ap:         { ten: "Ấp",           mau: "#51627d", icon: "⌂", nhom: "ap" }
   },
 
@@ -125,6 +134,15 @@ window.DU_LIEU = {
       ap: "", lat: 10.4420, lng: 104.8930, anh: "", maps: "", truc: null,
       gioText: "Trực 24/24",
       chucNang: ["Bảo vệ chủ quyền, an ninh biên giới khu vực.", "Phối hợp cùng chính quyền và nhân dân giữ gìn trật tự địa bàn."], luuY: "" },
+    { id: "mau-an-uong", loai: "anuong", ten: "Quán ăn địa phương (mẫu – thay bằng thông tin thật)", ngan: "Quán ăn (mẫu)", mau: true, mauText: "Dữ liệu mẫu",
+      ap: "", lat: 10.4475, lng: 104.8665, anh: "", maps: "", truc: null,
+      gioText: "Giờ mở cửa: đang cập nhật", nhanh: [["Món nổi bật", "Đang cập nhật"], ["Mức giá", "Đang cập nhật"]],
+      lienHe: { sdt: "" },
+      chucNang: ["Nhóm Ăn uống gồm quán ăn, quán cà phê, chợ ẩm thực.", "Khi có dữ liệu thật, thay tên, toạ độ, ảnh, món nổi bật và giá."], luuY: "" },
+    { id: "mau-giai-tri", loai: "giaitri", ten: "Điểm vui chơi giải trí (mẫu – thay bằng thông tin thật)", ngan: "Giải trí (mẫu)", mau: true, mauText: "Dữ liệu mẫu",
+      ap: "", lat: 10.4390, lng: 104.8540, anh: "", maps: "", truc: null,
+      gioText: "Giờ hoạt động: đang cập nhật", nhanh: [["Hoạt động", "Đang cập nhật"], ["Vé vào cổng", "Đang cập nhật"]],
+      chucNang: ["Nhóm Giải trí gồm sân bóng, công viên, khu vui chơi, điểm check-in.", "Khi có dữ liệu thật, thay tên, toạ độ, ảnh và thông tin chi tiết."], luuY: "" },
     { id: "kenh-vinh-te", loai: "danhthang", ten: "Kênh Vĩnh Tế", ngan: "Kênh Vĩnh Tế", mau: true,
       ap: "", lat: 10.4850, lng: 104.8300, anh: "", maps: "", truc: null,
       gioText: "Tham quan tự do",
