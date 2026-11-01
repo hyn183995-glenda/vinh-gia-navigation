@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' 'sha256-CChIyw9A3ywuHX7z/rLYIKnIgOHKJuOFLh/FZMsXsnk='; style-src 'unsafe-inline'; img-src 'self' data: https://*.tile.openstreetmap.org https://tile.openstreetmap.org; connect-src 'none'; base-uri 'none'; form-action 'none'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' 'sha256-l14Qys+ebmZZiV8dJVPOgxHFNhkU4JNnimzeD9K/cI0='; style-src 'unsafe-inline'; img-src 'self' data: https://*.tile.openstreetmap.org https://tile.openstreetmap.org; connect-src 'none'; base-uri 'none'; form-action 'none'">
 <meta name="referrer" content="no-referrer">
 <meta name="theme-color" content="#0b2545">
 <title>Smart Navigation – Hệ thống dẫn đường số</title>
@@ -732,6 +732,42 @@ table{width:100%;border-collapse:collapse;font-size:.84rem}td,th{padding:5px 4px
 .sel .pin{animation:bob .9s ease-in-out infinite alternate;width:46px;height:46px}
 @keyframes bob{to{transform:rotate(-45deg) translate(3px,3px)}}
 @media(prefers-reduced-motion:reduce){.sel .pin{animation:none}}
+
+.brand{position:relative}
+.skbtn{margin-left:auto;font:inherit;font-size:.74rem;font-weight:700;padding:6px 11px;border-radius:14px;border:1px solid var(--gold);background:rgba(255,198,52,.16);color:#ffe29a;cursor:pointer;white-space:nowrap;max-width:44%;overflow:hidden;text-overflow:ellipsis}
+.bar{display:flex;gap:7px;margin-top:10px}
+#dm{flex:1;min-width:0;font:inherit;font-size:.88rem;font-weight:600;padding:9px 12px;border-radius:20px;border:1px solid rgba(255,255,255,.45);background:rgba(255,255,255,.16);color:#fff}
+#dm option{color:#111}
+.bar .pill{padding:8px 12px}
+.pill.on#tour,#tour.on{background:#fff;color:#0b2545}
+.pw.mau .pin{border-style:dashed}
+.qi{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:8px;margin:12px 0}
+.qi div{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:8px 11px}
+.qi small{display:block;font-size:.7rem;color:var(--mute);text-transform:uppercase;letter-spacing:.05em}
+.qi b{font-size:.9rem}
+.box.lh{border-left:4px solid #1f6fb2}
+details{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:0 13px;margin:10px 0;font-size:.88rem;line-height:1.55}
+details summary{cursor:pointer;font-weight:700;padding:11px 0;list-style:none;display:flex;justify-content:space-between}
+details summary::after{content:"＋";color:var(--mute)}
+details[open] summary::after{content:"－"}
+details ul{margin:0 0 12px;padding-left:18px}
+details table{margin-bottom:12px}
+.hero{position:relative;height:auto;aspect-ratio:16/10;max-height:320px;margin:0 0 12px;cursor:zoom-in}
+.hero .zoom{position:absolute;right:10px;bottom:10px;background:rgba(11,37,69,.78);color:#fff;font-size:.74rem;padding:5px 10px;border-radius:12px}
+.hero.none{cursor:default;display:grid;place-items:center;align-content:center;gap:6px;background:linear-gradient(135deg,var(--c),#0b2545);color:#fff;text-align:center}
+.hero.none b{font-size:3rem}.hero.none span{font-size:.85rem;opacity:.9}
+.warnb{background:#8a6d1c;color:#fff}
+.foot .link{color:var(--gold);font-weight:700}
+#lb{position:fixed;inset:0;z-index:1000;background:rgba(0,0,0,.92);display:grid;place-items:center;padding:12px;cursor:zoom-out}
+#lb[hidden],#about[hidden]{display:none}
+#lb img{max-width:100%;max-height:100%;border-radius:8px}
+#about{position:fixed;inset:0;z-index:1000;background:rgba(5,15,30,.72);display:grid;place-items:center;padding:14px}
+.mc{position:relative;background:var(--card);color:var(--ink);border-radius:20px;max-width:520px;width:100%;max-height:90dvh;overflow:auto;padding:26px 22px;border-top:6px solid var(--gold);line-height:1.55}
+.mc .x{position:absolute;top:10px;right:12px;border:0;background:none;font-size:1.3rem;color:var(--mute);cursor:pointer}
+.mc .seal{font-size:2.4rem}.mc small{letter-spacing:.14em;color:var(--gold);font-weight:700}
+.mc h2{margin:6px 0 10px;font-size:1.15rem}.mc h3{font-size:.9rem;margin:14px 0 4px}
+.tg{background:var(--bg);border-radius:12px;padding:10px 13px;margin:10px 0;font-size:.9rem}
+.stamp{margin:14px 0 6px;padding:10px;border:2px dashed var(--gold);border-radius:12px;text-align:center;font-size:.85rem}
 @media(max-width:800px){
  #app{display:block;position:relative;overflow:hidden}
  #map{position:absolute;inset:0}
@@ -743,9 +779,9 @@ table{width:100%;border-collapse:collapse;font-size:.84rem}td,th{padding:5px 4px
  #sheet.drag{transition:none}
  #grip{display:flex;justify-content:center;align-items:center;padding:9px 0 7px;touch-action:none;cursor:row-resize;flex:none}
  #grip:before{content:"";width:48px;height:5px;border-radius:3px;background:var(--mute);opacity:.55}
- .leaflet-top{margin-top:118px}
+ .leaflet-top{margin-top:170px}
  .leaflet-bottom{bottom:var(--sh,210px);transition:bottom .22s ease}
- .hero{height:170px}
+ .skbtn{font-size:.7rem}
 }
 @media(prefers-reduced-motion:reduce){#sheet,.leaflet-bottom{transition:none}}
 </style>
@@ -753,16 +789,19 @@ table{width:100%;border-collapse:collapse;font-size:.84rem}td,th{padding:5px 4px
 <body>
 <div id="app">
   <header id="top">
-    <div class="brand"><span class="logo">⌖</span><div><h1>Smart Navigation</h1><p id="sub"></p></div></div>
+    <div class="brand"><span class="logo">⌖</span><div><h1>Smart Navigation</h1><p id="sub"></p></div><button class="skbtn" id="skb"></button></div>
+    <div class="bar"><select id="dm" aria-label="Chọn danh mục địa điểm"></select><button class="pill gps" id="near">📍 Gần tôi</button><button class="pill" id="tour">▶ Tham quan</button></div>
     <div class="menu" id="menu" aria-label="Chọn địa điểm"></div>
     <p class="priv" id="priv" hidden></p>
   </header>
-  <div id="map" role="application" aria-label="Bản đồ các trụ sở"></div>
+  <div id="map" role="application" aria-label="Bản đồ các địa điểm"></div>
   <section id="sheet" aria-label="Thông tin địa điểm">
     <div id="grip" role="separator" tabindex="0" aria-label="Kéo lên xuống để xem thêm hoặc xem bản đồ rộng hơn"></div>
     <div id="view" aria-live="polite"></div>
   </section>
 </div>
+<div id="lb" hidden><img alt="Ảnh phóng to"></div>
+<div id="about" hidden role="dialog" aria-modal="true" aria-label="Giới thiệu sáng kiến"><div class="mc"></div></div>
 <script src="du-lieu.js"></script>
 <script>/* @preserve
  * Leaflet 1.9.4, a JS library for interactive maps. https://leafletjs.com
@@ -775,29 +814,42 @@ table{width:100%;border-collapse:collapse;font-size:.84rem}td,th{padding:5px 4px
 const D=window.DU_LIEU,$=id=>document.getElementById(id);
 const esc=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
 const safeUrl=u=>/^https?:\/\//i.test(u)?u:"#";
-const byId=id=>D.diem.find(d=>d.id===id);
+const ALL=D.diem.filter(d=>!d.mau||D.hienDuLieuMau);
+const byId=id=>ALL.find(d=>d.id===id);
 const isM=()=>matchMedia("(max-width:800px)").matches;
-let sel=null,userPos=null,loaiF="all",apF="",userMk=null,sheetH=210;
+const nhomOf=d=>D.loai[d.loai].nhom;
+let sel=null,userPos=null,grp="all",apF="",userMk=null,sheetH=210,tourT=null;
 
+/* ---------- dấu ấn sáng kiến cá nhân ---------- */
+const SK=D.sangKien||{},coTen=SK.tacGia&&!/[\[\]]/.test(SK.tacGia);
+function dauAn(){let h=5381;const s=[SK.tacGia,SK.ten,SK.nam,SK.donVi].join("|");
+  for(let i=0;i<s.length;i++)h=((h<<5)+h+s.charCodeAt(i))>>>0;
+  return "SK-"+(SK.nam||"")+"-"+h.toString(16).toUpperCase().padStart(8,"0").slice(0,6)}
+const MA=dauAn();
 $("sub").textContent=D.donVi+" · "+D.xa;
 document.title=D.tenHeThong+" – "+D.donVi;
+(function(){const m=document.createElement("meta");m.name="author";m.content=(coTen?SK.tacGia+" – ":"")+"Sáng kiến cá nhân "+MA;document.head.appendChild(m)})();
+$("skb").textContent="💡 Sáng kiến"+(coTen?" của "+SK.tacGia.split(" ").slice(-2).join(" "):" cá nhân");
 
 /* ---------- bản đồ ---------- */
 const map=L.map("map",{zoomControl:true});
 L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png",{maxZoom:19,attribution:"© OpenStreetMap"}).addTo(map);
+map.attributionControl.setPrefix("💡 Sáng kiến cá nhân"+(coTen?" · "+esc(SK.tacGia):"")+" · "+MA);
 const lg=L.layerGroup().addTo(map);
-map.setView([D.diem[0].lat,D.diem[0].lng],12);
+map.setView([ALL[0].lat,ALL[0].lng],12);
 
 /* ---------- tiện ích ---------- */
 const km=(a,b)=>{const r=x=>x*Math.PI/180,dl=r(b.lat-a.lat),dg=r(b.lng-a.lng);
   const h=Math.sin(dl/2)**2+Math.cos(r(a.lat))*Math.cos(r(b.lat))*Math.sin(dg/2)**2;return 12742*Math.asin(Math.sqrt(h))};
 function trangThai(d){
+  if(!d.khung)return{on:null,t:d.gioText||""};
   const n=new Date(new Date().toLocaleString("en-US",{timeZone:"Asia/Ho_Chi_Minh"}));
   if(!D.ngayHoc.includes(n.getDay()))return{on:false,t:"Hôm nay nghỉ"};
   const m=n.getHours()*60+n.getMinutes(),p=s=>{const[h,i]=s.split(":");return +h*60+ +i};
   const ok=d.khung.some(k=>{const g=D.gio[k];return [g.sang,g.chieu].some(w=>m>=p(w[0])&&m<=p(w[1]))});
   return ok?{on:true,t:"Đang trong giờ học"}:{on:false,t:"Ngoài giờ học"};
 }
+const stHtml=s=>s.t?`<span class="st ${s.on===true?"on":"off"}">${s.on===true?"● ":s.on===false?"○ ":""}${esc(s.t)}</span>`:"";
 function eta(d){
   if(!userPos)return "";
   const k=km(userPos,d),min=Math.max(1,Math.round(k*1.35/30*60));
@@ -806,9 +858,9 @@ function eta(d){
 }
 const distTxt=d=>userPos?` · ≈ ${km(userPos,d).toFixed(1)} km`:"";
 const dirUrl=d=>`https://www.google.com/maps/dir/?api=1&destination=${d.lat},${d.lng}&travelmode=driving`;
-const thumb=(d,c)=>`<div class="${c}" style="background-image:url('${esc(d.anh)}')"></div>`;
+const lienHe=d=>d.lienHe||(nhomOf(d)==="giaoduc"?{web:D.website,email:D.email}:null);
 function vis(){
-  const r=D.diem.filter(d=>(loaiF==="all"||d.loai===loaiF)&&(!apF||d.ap===apF));
+  const r=ALL.filter(d=>(grp==="all"||nhomOf(d)===grp)&&(!apF||d.ap===apF));
   if(userPos)r.sort((a,b)=>km(userPos,a)-km(userPos,b));
   return r;
 }
@@ -824,52 +876,55 @@ function setSh(px,anim){
 const grip=$("grip");let gy=0,gm=false,gd=false;
 grip.addEventListener("pointerdown",e=>{if(!isM())return;grip.setPointerCapture(e.pointerId);gd=true;gm=false;gy=e.clientY});
 grip.addEventListener("pointermove",e=>{if(!gd)return;if(Math.abs(e.clientY-gy)>6)gm=true;if(gm)setSh(innerHeight-e.clientY,false)});
-function endDrag(){
+grip.addEventListener("pointerup",()=>{
   if(!gd)return;gd=false;const s=snaps();
-  if(!gm){setSh(sheetH<s[1]-20?s[1]:(sheetH<s[2]-20?s[2]:s[0]),true)}
+  if(!gm)setSh(sheetH<s[1]-20?s[1]:(sheetH<s[2]-20?s[2]:s[0]),true);
   else setSh(s.reduce((a,b)=>Math.abs(b-sheetH)<Math.abs(a-sheetH)?b:a),true);
   if(sel)focus(byId(sel),map.getZoom());
-}
-grip.addEventListener("pointerup",endDrag);
+});
 grip.addEventListener("pointercancel",()=>{gd=false});
 grip.addEventListener("keydown",e=>{if(e.key==="ArrowUp")setSh(sheetH+60,true);if(e.key==="ArrowDown")setSh(sheetH-60,true)});
 
 /* ---------- vẽ bản đồ ---------- */
 function mk(d){
   const t=D.loai[d.loai];
-  return L.divIcon({className:"",iconSize:[0,0],html:`<div class="pw ${sel===d.id?"sel":""}"><div class="pin" style="--c:${esc(t.mau)}"><i>${esc(t.icon)}</i></div><div class="lbl">${esc(d.ngan)}</div></div>`});
+  return L.divIcon({className:"",iconSize:[0,0],html:`<div class="pw ${sel===d.id?"sel":""} ${d.mau?"mau":""}"><div class="pin" style="--c:${esc(t.mau)}"><i>${esc(t.icon)}</i></div><div class="lbl">${esc(d.ngan)}</div></div>`});
 }
 function draw(){
   const r=vis();lg.clearLayers();
   r.forEach(d=>{const p=d.truc&&r.find(x=>x.id===d.truc);
     if(p)L.polyline([[p.lat,p.lng],[d.lat,d.lng]],{color:D.loai[p.loai].mau,weight:3,opacity:.7,dashArray:"4 9"}).addTo(lg)});
-  r.forEach(d=>L.marker([d.lat,d.lng],{icon:mk(d),title:d.ten,keyboard:true}).on("click",()=>open(d.id)).addTo(lg));
+  r.forEach(d=>L.marker([d.lat,d.lng],{icon:mk(d),title:d.ten,keyboard:true}).on("click",()=>{stopTour();open(d.id)}).addTo(lg));
 }
 function focus(d,z){
-  const off=isM()?(sheetH-118)/2:0,p=map.project([d.lat,d.lng],z);p.y+=off;
+  const off=isM()?(sheetH-170)/2:0,p=map.project([d.lat,d.lng],z);p.y+=off;
   map.flyTo(map.unproject(p,z),z,{duration:.7});
 }
 function fit(){
   const r=vis();
   if(r.length>1){
-    const o=isM()?{paddingTopLeft:[30,125],paddingBottomRight:[30,sheetH+30],maxZoom:15}:{padding:[60,60],maxZoom:15};
+    const o=isM()?{paddingTopLeft:[30,185],paddingBottomRight:[30,sheetH+30],maxZoom:15}:{padding:[60,60],maxZoom:15};
     map.fitBounds(r.map(d=>[d.lat,d.lng]),o);
   }else if(r.length)focus(r[0],16);
 }
 
-/* ---------- menu ngang ---------- */
+/* ---------- danh mục sổ xuống + menu ngang ---------- */
+function dmOptions(){
+  const cnt={};ALL.forEach(d=>{const g=nhomOf(d);cnt[g]=(cnt[g]||0)+1});
+  $("dm").innerHTML=`<option value="all">🗺️ Tất cả địa điểm (${ALL.length})</option>`+
+    Object.keys(D.nhom).filter(g=>cnt[g]).map(g=>`<option value="${esc(g)}" ${grp===g?"selected":""}>${esc(D.nhom[g].icon)} ${esc(D.nhom[g].ten)} (${cnt[g]})</option>`).join("");
+}
+$("dm").addEventListener("change",e=>{stopTour();grp=e.target.value;apF="";list();fit()});
 function menu(){
   const r=vis();
-  $("menu").innerHTML=`<button class="pill gps" data-near="1">📍 Gần tôi</button>`+r.map((d,i)=>{
-    const live=trangThai(d).on;
+  $("menu").innerHTML=r.map((d,i)=>{
+    const live=trangThai(d).on===true;
     return `<button class="pill ${sel===d.id?"on":""} ${live?"live":""}" data-id="${esc(d.id)}" style="--c:${esc(D.loai[d.loai].mau)}"><i></i>${esc(d.ngan)}${userPos&&i===0?" · gần nhất":""}</button>`}).join("");
   const b=document.querySelector(".pill.on");
   if(b&&b.scrollIntoView)b.scrollIntoView({inline:"center",block:"nearest"});
 }
-$("menu").addEventListener("click",e=>{
-  const b=e.target.closest(".pill");if(!b)return;
-  if(b.dataset.near)locate();else open(b.dataset.id);
-});
+$("menu").addEventListener("click",e=>{const b=e.target.closest(".pill");if(b){stopTour();open(b.dataset.id)}});
+$("near").addEventListener("click",()=>{stopTour();locate()});
 function locate(){
   const p=$("priv");p.hidden=false;
   p.textContent="Vị trí chỉ xử lý ngay trên thiết bị này, không gửi hay lưu ở đâu.";
@@ -883,29 +938,40 @@ function locate(){
   },()=>{p.textContent="Không lấy được vị trí. Hãy bật định vị hoặc chọn điểm ở thanh trên."},{timeout:10000,maximumAge:60000});
 }
 
+/* ---------- tham quan tự động (trình diễn) ---------- */
+function stopTour(){if(tourT){clearInterval(tourT);tourT=null}$("tour").textContent="▶ Tham quan";$("tour").classList.remove("on")}
+$("tour").addEventListener("click",()=>{
+  if(tourT){stopTour();return}
+  const r=vis();if(!r.length)return;
+  $("tour").textContent="⏸ Dừng";$("tour").classList.add("on");
+  let i=0;open(r[0].id);
+  tourT=setInterval(()=>{const q=vis();i=(i+1)%q.length;open(q[i].id)},7000);
+});
+
 /* ---------- danh sách ---------- */
 function list(){
   sel=null;history.replaceState(null,"","#");
-  draw();menu();
-  const aps=[...new Set(D.diem.map(d=>d.ap))],r=vis();
+  dmOptions();draw();menu();
+  const r=vis(),aps=[...new Set(ALL.map(d=>d.ap).filter(Boolean))];
+  const card=(d,i)=>{const t=D.loai[d.loai],s=trangThai(d);
+    return `<div class="card" tabindex="0" data-id="${esc(d.id)}"><div class="th" style="background-image:url('${esc(d.anh)}')">${d.anh?"":esc(t.icon)}</div><div><span class="badge" style="background:${esc(t.mau)}">${esc(t.ten)}</span>${userPos&&i===0?' <span class="badge" style="background:#16794f">Gần nhất</span>':""}
+    <b>${esc(d.ngan)}</b><div class="meta">${d.ap?"Ấp "+esc(d.ap):esc(D.nhom[t.nhom].ten)}${d.capHoc?" · "+esc(d.capHoc):""}${distTxt(d)}</div>${stHtml(s)}</div></div>`};
   const sv=D.dichVu.map(s=>`<div class="sv"><b>${esc(s.ten)}${s.online?'<span class="tagon">Trực tuyến</span>':""}</b><span>${esc(s.mota)}</span></div>`).join("");
-  const chips=[["all","Tất cả"],...Object.keys(D.loai).map(k=>[k,D.loai[k].ten])].map(([k,t])=>`<button class="fchip" data-f="${esc(k)}" aria-pressed="${loaiF===k}">${esc(t)}</button>`).join("");
-  $("view").innerHTML=`<div class="fl">${chips}<select id="ap" aria-label="Con em học tại ấp"><option value="">🎒 Con em học tại ấp…</option>${aps.map(a=>`<option ${apF===a?"selected":""}>${esc(a)}</option>`).join("")}</select></div>`+
-  (r.length?r.map((d,i)=>{const s=trangThai(d),t=D.loai[d.loai];
-    return `<div class="card" tabindex="0" data-id="${esc(d.id)}">${thumb(d,"th")}<div><span class="badge" style="background:${esc(t.mau)}">${esc(t.ten)}</span>${userPos&&i===0?' <span class="badge" style="background:#16794f">Gần nhất</span>':""}
-    <b>${esc(d.ngan)}</b><div class="meta">Ấp ${esc(d.ap)} · ${esc(d.capHoc)}${distTxt(d)}</div><div class="st ${s.on?"on":"off"}">${s.on?"● ":"○ "}${esc(s.t)}</div></div></div>`}).join(""):'<div class="box">Không có điểm phù hợp.</div>')+
-  `<h2 class="sec">Dịch vụ & thủ tục</h2>${sv}
-  <div class="box"><h3>Cổng thông tin</h3>🌐 <a href="${esc(safeUrl(D.website))}" target="_blank" rel="noopener noreferrer">${esc(D.website.replace(/^https?:\/\//,""))}</a><br>✉ <a href="mailto:${esc(D.email)}">${esc(D.email)}</a></div>
-  <p class="foot">Dữ liệu v${esc(D.phienBan)} · cập nhật ${esc(D.capNhat)}.<br>Đường dây nóng bảo vệ trẻ em: <b>111</b>.<br>Hệ thống không thu thập hay lưu thông tin cá nhân.</p>`;
+  $("view").innerHTML=(aps.length?`<div class="fl"><select id="ap" aria-label="Lọc theo ấp"><option value="">🎒 Lọc theo ấp…</option>${aps.map(a=>`<option ${apF===a?"selected":""}>${esc(a)}</option>`).join("")}</select></div>`:"")+
+  (r.length?r.map(card).join(""):'<div class="box">Không có điểm phù hợp.</div>')+
+  (grp==="all"||grp==="giaoduc"?`<h2 class="sec">Dịch vụ của nhà trường</h2>${sv}`:"")+
+  `<div class="box"><h3>Liên hệ nhà trường</h3>🌐 <a href="${esc(safeUrl(D.website))}" target="_blank" rel="noopener noreferrer">${esc(D.website.replace(/^https?:\/\//,""))}</a><br>✉ <a href="mailto:${esc(D.email)}">${esc(D.email)}</a></div>
+  <p class="foot">Dữ liệu v${esc(D.phienBan)} · cập nhật ${esc(D.capNhat)}.<br>Đường dây nóng bảo vệ trẻ em: <b>111</b>. Không thu thập thông tin cá nhân.<br><button class="link" id="aboutb">💡 Sáng kiến cá nhân${coTen?" của "+esc(SK.tacGia):""} · ${esc(MA)}</button></p>`;
   $("view").scrollTop=0;
 }
 $("view").addEventListener("click",e=>{
-  const c=e.target.closest(".card");if(c){open(c.dataset.id);return}
+  const c=e.target.closest(".card");if(c){stopTour();open(c.dataset.id);return}
   const g=e.target.closest("[data-go]");if(g){open(g.dataset.go);return}
-  const f=e.target.closest(".fchip");if(f){loaiF=f.dataset.f;list();fit();return}
-  const st=e.target.closest("[data-step]");if(st){step(+st.dataset.step);return}
-  if(e.target.closest("#back")){list();setSh(snaps()[0],true);fit();return}
-  if(e.target.closest("#share"))share();
+  const st=e.target.closest("[data-step]");if(st){stopTour();step(+st.dataset.step);return}
+  const hr=e.target.closest(".hero[data-img]");if(hr){lightbox(hr.dataset.img);return}
+  if(e.target.closest("#back")){stopTour();list();setSh(snaps()[0],true);fit();return}
+  if(e.target.closest("#share")){share();return}
+  if(e.target.closest("#aboutb"))about(true);
 });
 $("view").addEventListener("change",e=>{if(e.target.id==="ap"){apF=e.target.value;list();fit()}});
 $("view").addEventListener("keydown",e=>{if(e.key==="Enter"){const c=e.target.closest(".card");if(c)open(c.dataset.id)}});
@@ -914,25 +980,30 @@ $("view").addEventListener("keydown",e=>{if(e.key==="Enter"){const c=e.target.cl
 function step(n){const r=vis(),i=r.findIndex(x=>x.id===sel);if(r.length)open(r[(i+n+r.length)%r.length].id)}
 function open(id){
   const d=byId(id);if(!d)return;
-  if(!vis().some(x=>x.id===id)){loaiF="all";apF=""}
+  if(!vis().some(x=>x.id===id)){grp="all";apF=""}
   sel=id;history.replaceState(null,"","#"+id);
-  const t=D.loai[d.loai],s=trangThai(d),cha=d.truc?byId(d.truc):null,con=D.diem.filter(x=>x.truc===id),e=eta(d);
-  const gio=d.khung.map(k=>{const g=D.gio[k];return `<tr><th>${esc(g.ten)}</th><td>${esc(g.sang.join(" – "))}</td><td>${esc(g.chieu.join(" – "))}</td></tr>`}).join("");
-  const dv=D.dichVu.filter(x=>x.tai==="all"||x.tai.includes(id)).map(x=>`<li>${esc(x.ten)}${x.online?" (trực tuyến)":""}</li>`).join("");
-  draw();menu();
+  const t=D.loai[d.loai],s=trangThai(d),cha=d.truc?byId(d.truc):null,con=ALL.filter(x=>x.truc===id),e=eta(d),lh=lienHe(d),gd=nhomOf(d)==="giaoduc";
+  const rows=[["Ấp",d.ap],["Cấp học",d.capHoc],["Quy mô",d.quyMo],["Khoảng cách",d.khoangCach],["Giờ",d.khung?null:d.gioText],...(d.nhanh||[])].filter(x=>x[1]);
+  const gio=d.khung?d.khung.map(k=>{const g=D.gio[k];return `<tr><th>${esc(g.ten)}</th><td>${esc(g.sang.join(" – "))}</td><td>${esc(g.chieu.join(" – "))}</td></tr>`}).join(""):"";
+  const dv=D.dichVu.filter(x=>x.tai==="all"?gd:x.tai.includes(id)).map(x=>`<li>${esc(x.ten)}${x.online?" (trực tuyến)":""}</li>`).join("");
+  draw();menu();dmOptions();
+  const hero=d.anh?`<div class="hero" data-img="${esc(d.anh)}" style="background-image:url('${esc(d.anh)}')" role="img" aria-label="Ảnh ${esc(d.ngan)}, chạm để phóng to"><span class="zoom">🔍 Chạm để xem rõ</span></div>`
+    :`<div class="hero none" style="--c:${esc(t.mau)}"><b>${esc(t.icon)}</b><span>Ảnh đang được cập nhật</span></div>`;
   $("view").innerHTML=`<div class="det"><div class="dnav"><button class="link" id="back">← Tất cả điểm</button><span><button class="ic" data-step="-1" aria-label="Điểm trước">‹</button><button class="ic" data-step="1" aria-label="Điểm sau">›</button></span></div>
-  <span class="badge" style="background:${esc(t.mau)}">${esc(t.ten)}</span> <span class="st ${s.on?"on":"off"}">${s.on?"● ":"○ "}${esc(s.t)}</span>
-  <h2>${esc(d.ngan)}</h2><div class="meta">Ấp ${esc(d.ap)}, ${esc(D.xa)}</div>${e?`<span class="eta">🛵 ${esc(e)}</span>`:""}
-  <div class="row"><a class="btn go" href="${esc(dirUrl(d))}" target="_blank" rel="noopener noreferrer">➜ Dẫn đường đến đây</a><a class="btn alt" href="${esc(safeUrl(d.maps))}" target="_blank" rel="noopener noreferrer">Mở Google Maps</a><button class="btn alt" id="share">Chia sẻ</button></div>
-  <div class="hero" style="background-image:url('${esc(d.anh)}')" role="img" aria-label="Ảnh ${esc(d.ngan)}"></div>
-  <div class="box"><h3>Tên đầy đủ</h3>${esc(d.ten)}</div>
-  <div class="chipsrow"><span class="pillx">🎓 ${esc(d.capHoc)}</span><span class="pillx">👥 ${esc(d.quyMo)}</span>${d.khoangCach?`<span class="pillx">🛣 ${esc(d.khoangCach)}</span>`:""}</div>
-  <div class="box"><h3>Chức năng & nhiệm vụ</h3><ul>${d.chucNang.map(x=>`<li>${esc(x)}</li>`).join("")}</ul></div>
+  ${hero}
+  <span class="badge" style="background:${esc(t.mau)}">${esc(t.ten)}</span> ${stHtml(s)}${d.mau?' <span class="badge warnb">Vị trí gần đúng · đang xác minh</span>':""}
+  <h2>${esc(d.ngan)}</h2><div class="meta">${esc(d.ten)}</div>${e?`<span class="eta">🛵 ${esc(e)}</span>`:""}
+  <div class="row"><a class="btn go" href="${esc(dirUrl(d))}" target="_blank" rel="noopener noreferrer">➜ Dẫn đường đến đây</a>${d.maps?`<a class="btn alt" href="${esc(safeUrl(d.maps))}" target="_blank" rel="noopener noreferrer">Google Maps</a>`:""}<button class="btn alt" id="share">Chia sẻ</button></div>
+  ${rows.length?`<div class="qi">${rows.map(r=>`<div><small>${esc(r[0])}</small><b>${esc(r[1])}</b></div>`).join("")}</div>`:""}
+  ${lh?`<div class="box lh"><h3>Liên hệ</h3>${lh.web?`🌐 <a href="${esc(safeUrl(lh.web))}" target="_blank" rel="noopener noreferrer">${esc(lh.web.replace(/^https?:\/\//,""))}</a><br>`:""}${lh.email?`✉ <a href="mailto:${esc(lh.email)}">${esc(lh.email)}</a><br>`:""}${lh.sdt?`☎ <a href="tel:${esc(lh.sdt)}">${esc(lh.sdt)}</a>`:""}</div>`:""}
+  ${d.ke?`<div class="box">${esc(d.ke)}</div>`:""}
+  <details open><summary>Chức năng chính</summary><ul>${d.chucNang.map(x=>`<li>${esc(x)}</li>`).join("")}</ul></details>
   ${d.luuY?`<div class="box warn"><h3>Lưu ý</h3>${esc(d.luuY)}</div>`:""}
+  ${gio?`<details><summary>Thời gian học</summary><table><tr><th></th><th>Sáng</th><th>Chiều</th></tr>${gio}</table><div class="meta" style="margin-top:6px">Giải lao: ${esc(D.gio[d.khung[d.khung.length-1]].nghi)}</div></details>`:""}
+  ${dv?`<details><summary>Có thể làm tại đây</summary><ul>${dv}</ul></details>`:""}
   ${cha?`<div class="box"><h3>Trực thuộc</h3><button class="link" data-go="${esc(cha.id)}">${esc(cha.ngan)}</button></div>`:""}
   ${con.length?`<div class="box"><h3>Đơn vị trực thuộc</h3>${con.map(x=>`<button class="link" data-go="${esc(x.id)}">${esc(x.ngan)}</button>`).join(" · ")}</div>`:""}
-  <div class="box"><h3>Thời gian học</h3><table><tr><th></th><th>Sáng</th><th>Chiều</th></tr>${gio}</table><div class="meta" style="margin-top:6px">Giải lao: ${esc(D.gio[d.khung[d.khung.length-1]].nghi)}</div></div>
-  <div class="box"><h3>Có thể làm tại đây</h3><ul>${dv}</ul></div></div>`;
+  <p class="foot"><button class="link" id="aboutb">💡 Sáng kiến cá nhân${coTen?" của "+esc(SK.tacGia):""} · ${esc(MA)}</button></p></div>`;
   $("view").scrollTop=0;
   if(isM()&&sheetH<snaps()[1]-20)setSh(snaps()[1],true);
   focus(d,16);
@@ -942,6 +1013,29 @@ async function share(){
   try{if(navigator.share){await navigator.share({title:d.ten,url:u});return}await navigator.clipboard.writeText(u);b.textContent="Đã chép liên kết ✓"}
   catch(_){b.textContent="Hãy sao chép địa chỉ trên trình duyệt"}
 }
+
+/* ---------- xem ảnh rõ nét ---------- */
+function lightbox(src){const l=$("lb");l.querySelector("img").src=src;l.hidden=false}
+$("lb").addEventListener("click",()=>{$("lb").hidden=true});
+
+/* ---------- giới thiệu sáng kiến ---------- */
+function about(on){
+  const a=$("about");
+  if(!on){a.hidden=true;return}
+  a.querySelector(".mc").innerHTML=`<button class="x" id="aclose" aria-label="Đóng">✕</button>
+  <div class="seal">💡</div><small>SÁNG KIẾN CÁ NHÂN ${esc(SK.nam||"")}</small>
+  <h2>${esc(SK.ten)}</h2>
+  <div class="tg">${coTen?`<b>${esc(SK.tacGia)}</b><br>`:'<b>Tác giả: (chưa điền)</b><br>'}${esc(SK.chucVu&&!/[\[\]]/.test(SK.chucVu)?SK.chucVu+" · ":"")}${esc(SK.donVi)}</div>
+  <p>${esc(SK.mucTieu)}</p>
+  <h3>Điểm mới của sáng kiến</h3><ul>${(SK.diemMoi||[]).map(x=>`<li>${esc(x)}</li>`).join("")}</ul>
+  <div class="stamp">Dấu ấn bản quyền: <b>${esc(MA)}</b></div>
+  <p class="meta">${esc(SK.banQuyen)}</p>`;
+  a.hidden=false;
+}
+$("skb").addEventListener("click",()=>about(true));
+$("about").addEventListener("click",e=>{if(e.target.id==="about"||e.target.id==="aclose")about(false)});
+document.addEventListener("keydown",e=>{if(e.key==="Escape"){$("lb").hidden=true;about(false)}});
+console.log("%c💡 Sáng kiến cá nhân "+(coTen?"của "+SK.tacGia:"")+" · "+MA,"font-weight:bold;color:#c8921a");
 
 /* ---------- khởi động ---------- */
 setSh(snaps()[0],true);
