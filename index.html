@@ -3,10 +3,10 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' 'sha256-l14Qys+ebmZZiV8dJVPOgxHFNhkU4JNnimzeD9K/cI0='; style-src 'unsafe-inline'; img-src 'self' data: https://*.tile.openstreetmap.org https://tile.openstreetmap.org; connect-src 'none'; base-uri 'none'; form-action 'none'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' 'sha256-pxR9bmXo+jJmnXOimpSycJzbmsnmfodqHjjhuZ+Iid8='; style-src 'unsafe-inline'; img-src 'self' data: https://*.tile.openstreetmap.org https://tile.openstreetmap.org; connect-src 'none'; base-uri 'none'; form-action 'none'">
 <meta name="referrer" content="no-referrer">
 <meta name="theme-color" content="#0b2545">
-<title>Smart Navigation – Hệ thống dẫn đường số</title>
+<title>Bản đồ số xã Vĩnh Gia</title>
 <style>/* required styles */
 
 .leaflet-pane,
@@ -673,8 +673,9 @@ svg.leaflet-image-layer.leaflet-interactive path {
 @media(prefers-color-scheme:dark){:root{--ink:#e8eefb;--bg:#0b1424;--card:#13203a;--mute:#9bb0d0;--line:#243656;--ok:#4fd1a0;--off:#e6c066}}
 *{box-sizing:border-box}
 html,body{height:100%;margin:0}
-body{font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;background:var(--bg);color:var(--ink)}
-#app{display:grid;grid-template-columns:410px 1fr;grid-template-rows:auto minmax(0,1fr);grid-template-areas:"top map" "sheet map";height:100dvh}
+[hidden]{display:none!important}
+body{display:flex;flex-direction:column;height:100dvh;overflow:hidden;font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;background:var(--bg);color:var(--ink)}
+#app{display:grid;grid-template-columns:410px 1fr;grid-template-rows:auto minmax(0,1fr);grid-template-areas:"top map" "sheet map";flex:1;min-height:0}
 #top{grid-area:top;background:#0b2545;color:#fff;padding:calc(12px + env(safe-area-inset-top,0px)) 14px 12px;background-image:radial-gradient(circle at 100% 0,rgba(200,146,26,.35),transparent 55%)}
 #map{grid-area:map;position:relative;z-index:0;min-height:0}
 #sheet{grid-area:sheet;min-height:0;display:flex;flex-direction:column;background:var(--bg);border-right:1px solid var(--line)}
@@ -769,7 +770,7 @@ details table{margin-bottom:12px}
 .tg{background:var(--bg);border-radius:12px;padding:10px 13px;margin:10px 0;font-size:.9rem}
 .stamp{margin:14px 0 6px;padding:10px;border:2px dashed var(--gold);border-radius:12px;text-align:center;font-size:.85rem}
 @media(max-width:800px){
- #app{display:block;position:relative;overflow:hidden}
+ #app{display:block;position:relative;overflow:hidden;flex:1}
  #map{position:absolute;inset:0}
  #top{position:absolute;top:0;left:0;right:0;z-index:5;padding:calc(8px + env(safe-area-inset-top,0px)) 12px 10px;border-radius:0 0 16px 16px;box-shadow:0 4px 16px rgba(0,0,0,.3)}
  .logo{width:32px;height:32px;font-size:1.3rem}
@@ -784,12 +785,46 @@ details table{margin-bottom:12px}
  .skbtn{font-size:.7rem}
 }
 @media(prefers-reduced-motion:reduce){#sheet,.leaflet-bottom{transition:none}}
+
+/* ---- điều hướng + các trang ---- */
+#nav{order:-1;flex:none;display:flex;gap:4px;background:var(--card);border-bottom:1px solid var(--line);padding:calc(6px + env(safe-area-inset-top,0px)) 10px 6px;justify-content:center;z-index:20}
+#nav button{font:inherit;font-size:.9rem;background:none;border:0;padding:9px 16px;border-radius:12px;color:var(--mute);cursor:pointer;display:flex;align-items:center;gap:7px;font-weight:600}
+#nav button.on{background:#0b2545;color:#fff}
+.page{flex:1;min-height:0;overflow:auto;background:var(--bg);-webkit-overflow-scrolling:touch}
+.wrap{max-width:960px;margin:0 auto;padding:16px 14px 40px}
+.hero2{background:linear-gradient(135deg,#0b2545,#145da8 70%,#1b7fc4);color:#fff;border-radius:20px;padding:26px 22px;position:relative;overflow:hidden}
+.hero2:after{content:"";position:absolute;right:-60px;top:-60px;width:220px;height:220px;border-radius:50%;border:30px solid rgba(255,198,52,.22)}
+.hero2 small{letter-spacing:.16em;font-weight:700;color:#ffd466;font-size:.75rem}
+.hero2 h2{margin:6px 0 4px;font-size:2.1rem}.hero2 p{margin:0 0 14px;opacity:.92}
+.btn.alt2{background:rgba(255,255,255,.16);color:#fff;border:1px solid rgba(255,255,255,.5);font-weight:600}
+.stats{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin:14px 0}
+.sc{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:14px}
+.sc small{display:block;font-size:.72rem;color:var(--mute);text-transform:uppercase;letter-spacing:.06em}
+.sc b{font-size:1.7rem;display:block;margin-top:2px}.sc span{font-size:.8rem;color:var(--mute)}
+h2.first{margin-top:6px}
+.tbl>div{display:flex;justify-content:space-between;gap:14px;padding:8px 0;border-bottom:1px solid var(--line)}
+.tbl>div:last-child{border:0}.tbl span{color:var(--mute)}.tbl b{text-align:right}
+.tiles,.apgrid,.dvgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px}
+.tile,.apc{font:inherit;text-align:left;background:var(--card);color:var(--ink);border:1px solid var(--line);border-radius:16px;padding:14px;cursor:pointer;display:flex;flex-direction:column;gap:3px}
+.tile:hover,.apc:hover{box-shadow:0 6px 16px rgba(11,37,69,.14)}
+.tile span{font-size:1.7rem}.tile small,.apc small{color:var(--mute);font-size:.78rem}
+.apc span{font-size:.72rem;font-weight:700;margin-top:4px}.apc .ok{color:var(--ok)}.apc .pd{color:var(--off)}
+.apd{margin-top:14px}.lk{list-style:none;padding:0;margin:8px 0}.lk li{padding:5px 0}
+.dv b{display:block;margin:4px 0}.dv p{margin:0;font-size:.85rem;color:var(--mute)}.ic2{font-size:1.6rem}
+#toast{position:fixed;left:50%;bottom:90px;transform:translateX(-50%);background:#0b2545;color:#fff;padding:10px 16px;border-radius:14px;font-size:.88rem;z-index:2000;box-shadow:0 4px 16px rgba(0,0,0,.35)}
+@media(min-width:760px){.stats{grid-template-columns:repeat(4,1fr)}}
+@media(max-width:800px){
+ #nav{order:99;border-bottom:0;border-top:1px solid var(--line);padding:6px 6px calc(6px + env(safe-area-inset-bottom,0px));justify-content:space-around;box-shadow:0 -4px 14px rgba(0,0,0,.12)}
+ #nav button{flex-direction:column;gap:2px;padding:6px 10px;font-size:.72rem;flex:1}
+ #nav button span{font-size:1.25rem}
+}
 </style>
 </head>
 <body>
-<div id="app">
+<section class="page" id="p-tong-quan" hidden></section>
+<div id="app" hidden>
   <header id="top">
-    <div class="brand"><span class="logo">⌖</span><div><h1>Smart Navigation</h1><p id="sub"></p></div><button class="skbtn" id="skb"></button></div>
+    <div class="brand"><span class="logo">⌖</span><div><h1>Smart Navigation</h1><p id="sub"></p></div></div>
     <div class="bar"><select id="dm" aria-label="Chọn danh mục địa điểm"></select><button class="pill gps" id="near">📍 Gần tôi</button><button class="pill" id="tour">▶ Tham quan</button></div>
     <div class="menu" id="menu" aria-label="Chọn địa điểm"></div>
     <p class="priv" id="priv" hidden></p>
@@ -800,8 +835,11 @@ details table{margin-bottom:12px}
     <div id="view" aria-live="polite"></div>
   </section>
 </div>
+<section class="page" id="p-cac-ap" hidden></section>
+<section class="page" id="p-dich-vu" hidden></section>
+<nav id="nav" aria-label="Điều hướng"><button data-p="tong-quan"><span>🏠</span>Tổng quan</button><button data-p="ban-do"><span>🗺️</span>Bản đồ</button><button data-p="cac-ap"><span>🏘️</span>Các ấp</button><button data-p="dich-vu"><span>🧾</span>Dịch vụ</button></nav>
+<div id="toast" hidden></div>
 <div id="lb" hidden><img alt="Ảnh phóng to"></div>
-<div id="about" hidden role="dialog" aria-modal="true" aria-label="Giới thiệu sáng kiến"><div class="mc"></div></div>
 <script src="du-lieu.js"></script>
 <script>/* @preserve
  * Leaflet 1.9.4, a JS library for interactive maps. https://leafletjs.com
@@ -814,27 +852,19 @@ details table{margin-bottom:12px}
 const D=window.DU_LIEU,$=id=>document.getElementById(id);
 const esc=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
 const safeUrl=u=>/^https?:\/\//i.test(u)?u:"#";
-const ALL=D.diem.filter(d=>!d.mau||D.hienDuLieuMau);
+const apPts=D.ap.filter(a=>a.lat&&a.lng).map(a=>({id:"ap-"+a.ten.toLowerCase().replace(/\s+/g,"-"),loai:"ap",ten:"Ấp "+a.ten,ngan:"Ấp "+a.ten,ap:a.ten,lat:a.lat,lng:a.lng,anh:a.anh||"",maps:"",truc:null,gioText:"",ke:a.mota||"",chucNang:["Khu dân cư thuộc xã Vĩnh Gia."],luuY:""}));
+const ALL=D.diem.concat(apPts).filter(d=>!d.mau||D.hienDuLieuMau);
 const byId=id=>ALL.find(d=>d.id===id);
 const isM=()=>matchMedia("(max-width:800px)").matches;
 const nhomOf=d=>D.loai[d.loai].nhom;
 let sel=null,userPos=null,grp="all",apF="",userMk=null,sheetH=210,tourT=null;
 
-/* ---------- dấu ấn sáng kiến cá nhân ---------- */
-const SK=D.sangKien||{},coTen=SK.tacGia&&!/[\[\]]/.test(SK.tacGia);
-function dauAn(){let h=5381;const s=[SK.tacGia,SK.ten,SK.nam,SK.donVi].join("|");
-  for(let i=0;i<s.length;i++)h=((h<<5)+h+s.charCodeAt(i))>>>0;
-  return "SK-"+(SK.nam||"")+"-"+h.toString(16).toUpperCase().padStart(8,"0").slice(0,6)}
-const MA=dauAn();
 $("sub").textContent=D.donVi+" · "+D.xa;
-document.title=D.tenHeThong+" – "+D.donVi;
-(function(){const m=document.createElement("meta");m.name="author";m.content=(coTen?SK.tacGia+" – ":"")+"Sáng kiến cá nhân "+MA;document.head.appendChild(m)})();
-$("skb").textContent="💡 Sáng kiến"+(coTen?" của "+SK.tacGia.split(" ").slice(-2).join(" "):" cá nhân");
+document.title="Bản đồ số "+D.xaInfo.ten+" – "+D.tenHeThong;
 
 /* ---------- bản đồ ---------- */
 const map=L.map("map",{zoomControl:true});
 L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png",{maxZoom:19,attribution:"© OpenStreetMap"}).addTo(map);
-map.attributionControl.setPrefix("💡 Sáng kiến cá nhân"+(coTen?" · "+esc(SK.tacGia):"")+" · "+MA);
 const lg=L.layerGroup().addTo(map);
 map.setView([ALL[0].lat,ALL[0].lng],12);
 
@@ -866,16 +896,17 @@ function vis(){
 }
 
 /* ---------- bảng trượt (điện thoại) ---------- */
-const snaps=()=>[210,Math.round(innerHeight*.55),Math.round(innerHeight*.88)];
+const appH=()=>$("app").clientHeight||innerHeight;
+const snaps=()=>[210,Math.round(appH()*.55),Math.round(appH()*.88)];
 function setSh(px,anim){
   if(!isM())return;
-  sheetH=Math.max(130,Math.min(Math.round(innerHeight*.9),px));
+  sheetH=Math.max(130,Math.min(Math.round(appH()*.9),px));
   $("sheet").classList.toggle("drag",!anim);
   $("app").style.setProperty("--sh",sheetH+"px");
 }
 const grip=$("grip");let gy=0,gm=false,gd=false;
 grip.addEventListener("pointerdown",e=>{if(!isM())return;grip.setPointerCapture(e.pointerId);gd=true;gm=false;gy=e.clientY});
-grip.addEventListener("pointermove",e=>{if(!gd)return;if(Math.abs(e.clientY-gy)>6)gm=true;if(gm)setSh(innerHeight-e.clientY,false)});
+grip.addEventListener("pointermove",e=>{if(!gd)return;if(Math.abs(e.clientY-gy)>6)gm=true;if(gm)setSh($("app").getBoundingClientRect().bottom-e.clientY,false)});
 grip.addEventListener("pointerup",()=>{
   if(!gd)return;gd=false;const s=snaps();
   if(!gm)setSh(sheetH<s[1]-20?s[1]:(sheetH<s[2]-20?s[2]:s[0]),true);
@@ -950,18 +981,18 @@ $("tour").addEventListener("click",()=>{
 
 /* ---------- danh sách ---------- */
 function list(){
-  sel=null;history.replaceState(null,"","#");
+  sel=null;history.replaceState(null,"","#ban-do");
   dmOptions();draw();menu();
-  const r=vis(),aps=[...new Set(ALL.map(d=>d.ap).filter(Boolean))];
+  const r=vis(),aps=D.ap.map(a=>a.ten);
   const card=(d,i)=>{const t=D.loai[d.loai],s=trangThai(d);
     return `<div class="card" tabindex="0" data-id="${esc(d.id)}"><div class="th" style="background-image:url('${esc(d.anh)}')">${d.anh?"":esc(t.icon)}</div><div><span class="badge" style="background:${esc(t.mau)}">${esc(t.ten)}</span>${userPos&&i===0?' <span class="badge" style="background:#16794f">Gần nhất</span>':""}
     <b>${esc(d.ngan)}</b><div class="meta">${d.ap?"Ấp "+esc(d.ap):esc(D.nhom[t.nhom].ten)}${d.capHoc?" · "+esc(d.capHoc):""}${distTxt(d)}</div>${stHtml(s)}</div></div>`};
   const sv=D.dichVu.map(s=>`<div class="sv"><b>${esc(s.ten)}${s.online?'<span class="tagon">Trực tuyến</span>':""}</b><span>${esc(s.mota)}</span></div>`).join("");
-  $("view").innerHTML=(aps.length?`<div class="fl"><select id="ap" aria-label="Lọc theo ấp"><option value="">🎒 Lọc theo ấp…</option>${aps.map(a=>`<option ${apF===a?"selected":""}>${esc(a)}</option>`).join("")}</select></div>`:"")+
-  (r.length?r.map(card).join(""):'<div class="box">Không có điểm phù hợp.</div>')+
+  $("view").innerHTML=(aps.length?`<div class="fl"><select id="ap" aria-label="Lọc theo ấp"><option value="">🏘️ Lọc theo ấp…</option>${aps.map(a=>`<option ${apF===a?"selected":""}>${esc(a)}</option>`).join("")}</select></div>`:"")+
+  (r.length?r.map(card).join(""):`<div class="box">${apF?"Ấp "+esc(apF)+" chưa có địa điểm nào được cập nhật.":"Không có điểm phù hợp."}</div>`)+
   (grp==="all"||grp==="giaoduc"?`<h2 class="sec">Dịch vụ của nhà trường</h2>${sv}`:"")+
   `<div class="box"><h3>Liên hệ nhà trường</h3>🌐 <a href="${esc(safeUrl(D.website))}" target="_blank" rel="noopener noreferrer">${esc(D.website.replace(/^https?:\/\//,""))}</a><br>✉ <a href="mailto:${esc(D.email)}">${esc(D.email)}</a></div>
-  <p class="foot">Dữ liệu v${esc(D.phienBan)} · cập nhật ${esc(D.capNhat)}.<br>Đường dây nóng bảo vệ trẻ em: <b>111</b>. Không thu thập thông tin cá nhân.<br><button class="link" id="aboutb">💡 Sáng kiến cá nhân${coTen?" của "+esc(SK.tacGia):""} · ${esc(MA)}</button></p>`;
+  <p class="foot">Dữ liệu v${esc(D.phienBan)} · cập nhật ${esc(D.capNhat)}.<br>Đường dây nóng bảo vệ trẻ em: <b>111</b>. Không thu thập thông tin cá nhân.</p>`;
   $("view").scrollTop=0;
 }
 $("view").addEventListener("click",e=>{
@@ -970,8 +1001,7 @@ $("view").addEventListener("click",e=>{
   const st=e.target.closest("[data-step]");if(st){stopTour();step(+st.dataset.step);return}
   const hr=e.target.closest(".hero[data-img]");if(hr){lightbox(hr.dataset.img);return}
   if(e.target.closest("#back")){stopTour();list();setSh(snaps()[0],true);fit();return}
-  if(e.target.closest("#share")){share();return}
-  if(e.target.closest("#aboutb"))about(true);
+  if(e.target.closest("#share"))share();
 });
 $("view").addEventListener("change",e=>{if(e.target.id==="ap"){apF=e.target.value;list();fit()}});
 $("view").addEventListener("keydown",e=>{if(e.key==="Enter"){const c=e.target.closest(".card");if(c)open(c.dataset.id)}});
@@ -1002,8 +1032,7 @@ function open(id){
   ${gio?`<details><summary>Thời gian học</summary><table><tr><th></th><th>Sáng</th><th>Chiều</th></tr>${gio}</table><div class="meta" style="margin-top:6px">Giải lao: ${esc(D.gio[d.khung[d.khung.length-1]].nghi)}</div></details>`:""}
   ${dv?`<details><summary>Có thể làm tại đây</summary><ul>${dv}</ul></details>`:""}
   ${cha?`<div class="box"><h3>Trực thuộc</h3><button class="link" data-go="${esc(cha.id)}">${esc(cha.ngan)}</button></div>`:""}
-  ${con.length?`<div class="box"><h3>Đơn vị trực thuộc</h3>${con.map(x=>`<button class="link" data-go="${esc(x.id)}">${esc(x.ngan)}</button>`).join(" · ")}</div>`:""}
-  <p class="foot"><button class="link" id="aboutb">💡 Sáng kiến cá nhân${coTen?" của "+esc(SK.tacGia):""} · ${esc(MA)}</button></p></div>`;
+  ${con.length?`<div class="box"><h3>Đơn vị trực thuộc</h3>${con.map(x=>`<button class="link" data-go="${esc(x.id)}">${esc(x.ngan)}</button>`).join(" · ")}</div>`:""}</div>`;
   $("view").scrollTop=0;
   if(isM()&&sheetH<snaps()[1]-20)setSh(snaps()[1],true);
   focus(d,16);
@@ -1018,31 +1047,95 @@ async function share(){
 function lightbox(src){const l=$("lb");l.querySelector("img").src=src;l.hidden=false}
 $("lb").addEventListener("click",()=>{$("lb").hidden=true});
 
-/* ---------- giới thiệu sáng kiến ---------- */
-function about(on){
-  const a=$("about");
-  if(!on){a.hidden=true;return}
-  a.querySelector(".mc").innerHTML=`<button class="x" id="aclose" aria-label="Đóng">✕</button>
-  <div class="seal">💡</div><small>SÁNG KIẾN CÁ NHÂN ${esc(SK.nam||"")}</small>
-  <h2>${esc(SK.ten)}</h2>
-  <div class="tg">${coTen?`<b>${esc(SK.tacGia)}</b><br>`:'<b>Tác giả: (chưa điền)</b><br>'}${esc(SK.chucVu&&!/[\[\]]/.test(SK.chucVu)?SK.chucVu+" · ":"")}${esc(SK.donVi)}</div>
-  <p>${esc(SK.mucTieu)}</p>
-  <h3>Điểm mới của sáng kiến</h3><ul>${(SK.diemMoi||[]).map(x=>`<li>${esc(x)}</li>`).join("")}</ul>
-  <div class="stamp">Dấu ấn bản quyền: <b>${esc(MA)}</b></div>
-  <p class="meta">${esc(SK.banQuyen)}</p>`;
-  a.hidden=false;
+/* ---------- các trang ---------- */
+document.addEventListener("keydown",e=>{if(e.key==="Escape")$("lb").hidden=true});
+const X=D.xaInfo,PAGES={"tong-quan":$("p-tong-quan"),"ban-do":$("app"),"cac-ap":$("p-cac-ap"),"dich-vu":$("p-dich-vu")};
+let page="",mapFit=false;
+function toast(m){const t=$("toast");t.textContent=m;t.hidden=false;clearTimeout(toast.h);toast.h=setTimeout(()=>{t.hidden=true},3200)}
+const cntNhom=g=>ALL.filter(d=>nhomOf(d)===g).length;
+const slug=n=>"ap-"+n.toLowerCase().replace(/\s+/g,"-");
+function showPage(p){
+  if(!PAGES[p])p="ban-do";
+  if(p!=="ban-do")stopTour();
+  page=p;
+  Object.keys(PAGES).forEach(k=>{PAGES[k].hidden=k!==p});
+  document.querySelectorAll("#nav button").forEach(b=>b.classList.toggle("on",b.dataset.p===p));
+  if(p!=="ban-do")history.replaceState(null,"","#"+p);
+  if(p==="ban-do"){map.invalidateSize();setSh(sheetH,true);if(!mapFit){mapFit=true;fit()}if(!sel)history.replaceState(null,"","#ban-do")}
+  else PAGES[p].scrollTop=0;
 }
-$("skb").addEventListener("click",()=>about(true));
-$("about").addEventListener("click",e=>{if(e.target.id==="about"||e.target.id==="aclose")about(false)});
-document.addEventListener("keydown",e=>{if(e.key==="Escape"){$("lb").hidden=true;about(false)}});
-console.log("%c💡 Sáng kiến cá nhân "+(coTen?"của "+SK.tacGia:"")+" · "+MA,"font-weight:bold;color:#c8921a");
+function goMap(o){
+  showPage("ban-do");
+  if(o.id){open(o.id);return}
+  grp=o.grp||"all";apF=o.ap||"";list();fit();
+}
+function renderTongQuan(){
+  const tiles=Object.keys(D.nhom).map(g=>{const n=cntNhom(g);
+    return `<button class="tile" data-g="${esc(g)}"><span>${esc(D.nhom[g].icon)}</span><b>${esc(D.nhom[g].ten)}</b><small>${n?n+" địa điểm":"Sắp cập nhật"}</small></button>`}).join("");
+  $("p-tong-quan").innerHTML=`<div class="wrap">
+  <div class="hero2"><small>${esc(X.tinh.toUpperCase())}</small><h2>${esc(X.ten)}</h2><p>Bản đồ số, tiện ích và dịch vụ công của xã</p>
+  <div class="row"><button class="btn go" data-act="map">🗺️ Mở bản đồ</button><button class="btn alt2" data-act="school">🎓 Dẫn đường tới trường</button></div></div>
+  <div class="stats">
+   <div class="sc"><small>Diện tích</small><b>${esc(X.dienTich)}</b><span>km²</span></div>
+   <div class="sc"><small>Dân số (${esc(X.namDanSo)})</small><b>${esc(X.danSo)}</b><span>người</span></div>
+   <div class="sc"><small>Mật độ</small><b>${esc(X.matDo)}</b><span>người/km²</span></div>
+   <div class="sc"><small>Số ấp</small><b>${D.ap.length}</b><span>ấp</span></div></div>
+  <h2 class="sec">Thông tin hành chính</h2>
+  <div class="box tbl"><div><span>Mã định danh</span><b>${esc(X.maDinhDanh)}</b></div><div><span>Mã bưu chính</span><b>${esc(X.maBuuChinh)}</b></div>
+   <div><span>Loại đơn vị</span><b>${esc(X.loaiDonVi)}</b></div><div><span>Hình thành từ</span><b>${X.hopNhatTu.map(esc).join(", ")}</b></div>
+   <div><span>Hiệu lực</span><b>${esc(X.hieuLuc)}</b></div><div><span>Trụ sở UBND</span><b>${esc(X.truSoUBND)}</b></div>
+   <div><span>Toạ độ trung tâm</span><b>${X.tamBan[0]}°, ${X.tamBan[1]}° · <a href="https://www.google.com/maps?q=${X.tamBan[0]}%2C${X.tamBan[1]}" target="_blank" rel="noopener noreferrer">Google Maps</a></b></div></div>
+  <h2 class="sec">Tiện ích trên địa bàn</h2><div class="tiles">${tiles}</div>
+  <h2 class="sec">Cổng thông tin chính thức</h2>
+  <div class="box"><a href="${esc(safeUrl(X.web))}" target="_blank" rel="noopener noreferrer">🌐 Cổng thông tin xã Vĩnh Gia</a><br><a href="${esc(safeUrl(X.webTinh))}" target="_blank" rel="noopener noreferrer">🌐 Cổng thông tin ${esc(X.tinh)}</a></div>
+  <p class="foot">Số liệu hành chính tham khảo từ ${esc(X.nguon)} (cập nhật ${esc(X.capNhatNguon)}), chỉ mang tính tham khảo, không thay thế văn bản pháp lý.<br>Dữ liệu hệ thống v${esc(D.phienBan)} · cập nhật ${esc(D.capNhat)}. Không thu thập thông tin cá nhân.</p></div>`;
+}
+function renderAp(){
+  const cells=D.ap.map(a=>{const n=ALL.filter(d=>d.ap===a.ten&&d.loai!=="ap").length,ok=a.lat&&a.lng;
+    return `<button class="apc" data-a="${esc(a.ten)}"><b>Ấp ${esc(a.ten)}</b><small>${n?n+" địa điểm":"Chưa có địa điểm"}</small><span class="${ok?"ok":"pd"}">${ok?"Có trên bản đồ":"Đang cập nhật toạ độ"}</span></button>`}).join("");
+  $("p-cac-ap").innerHTML=`<div class="wrap"><h2 class="sec first">Các ấp của xã Vĩnh Gia (${D.ap.length})</h2>
+  <p class="meta">Chạm vào một ấp để xem các địa điểm trong ấp đó.</p><div class="apgrid">${cells}</div><div id="apd"></div></div>`;
+}
+function apDetail(name){
+  const a=D.ap.find(x=>x.ten===name),ps=ALL.filter(d=>d.ap===name&&d.loai!=="ap"),ok=a.lat&&a.lng;
+  $("apd").innerHTML=`<div class="box apd"><h3>Ấp ${esc(name)}</h3>
+  ${a.anh?`<div class="hero" data-img="${esc(a.anh)}" style="background-image:url('${esc(a.anh)}')"></div>`:""}
+  ${a.mota?`<p>${esc(a.mota)}</p>`:""}
+  ${ps.length?`<ul class="lk">${ps.map(d=>`<li><button class="link" data-id="${esc(d.id)}">${esc(D.loai[d.loai].icon)} ${esc(d.ngan)}</button></li>`).join("")}</ul>`:'<p class="meta">Ấp này chưa có địa điểm nào được cập nhật. Thông tin sẽ được bổ sung sau.</p>'}
+  <div class="row">${ok?`<button class="btn go" data-id="${esc(slug(name))}">Xem ấp trên bản đồ</button>`:""}${ps.length?`<button class="btn alt" data-ap="${esc(name)}">Xem các điểm trên bản đồ</button>`:""}</div></div>`;
+  if($("apd").scrollIntoView)$("apd").scrollIntoView({block:"nearest"});
+}
+function renderDv(){
+  const dv=D.dvc.map(x=>`<div class="sc dv"><span class="ic2">${esc(x.icon)}</span><b>${esc(x.ten)}</b><p>${esc(x.mota)}</p></div>`).join("");
+  const ns=D.dichVu.map(s=>`<div class="sv"><b>${esc(s.ten)}${s.online?'<span class="tagon">Trực tuyến</span>':""}</b><span>${esc(s.mota)}</span></div>`).join("");
+  $("p-dich-vu").innerHTML=`<div class="wrap"><h2 class="sec first">Dịch vụ công trực tuyến</h2>
+  <div class="dvgrid">${dv}</div>
+  <div class="row"><a class="btn go" href="${esc(safeUrl(D.dvcLink))}" target="_blank" rel="noopener noreferrer">Truy cập Cổng Dịch vụ công Quốc gia</a></div><p class="meta">${esc(D.dvcGhiChu)}</p>
+  <h2 class="sec">Dịch vụ của nhà trường</h2>${ns}
+  <div class="box lh"><h3>Liên hệ nhà trường</h3>🌐 <a href="${esc(safeUrl(D.website))}" target="_blank" rel="noopener noreferrer">${esc(D.website.replace(/^https?:\/\//,""))}</a><br>✉ <a href="mailto:${esc(D.email)}">${esc(D.email)}</a></div>
+  <div class="box"><h3>Đường dây nóng</h3>Tổng đài quốc gia bảo vệ trẻ em: <b>111</b></div></div>`;
+}
+$("nav").addEventListener("click",e=>{const b=e.target.closest("button");if(b)showPage(b.dataset.p)});
+$("p-tong-quan").addEventListener("click",e=>{
+  const t=e.target.closest(".tile");if(t){cntNhom(t.dataset.g)?goMap({grp:t.dataset.g}):toast("Nhóm này đang được cập nhật.");return}
+  const a=e.target.closest("[data-act]");if(a)goMap(a.dataset.act==="school"?{grp:"giaoduc"}:{});
+});
+$("p-cac-ap").addEventListener("click",e=>{
+  const c=e.target.closest(".apc");if(c){apDetail(c.dataset.a);return}
+  const i=e.target.closest("[data-id]");if(i){goMap({id:i.dataset.id});return}
+  const a=e.target.closest("[data-ap]");if(a){goMap({ap:a.dataset.ap});return}
+  const h=e.target.closest(".hero[data-img]");if(h)lightbox(h.dataset.img);
+});
 
 /* ---------- khởi động ---------- */
-setSh(snaps()[0],true);
-list();fit();
-const h=decodeURIComponent(location.hash.slice(1));
-if(h&&byId(h))open(h);
-window.addEventListener("hashchange",()=>{const x=decodeURIComponent(location.hash.slice(1));if(x&&byId(x)&&x!==sel)open(x)});
+renderTongQuan();renderAp();renderDv();
+list();
+const h0=decodeURIComponent(location.hash.slice(1));
+const start=PAGES[h0]?h0:(h0&&byId(h0)?"ban-do":(D.trangMacDinh||"ban-do"));
+showPage(start);
+if(h0&&byId(h0))open(h0);
+window.addEventListener("hashchange",()=>{const x=decodeURIComponent(location.hash.slice(1));
+  if(PAGES[x]&&x!==page)showPage(x);else if(byId(x)&&x!==sel){showPage("ban-do");open(x)}});
 })();
 </script>
 </body>

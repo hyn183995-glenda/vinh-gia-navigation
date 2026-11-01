@@ -3,7 +3,7 @@
    Chỉ ghi thông tin công khai của đơn vị, không ghi thông tin cá nhân.
    ===================================================================== */
 window.DU_LIEU = {
-  phienBan: "2.0",
+  phienBan: "3.0",
   capNhat: "01/11/2026",
   tenHeThong: "Smart Navigation",
   donVi: "Trường TH & THCS Vĩnh Gia 2",
@@ -13,22 +13,42 @@ window.DU_LIEU = {
   ngayHoc: [1, 2, 3, 4, 5],            // 1 = Thứ 2 ... 5 = Thứ 6
   hienDuLieuMau: true,                  // true = hiện cả điểm "mau: true"; false = chỉ hiện điểm đã xác minh
 
-  /* ====== DẤU ẤN SÁNG KIẾN CÁ NHÂN — hãy điền thông tin của bạn ====== */
-  sangKien: {
-    ten: "Smart Navigation – Hệ thống dẫn đường số các trụ sở và địa điểm công trên địa bàn xã Vĩnh Gia",
-    tacGia: "[Họ và tên tác giả]",
-    chucVu: "[Chức vụ]",
-    donVi: "Trường TH & THCS Vĩnh Gia 2",
-    nam: "2026",
-    mucTieu: "Giúp người dân, phụ huynh tìm đúng nơi, đúng đường, đúng thông tin chỉ bằng một lần quét mã QR.",
-    diemMoi: [
-      "Một bản đồ duy nhất cho 4 trụ sở nhà trường, đầy đủ chức năng, giờ học và liên hệ.",
-      "Mở rộng được cho cơ quan, y tế, danh thắng của cả xã bằng danh mục sổ xuống.",
-      "Không thu thập thông tin cá nhân, không cần máy chủ, miễn phí vận hành.",
-      "Dữ liệu tách riêng, người kế nhiệm chỉ cần sửa một tệp để cập nhật."
-    ],
-    banQuyen: "Sáng kiến cá nhân. Mọi quyền thuộc về tác giả; khi sử dụng, sao chép hoặc phát triển tiếp cần ghi rõ nguồn."
+  /* ====== THÔNG TIN XÃ (tham khảo từ tinhthanhvn.com, cập nhật 26/08/2026 — hãy đối chiếu số liệu chính thức) ====== */
+  xaInfo: {
+    ten: "Xã Vĩnh Gia", tinh: "Tỉnh An Giang",
+    dienTich: "180,37", danSo: "20.902", namDanSo: "2025", matDo: "116",
+    maDinhDanh: "30568", maBuuChinh: "90811", loaiDonVi: "Xã",
+    hopNhatTu: ["Xã Vĩnh Phước", "Xã Lương An Trà", "Xã Vĩnh Gia"],
+    hieuLuc: "01/07/2025", truSoUBND: "UBND xã Lương An Trà (cũ)",
+    tamBan: [10.4311, 104.86],
+    web: "http://vinhgia.angiang.gov.vn", webTinh: "https://angiang.gov.vn",
+    nguon: "tinhthanhvn.com", capNhatNguon: "26/08/2026"
   },
+
+  /* ====== CÁC ẤP — điền lat, lng (toạ độ) và anh (tên file ảnh) khi có; ấp sẽ tự hiện trên bản đồ ====== */
+  ap: [
+    { ten: "Cà Na",      lat: null, lng: null, anh: "", mota: "" },
+    { ten: "Cây Gòn",    lat: null, lng: null, anh: "", mota: "" },
+    { ten: "Giồng Cát",  lat: null, lng: null, anh: "", mota: "" },
+    { ten: "Ninh Phước", lat: null, lng: null, anh: "", mota: "" },
+    { ten: "Phú Lâm",    lat: null, lng: null, anh: "", mota: "" },
+    { ten: "Vĩnh An",    lat: null, lng: null, anh: "", mota: "" },
+    { ten: "Vĩnh Cầu",   lat: null, lng: null, anh: "", mota: "" },
+    { ten: "Vĩnh Hiệp",  lat: null, lng: null, anh: "", mota: "" },
+    { ten: "Vĩnh Hòa",   lat: null, lng: null, anh: "", mota: "" },
+    { ten: "Vĩnh Lạc",   lat: null, lng: null, anh: "", mota: "" },
+    { ten: "Vĩnh Thành", lat: null, lng: null, anh: "", mota: "" }
+  ],
+
+  /* ====== DỊCH VỤ CÔNG TRỰC TUYẾN ====== */
+  dvcLink: "https://dichvucong.gov.vn/dvc-dich-vu-cong-truc-tuyen",
+  dvcGhiChu: "Cần tài khoản định danh điện tử VNeID mức độ 2.",
+  dvc: [
+    { icon: "🏠", ten: "Đăng ký cư trú", mota: "Đăng ký tạm trú, thường trú và khai báo lưu trú trực tuyến." },
+    { icon: "⚖️", ten: "Lý lịch tư pháp", mota: "Nộp hồ sơ cấp Phiếu lý lịch tư pháp, nhận kết quả điện tử qua VNeID." },
+    { icon: "🪪", ten: "Cấp đổi giấy tờ", mota: "Giấy phép lái xe, hộ chiếu, căn cước công dân." },
+    { icon: "💳", ten: "Nộp thuế & phí", mota: "Lệ phí trước bạ xe, nghĩa vụ tài chính đất đai, nộp phạt giao thông." }
+  ],
 
   gio: {
     thcs: { ten: "Cấp THCS",     sang: ["07:00", "11:15"], chieu: ["13:10", "17:20"], nghi: "Sáng 08h30–09h00 · Chiều 14h40–15h05" },
@@ -41,7 +61,11 @@ window.DU_LIEU = {
     hanhchinh:{ ten: "Cơ quan hành chính", icon: "🏛️" },
     yte:      { ten: "Y tế", icon: "➕" },
     anninh:   { ten: "Biên phòng – An ninh", icon: "🛡️" },
-    danhthang:{ ten: "Danh thắng & di tích", icon: "🌅" }
+    danhthang:{ ten: "Danh thắng & di tích", icon: "🌅" },
+    ap:       { ten: "Các ấp", icon: "🏘️" },
+    buudien:  { ten: "Bưu điện", icon: "📮" },
+    cho:      { ten: "Chợ & siêu thị", icon: "🛒" },
+    cayxang:  { ten: "Cây xăng", icon: "⛽" }
   },
   /* Loại đơn vị (màu và biểu tượng ghim) — mỗi loại thuộc 1 nhóm */
   loai: {
@@ -51,7 +75,8 @@ window.DU_LIEU = {
     hanhchinh:  { ten: "Cơ quan",      mau: "#5b4bb7", icon: "▲", nhom: "hanhchinh" },
     yte:        { ten: "Y tế",         mau: "#c62839", icon: "✚", nhom: "yte" },
     anninh:     { ten: "Biên phòng",   mau: "#3d6b2e", icon: "⚑", nhom: "anninh" },
-    danhthang:  { ten: "Danh thắng",   mau: "#d9631e", icon: "❖", nhom: "danhthang" }
+    danhthang:  { ten: "Danh thắng",   mau: "#d9631e", icon: "❖", nhom: "danhthang" },
+    ap:         { ten: "Ấp",           mau: "#51627d", icon: "⌂", nhom: "ap" }
   },
 
   /* mau: true  = thông tin/vị trí còn là mẫu hoặc gần đúng, cần xác minh */
@@ -88,8 +113,8 @@ window.DU_LIEU = {
       chucNang: ["Tổ chức các lớp học Tiểu học, giúp rút ngắn khoảng cách đi lại cho học sinh.", "Do Phân hiệu trực tiếp quản lý, không có bộ máy quản lý riêng."], luuY: "" },
 
     /* ----- Các địa điểm khác của xã (VỊ TRÍ GẦN ĐÚNG – cần xác minh và thay toạ độ thật) ----- */
-    { id: "ubnd-xa", loai: "hanhchinh", ten: "Ủy ban nhân dân xã Vĩnh Gia", ngan: "UBND xã", mau: true,
-      ap: "", lat: 10.4690, lng: 104.8580, anh: "", maps: "", truc: null,
+    { id: "ubnd-xa", loai: "hanhchinh", ten: "Ủy ban nhân dân xã Vĩnh Gia (đặt tại trụ sở UBND xã Lương An Trà cũ)", ngan: "UBND xã", mau: true,
+      ap: "", lienHe: { web: "http://vinhgia.angiang.gov.vn" }, lat: 10.4690, lng: 104.8580, anh: "", maps: "", truc: null,
       gioText: "Giờ hành chính (cần xác nhận)",
       chucNang: ["Tiếp nhận và giải quyết thủ tục hành chính cho người dân.", "Quản lý nhà nước trên địa bàn xã."], luuY: "" },
     { id: "tram-xa-qdy", loai: "yte", ten: "Trạm xá quân dân y Vĩnh Gia", ngan: "Trạm xá quân dân y", mau: true,
