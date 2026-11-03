@@ -4,7 +4,7 @@
    Diện tích, dân số: KHÔNG đưa vào hệ thống (do UBND xã tự công bố khi cần).
    ===================================================================== */
 window.DU_LIEU = {
-  phienBan: "5.0",
+  phienBan: "5.1",
   capNhat: "03/11/2026",
   tenHeThong: "Smart Navigation",
   donVi: "Trường TH & THCS Vĩnh Gia 2",
@@ -45,7 +45,7 @@ window.DU_LIEU = {
 
   /* ====== CÁC ẤP — lat, lng (toạ độ), anh (tên file), maps (liên kết vị trí). gannDung: true = vị trí chỉ gần đúng ====== */
   ap: [
-    { ten: "Cà Na",      anh: "", maps: "", mota: "" },
+    { ten: "Cà Na",      anh: "ap-ca-na.jpg",     maps: "https://maps.app.goo.gl/jvwFJr3KE18D6SnS7", mota: "" },
     { ten: "Cây Gòn",    anh: "ap-cay-gon.jpg",     maps: "https://maps.app.goo.gl/AzmfPcqdN6VYz3UT9", mota: "" },
     { ten: "Giồng Cát",  anh: "ap-giong-cat.jpg",   maps: "https://maps.apple/p/z6Rf9aWgNy-1uG", mota: "" },
     { ten: "Ninh Phước", anh: "ap-ninh-phuoc.jpg",  maps: "https://maps.app.goo.gl/UNct7PHu7mY8k5nF6", lat: 10.3715, lng: 104.8775, gannDung: true, mota: "Văn phòng ấp đặt tại Tỉnh lộ 958." },
