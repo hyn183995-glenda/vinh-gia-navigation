@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' 'sha256-rzVxboq0ERGOT7+eX00vyiT+tyxeDaj4lVM3eroYQSc='; style-src 'unsafe-inline'; img-src 'self' data: https://*.tile.openstreetmap.org https://tile.openstreetmap.org; connect-src 'none'; base-uri 'none'; form-action 'none'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' 'sha256-4/kV/mw8+ipf5jgwSCE2+BSawOdX/DCdfXoJh3Bb7jw='; style-src 'unsafe-inline'; img-src 'self' data: blob: https://*.tile.openstreetmap.org https://tile.openstreetmap.org; connect-src 'none'; base-uri 'none'; form-action 'none'">
 <meta name="referrer" content="no-referrer">
 <meta name="theme-color" content="#0b2545">
 <title>Bản đồ số xã Vĩnh Gia</title>
@@ -860,6 +860,61 @@ h2.sh:before{content:"";width:6px;height:24px;border-radius:3px;background:linea
  #nav button span{font-size:1.25rem}
 }
 @media(prefers-reduced-motion:reduce){.tile,.pc,.apc,.dvc,.lnk{transition:none}}
+
+/* ===== v5: tổng quan dạng bảng điều khiển, ấp có ảnh, báo cáo môi trường ===== */
+.hero:not(.none){background-image:none}
+.hero{position:relative;height:auto;aspect-ratio:16/10;max-height:340px;overflow:hidden;border-radius:16px;background-color:#0b2545;margin:0 0 12px;cursor:zoom-in}
+.hero:not(.none):before{content:"";position:absolute;inset:-24px;background:var(--img) center/cover no-repeat;filter:blur(18px) brightness(.75)}
+.hero:not(.none):after{content:"";position:absolute;inset:0;background:var(--img) center/contain no-repeat}
+.hero .zoom{z-index:2}
+.hero.none{display:grid;place-items:center;align-content:center;gap:6px;background:linear-gradient(135deg,var(--c),#0b2545);color:#fff;text-align:center;cursor:default}
+.th{display:grid;place-items:center;font-size:1.6rem;background-color:var(--c,var(--line));background-size:cover;background-position:center top}
+.oh{background:linear-gradient(160deg,#0a2a52,#0f5a92 60%,#1b9aa8);color:#fff;border-radius:0 0 30px 30px;padding:calc(18px + env(safe-area-inset-top,0px)) 16px 22px;box-shadow:0 12px 30px rgba(11,37,69,.25)}
+.ohi{max-width:960px;margin:0 auto}
+.ot{display:flex;gap:12px;align-items:center}.ot .logo{width:48px;height:48px;font-size:1.9rem}
+.ot small{letter-spacing:.16em;font-weight:700;color:#ffd466;font-size:.7rem}.ot h1{font-size:1.7rem;margin:0}
+.portal{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0 12px}
+.pt{display:inline-flex;gap:6px;align-items:center;padding:7px 13px;border-radius:18px;background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.4);color:#fff;text-decoration:none;font-size:.8rem;font-weight:600}
+.srch{display:flex;align-items:center;gap:10px;background:#fff;color:#0b2545;border-radius:16px;padding:4px 14px;box-shadow:0 6px 18px rgba(0,0,0,.2)}
+.srch input{flex:1;border:0;outline:0;font:inherit;font-size:1rem;padding:11px 0;background:none;color:#0b2545;min-width:0}
+.chipz{display:flex;gap:8px;overflow-x:auto;margin-top:12px;scrollbar-width:none}.chipz span{flex:none;font-size:.78rem;background:rgba(255,255,255,.14);border-radius:14px;padding:5px 11px}
+.wrap2{max-width:960px;margin:0 auto;padding:4px 14px 60px}
+h2.sh{font-size:1.1rem;margin:26px 2px 12px}
+.launch{display:grid;grid-template-columns:repeat(4,1fr);gap:12px 8px}
+.lc{font:inherit;background:none;border:0;color:var(--ink);cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:7px;padding:4px 0;text-align:center}
+.lc span{width:58px;height:58px;border-radius:19px;display:grid;place-items:center;font-size:1.7rem;background:linear-gradient(145deg,var(--c),color-mix(in srgb,var(--c) 60%,#000));box-shadow:0 8px 16px color-mix(in srgb,var(--c) 40%,transparent);transition:transform .15s}
+.lc:hover span{transform:translateY(-3px) scale(1.04)}.lc b{font-size:.74rem;line-height:1.2}
+.lc.hot span{animation:pulse 2s infinite}
+@keyframes pulse{0%{box-shadow:0 0 0 0 rgba(179,38,30,.5)}70%{box-shadow:0 0 0 12px rgba(179,38,30,0)}100%{box-shadow:0 0 0 0 rgba(179,38,30,0)}}
+@media(prefers-reduced-motion:reduce){.lc.hot span{animation:none}}
+.cats{display:flex;flex-wrap:wrap;gap:8px}
+.cat{font:inherit;display:inline-flex;align-items:center;gap:7px;border:1px solid var(--line);background:var(--card);color:var(--ink);padding:8px 12px;border-radius:20px;cursor:pointer;font-size:.84rem;border-left:5px solid var(--c)}
+.cat em{font-style:normal;background:var(--c);color:#fff;border-radius:10px;padding:0 8px;font-size:.74rem;font-weight:700}
+.irs{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:10px}
+.ir{display:flex;gap:12px;align-items:center;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:10px 13px}
+.ir i{font-style:normal;width:40px;height:40px;border-radius:12px;display:grid;place-items:center;font-size:1.3rem;background:var(--bg)}
+.ir small{display:block;font-size:.7rem;color:var(--mute);text-transform:uppercase;letter-spacing:.05em}
+#sr{margin-top:14px;display:grid;gap:8px}
+.srr{font:inherit;color:var(--ink);text-align:left;display:flex;gap:11px;align-items:center;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:9px 12px;cursor:pointer}
+.srr i{font-style:normal;width:38px;height:38px;border-radius:11px;display:grid;place-items:center;font-size:1.2rem;flex:none}
+.srr small{display:block;color:var(--mute);font-size:.76rem}
+.apph{height:104px;margin:-14px -14px 4px;background-size:cover;background-position:center;background-color:var(--c);display:grid;place-items:center}
+.apc{padding-top:14px}.apc:before{display:none}
+.apc .av{margin:0}
+.apc u{font-size:.74rem}
+.ph2.red{background:linear-gradient(150deg,#5b0f0f,#b3261e 70%,#e35d4f)}
+.card2{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:16px;display:grid;gap:12px;box-shadow:0 8px 22px rgba(11,37,69,.08)}
+.card2 label,.lbl2{display:grid;gap:5px;font-size:.84rem;font-weight:700}
+.card2 input:not([type=file]),.card2 select,.card2 textarea{font:inherit;font-weight:400;font-size:.95rem;padding:10px 12px;border-radius:12px;border:1px solid var(--line);background:var(--bg);color:var(--ink);width:100%}
+.card2 input[type=file]{font:inherit;font-size:.85rem}
+.seg{display:flex;gap:6px}.seg button{flex:1;font:inherit;font-size:.85rem;padding:9px 6px;border-radius:12px;border:1px solid var(--line);background:var(--bg);color:var(--ink);cursor:pointer}
+.seg button[aria-pressed=true]{background:#b3261e;color:#fff;border-color:#b3261e;font-weight:700}
+.thumbs{display:flex;gap:8px;flex-wrap:wrap}.th2{position:relative;width:84px;height:84px}
+.th2 img{width:100%;height:100%;object-fit:cover;border-radius:12px}.th2 button{position:absolute;top:-6px;right:-6px;width:24px;height:24px;border-radius:50%;border:0;background:#b3261e;color:#fff;cursor:pointer}
+#rp-err{color:#b3261e;font-weight:700}
+.ok2{border-top:5px solid #16794f}.ok2 textarea{font-size:.85rem}
+#rpres{margin-top:12px}#rpform[hidden]{display:none}
+@media(min-width:760px){.launch{grid-template-columns:repeat(8,1fr)}}
 </style>
 </head>
 <body>
@@ -878,8 +933,9 @@ h2.sh:before{content:"";width:6px;height:24px;border-radius:3px;background:linea
   </section>
 </div>
 <section class="page" id="p-cac-ap" hidden></section>
+<section class="page" id="p-bao-cao" hidden></section>
 <section class="page" id="p-dich-vu" hidden></section>
-<nav id="nav" aria-label="Điều hướng"><button data-p="tong-quan"><span>🏠</span>Tổng quan</button><button data-p="ban-do"><span>🗺️</span>Bản đồ</button><button data-p="cac-ap"><span>🏘️</span>Các ấp</button><button data-p="dich-vu"><span>🧾</span>Dịch vụ</button></nav>
+<nav id="nav" aria-label="Điều hướng"><button data-p="tong-quan"><span>🏠</span>Tổng quan</button><button data-p="ban-do"><span>🗺️</span>Bản đồ</button><button data-p="cac-ap"><span>🏘️</span>Các ấp</button><button data-p="bao-cao"><span>🚨</span>Báo cáo</button><button data-p="dich-vu"><span>🧾</span>Dịch vụ</button></nav>
 <div id="toast" hidden></div>
 <div id="lb" hidden><img alt="Ảnh phóng to"></div>
 <script src="du-lieu.js"></script>
@@ -894,21 +950,25 @@ h2.sh:before{content:"";width:6px;height:24px;border-radius:3px;background:linea
 const D=window.DU_LIEU,$=id=>document.getElementById(id);
 const esc=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
 const safeUrl=u=>/^https?:\/\//i.test(u)?u:"#";
-const apPts=D.ap.filter(a=>a.lat&&a.lng).map(a=>({id:"ap-"+a.ten.toLowerCase().replace(/\s+/g,"-"),loai:"ap",ten:"Ấp "+a.ten,ngan:"Ấp "+a.ten,ap:a.ten,lat:a.lat,lng:a.lng,anh:a.anh||"",maps:"",truc:null,gioText:"",ke:a.mota||"",dienTich:a.dienTich||"",danSo:a.danSo||"",chucNang:["Khu dân cư thuộc xã Vĩnh Gia."],luuY:""}));
+const nz=s=>String(s||"").normalize("NFD").replace(/[\u0300-\u036f]/g,"").replace(/đ/g,"d").replace(/Đ/g,"D").toLowerCase();
+const slug=n=>"ap-"+nz(n).replace(/[^a-z0-9]+/g,"-").replace(/^-|-$/g,"");
+const hasXY=d=>typeof d.lat==="number"&&typeof d.lng==="number";
+const X=D.xaInfo,TENXA=X.ten.replace(/^Xã /,"");
+const apPts=D.ap.map(a=>({id:slug(a.ten),loai:"ap",ten:"Ấp "+a.ten,ngan:"Ấp "+a.ten,ap:a.ten,lat:a.lat,lng:a.lng,gannDung:!!a.gannDung,anh:a.anh||"",maps:a.maps||"",truc:null,gioText:"",ke:a.mota||"",chucNang:["Khu dân cư thuộc xã "+TENXA+".","Văn phòng ấp là nơi tiếp nhận và hỗ trợ người dân tại địa bàn ấp."],luuY:""}));
 const ALL=D.diem.concat(apPts).filter(d=>!d.mau||D.hienDuLieuMau);
 const byId=id=>ALL.find(d=>d.id===id);
 const isM=()=>matchMedia("(max-width:800px)").matches;
 const nhomOf=d=>D.loai[d.loai].nhom;
 let sel=null,userPos=null,grp="all",apF="",userMk=null,sheetH=210,tourT=null;
 
-$("sub").textContent=D.donVi+" · "+D.xa;
-document.title="Bản đồ số "+D.xaInfo.ten+" – "+D.tenHeThong;
+$("sub").textContent=X.ten+" · "+X.tinh;
+document.title="Bản đồ số "+X.ten+" – "+D.tenHeThong;
 
 /* ---------- bản đồ ---------- */
 const map=L.map("map",{zoomControl:true});
 L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png",{maxZoom:19,attribution:"© OpenStreetMap"}).addTo(map);
 const lg=L.layerGroup().addTo(map);
-map.setView([ALL[0].lat,ALL[0].lng],12);
+map.setView(X.tamBan,12);
 
 /* ---------- tiện ích ---------- */
 const km=(a,b)=>{const r=x=>x*Math.PI/180,dl=r(b.lat-a.lat),dg=r(b.lng-a.lng);
@@ -923,19 +983,21 @@ function trangThai(d){
 }
 const stHtml=s=>s.t?`<span class="st ${s.on===true?"on":"off"}">${s.on===true?"● ":s.on===false?"○ ":""}${esc(s.t)}</span>`:"";
 function eta(d){
-  if(!userPos)return "";
+  if(!userPos||!hasXY(d))return "";
   const k=km(userPos,d),min=Math.max(1,Math.round(k*1.35/30*60));
   const t=min>=60?Math.floor(min/60)+" giờ "+(min%60)+" phút":min+" phút";
   return `≈ ${k.toFixed(1)} km · khoảng ${t} đi xe máy (ước tính)`;
 }
-const distTxt=d=>userPos?` · ≈ ${km(userPos,d).toFixed(1)} km`:"";
-const dirUrl=d=>`https://www.google.com/maps/dir/?api=1&destination=${d.lat},${d.lng}&travelmode=driving`;
-const lienHe=d=>d.lienHe||(nhomOf(d)==="giaoduc"?{web:D.website,email:D.email}:null);
+const distTxt=d=>userPos&&hasXY(d)?` · ≈ ${km(userPos,d).toFixed(1)} km`:"";
+const dirUrl=d=>hasXY(d)?`https://www.google.com/maps/dir/?api=1&destination=${d.lat},${d.lng}&travelmode=driving`:(d.maps||"");
+const lienHe=d=>d.lienHe||(d.truong==="vg2"?{web:D.website,email:D.email}:null);
 function vis(){
   const r=ALL.filter(d=>(grp==="all"||nhomOf(d)===grp)&&(!apF||d.ap===apF));
-  if(userPos)r.sort((a,b)=>km(userPos,a)-km(userPos,b));
+  if(userPos)r.sort((a,b)=>(hasXY(a)?km(userPos,a):1e9)-(hasXY(b)?km(userPos,b):1e9));
   return r;
 }
+const imgStyle=src=>`--img:url('${esc(src)}')`;
+const thumb=(d,c)=>{const t=D.loai[d.loai];return `<div class="${c}" style="background-image:url('${esc(d.anh)}');--c:${esc(t.mau)}">${d.anh?"":esc(D.nhom[t.nhom].icon)}</div>`};
 
 /* ---------- bảng trượt (điện thoại) ---------- */
 const appH=()=>$("app").clientHeight||innerHeight;
@@ -953,7 +1015,7 @@ grip.addEventListener("pointerup",()=>{
   if(!gd)return;gd=false;const s=snaps();
   if(!gm)setSh(sheetH<s[1]-20?s[1]:(sheetH<s[2]-20?s[2]:s[0]),true);
   else setSh(s.reduce((a,b)=>Math.abs(b-sheetH)<Math.abs(a-sheetH)?b:a),true);
-  if(sel)focus(byId(sel),map.getZoom());
+  const d=sel&&byId(sel);if(d&&hasXY(d))focus(d,map.getZoom());
 });
 grip.addEventListener("pointercancel",()=>{gd=false});
 grip.addEventListener("keydown",e=>{if(e.key==="ArrowUp")setSh(sheetH+60,true);if(e.key==="ArrowDown")setSh(sheetH-60,true)});
@@ -961,24 +1023,26 @@ grip.addEventListener("keydown",e=>{if(e.key==="ArrowUp")setSh(sheetH+60,true);i
 /* ---------- vẽ bản đồ ---------- */
 function mk(d){
   const t=D.loai[d.loai];
-  return L.divIcon({className:"",iconSize:[0,0],html:`<div class="pw ${sel===d.id?"sel":""} ${d.mau?"mau":""}"><div class="pin" style="--c:${esc(t.mau)}"><i>${esc(t.icon)}</i></div><div class="lbl">${esc(d.ngan)}</div></div>`});
+  return L.divIcon({className:"",iconSize:[0,0],html:`<div class="pw ${sel===d.id?"sel":""} ${d.mau||d.gannDung?"mau":""}"><div class="pin" style="--c:${esc(t.mau)}"><i>${esc(t.icon)}</i></div><div class="lbl">${esc(d.ngan)}</div></div>`});
 }
 function draw(){
-  const r=vis();lg.clearLayers();
+  const r=vis().filter(hasXY);lg.clearLayers();
   r.forEach(d=>{const p=d.truc&&r.find(x=>x.id===d.truc);
     if(p)L.polyline([[p.lat,p.lng],[d.lat,d.lng]],{color:D.loai[p.loai].mau,weight:3,opacity:.7,dashArray:"4 9"}).addTo(lg)});
   r.forEach(d=>L.marker([d.lat,d.lng],{icon:mk(d),title:d.ten,keyboard:true}).on("click",()=>{stopTour();open(d.id)}).addTo(lg));
 }
 function focus(d,z){
+  if(!hasXY(d)){toast("Địa điểm này chưa có toạ độ trên bản đồ. Bạn vẫn có thể bấm “Dẫn đường”.");return}
   const off=isM()?(sheetH-170)/2:0,p=map.project([d.lat,d.lng],z);p.y+=off;
   map.flyTo(map.unproject(p,z),z,{duration:.7});
 }
 function fit(){
-  const r=vis();
+  const r=vis().filter(hasXY);
   if(r.length>1){
     const o=isM()?{paddingTopLeft:[30,185],paddingBottomRight:[30,sheetH+30],maxZoom:15}:{padding:[60,60],maxZoom:15};
     map.fitBounds(r.map(d=>[d.lat,d.lng]),o);
   }else if(r.length)focus(r[0],16);
+  else map.setView(X.tamBan,12);
 }
 
 /* ---------- danh mục sổ xuống + menu ngang ---------- */
@@ -992,7 +1056,7 @@ function menu(){
   const r=vis();
   $("menu").innerHTML=r.map((d,i)=>{
     const live=trangThai(d).on===true;
-    return `<button class="pill ${sel===d.id?"on":""} ${live?"live":""}" data-id="${esc(d.id)}" style="--c:${esc(D.loai[d.loai].mau)}"><i></i>${esc(d.ngan)}${userPos&&i===0?" · gần nhất":""}</button>`}).join("");
+    return `<button class="pill ${sel===d.id?"on":""} ${live?"live":""}" data-id="${esc(d.id)}" style="--c:${esc(D.loai[d.loai].mau)}"><i></i>${esc(d.ngan)}${userPos&&i===0&&hasXY(d)?" · gần nhất":""}</button>`}).join("");
   const b=document.querySelector(".pill.on");
   if(b&&b.scrollIntoView)b.scrollIntoView({inline:"center",block:"nearest"});
 }
@@ -1006,12 +1070,12 @@ function locate(){
     userPos={lat:pos.coords.latitude,lng:pos.coords.longitude};
     if(userMk)userMk.remove();
     userMk=L.circleMarker([userPos.lat,userPos.lng],{radius:8,color:"#fff",weight:3,fillColor:"#1a73e8",fillOpacity:1}).addTo(map).bindTooltip("Bạn ở đây");
-    const r=vis();if(r.length)open(r[0].id);
+    const r=vis().filter(hasXY);if(r.length)open(r[0].id);
     setTimeout(()=>{p.hidden=true},7000);
   },()=>{p.textContent="Không lấy được vị trí. Hãy bật định vị hoặc chọn điểm ở thanh trên."},{timeout:10000,maximumAge:60000});
 }
 
-/* ---------- tham quan tự động (trình diễn) ---------- */
+/* ---------- tham quan tự động ---------- */
 function stopTour(){if(tourT){clearInterval(tourT);tourT=null}$("tour").textContent="▶ Tham quan";$("tour").classList.remove("on")}
 $("tour").addEventListener("click",()=>{
   if(tourT){stopTour();return}
@@ -1027,14 +1091,12 @@ function list(){
   dmOptions();draw();menu();
   const r=vis(),aps=D.ap.map(a=>a.ten);
   const card=(d,i)=>{const t=D.loai[d.loai],s=trangThai(d);
-    return `<div class="card" tabindex="0" data-id="${esc(d.id)}"><div class="th" style="background-image:url('${esc(d.anh)}')">${d.anh?"":esc(t.icon)}</div><div><span class="badge" style="background:${esc(t.mau)}">${esc(t.ten)}</span>${userPos&&i===0?' <span class="badge" style="background:#16794f">Gần nhất</span>':""}
-    <b>${esc(d.ngan)}</b><div class="meta">${d.ap?"Ấp "+esc(d.ap):esc(D.nhom[t.nhom].ten)}${d.capHoc?" · "+esc(d.capHoc):""}${distTxt(d)}</div>${stHtml(s)}</div></div>`};
+    return `<div class="card" tabindex="0" data-id="${esc(d.id)}">${thumb(d,"th")}<div><span class="badge" style="background:${esc(t.mau)}">${esc(D.nhom[t.nhom].icon)} ${esc(t.ten)}</span>${userPos&&i===0&&hasXY(d)?' <span class="badge" style="background:#16794f">Gần nhất</span>':""}
+    <b>${esc(d.ngan)}</b><div class="meta">${d.ap&&d.loai!=="ap"?"🏘️ Ấp "+esc(d.ap):"📍 "+esc(D.nhom[t.nhom].ten)}${d.capHoc?" · "+esc(d.capHoc):""}${distTxt(d)}${hasXY(d)?"":" · chờ toạ độ"}</div>${stHtml(s)}</div></div>`};
   const sv=D.dichVu.map(s=>`<div class="sv"><b>${esc(s.ten)}${s.online?'<span class="tagon">Trực tuyến</span>':""}</b><span>${esc(s.mota)}</span></div>`).join("");
-  $("view").innerHTML=(aps.length?`<div class="fl"><select id="ap" aria-label="Lọc theo ấp"><option value="">🏘️ Lọc theo ấp…</option>${aps.map(a=>`<option ${apF===a?"selected":""}>${esc(a)}</option>`).join("")}</select></div>`:"")+
+  $("view").innerHTML=`<div class="fl"><select id="ap" aria-label="Lọc theo ấp"><option value="">🏘️ Lọc theo ấp…</option>${aps.map(a=>`<option ${apF===a?"selected":""}>${esc(a)}</option>`).join("")}</select></div>`+
   (r.length?r.map(card).join(""):`<div class="box">${apF?"Ấp "+esc(apF)+" chưa có địa điểm nào được cập nhật.":"Không có điểm phù hợp."}</div>`)+
-  (grp==="all"||grp==="giaoduc"?`<h2 class="sec">Dịch vụ của nhà trường</h2>${sv}`:"")+
-  `<div class="box"><h3>Liên hệ nhà trường</h3>🌐 <a href="${esc(safeUrl(D.website))}" target="_blank" rel="noopener noreferrer">${esc(D.website.replace(/^https?:\/\//,""))}</a><br>✉ <a href="mailto:${esc(D.email)}">${esc(D.email)}</a></div>
-`;
+  (grp==="all"||grp==="giaoduc"?`<h2 class="sec">🧾 Dịch vụ của ${esc(D.donVi)}</h2>${sv}<div class="box lh"><h3>📞 Liên hệ ${esc(D.donVi)}</h3>🌐 <a href="${esc(safeUrl(D.website))}" target="_blank" rel="noopener noreferrer">${esc(D.website.replace(/^https?:\/\//,""))}</a><br>✉ <a href="mailto:${esc(D.email)}">${esc(D.email)}</a></div>`:"");
   $("view").scrollTop=0;
 }
 $("view").addEventListener("click",e=>{
@@ -1049,34 +1111,37 @@ $("view").addEventListener("change",e=>{if(e.target.id==="ap"){apF=e.target.valu
 $("view").addEventListener("keydown",e=>{if(e.key==="Enter"){const c=e.target.closest(".card");if(c)open(c.dataset.id)}});
 
 /* ---------- chi tiết ---------- */
+const RIC={"Ấp":"🏘️","Cấp học":"🎓","Quy mô":"👥","Khoảng cách":"🛣️","Giờ":"🕐","Tiếp công dân":"📣","Địa điểm":"📍","Tình trạng":"🛠️","Tiếp nhận":"🗓️"};
 function step(n){const r=vis(),i=r.findIndex(x=>x.id===sel);if(r.length)open(r[(i+n+r.length)%r.length].id)}
 function open(id){
   const d=byId(id);if(!d)return;
   if(!vis().some(x=>x.id===id)){grp="all";apF=""}
   sel=id;history.replaceState(null,"","#"+id);
-  const t=D.loai[d.loai],s=trangThai(d),cha=d.truc?byId(d.truc):null,con=ALL.filter(x=>x.truc===id),e=eta(d),lh=lienHe(d),gd=nhomOf(d)==="giaoduc";
-  const isAp=d.loai==="ap",NA="Đang cập nhật";
-  const rows=[[isAp?null:"Ấp",d.ap],["Cấp học",d.capHoc],["Diện tích",d.dienTich||NA],[isAp?"Dân số":"Quy mô / Dân số",d.danSo||d.quyMo||NA],["Khoảng cách",d.khoangCach],["Giờ",d.khung?null:d.gioText],...(d.nhanh||[])].filter(x=>x[0]&&x[1]);
+  const t=D.loai[d.loai],s=trangThai(d),cha=d.truc?byId(d.truc):null,con=ALL.filter(x=>x.truc===id),e=eta(d),lh=lienHe(d),gd=nhomOf(d)==="giaoduc",isAp=d.loai==="ap";
+  const inAp=isAp?ALL.filter(x=>x.ap===d.ap&&x.loai!=="ap"):[];
+  const rows=[[isAp?"Địa điểm":"Ấp",isAp?String(inAp.length):d.ap],["Cấp học",d.capHoc],["Quy mô",d.quyMo],["Khoảng cách",d.khoangCach],["Giờ",d.khung?null:d.gioText],...(d.nhanh||[])].filter(x=>x[1]);
   const gio=d.khung?d.khung.map(k=>{const g=D.gio[k];return `<tr><th>${esc(g.ten)}</th><td>${esc(g.sang.join(" – "))}</td><td>${esc(g.chieu.join(" – "))}</td></tr>`}).join(""):"";
-  const dv=D.dichVu.filter(x=>x.tai==="all"?gd:x.tai.includes(id)).map(x=>`<li>${esc(x.ten)}${x.online?" (trực tuyến)":""}</li>`).join("");
+  const dv=d.truong==="vg2"?D.dichVu.filter(x=>x.tai==="all"||x.tai.includes(id)).map(x=>`<li>${esc(x.ten)}${x.online?" (trực tuyến)":""}</li>`).join(""):"";
   draw();menu();dmOptions();
-  const hero=d.anh?`<div class="hero" data-img="${esc(d.anh)}" style="background-image:url('${esc(d.anh)}')" role="img" aria-label="Ảnh ${esc(d.ngan)}, chạm để phóng to"><span class="zoom">🔍 Chạm để xem rõ</span></div>`
-    :`<div class="hero none" style="--c:${esc(t.mau)}"><b>${esc(t.icon)}</b><span>Ảnh đang được cập nhật</span></div>`;
+  const hero=d.anh?`<div class="hero" data-img="${esc(d.anh)}" style="${imgStyle(d.anh)}" role="img" aria-label="Ảnh ${esc(d.ngan)}, chạm để phóng to"><span class="zoom">🔍 Chạm để xem rõ</span></div>`
+    :`<div class="hero none" style="--c:${esc(t.mau)}"><b>${esc(D.nhom[t.nhom].icon)}</b><span>Ảnh đang được cập nhật</span></div>`;
+  const dir=dirUrl(d);
   $("view").innerHTML=`<div class="det"><div class="dnav"><button class="link" id="back">← Tất cả điểm</button><span><button class="ic" data-step="-1" aria-label="Điểm trước">‹</button><button class="ic" data-step="1" aria-label="Điểm sau">›</button></span></div>
   ${hero}
-  <span class="badge" style="background:${esc(t.mau)}">${esc(t.ten)}</span> ${stHtml(s)}${d.mau?` <span class="badge warnb">${esc(d.mauText||"Vị trí gần đúng · đang xác minh")}</span>`:""}
+  <span class="badge" style="background:${esc(t.mau)}">${esc(D.nhom[t.nhom].icon)} ${esc(t.ten)}</span> ${stHtml(s)}${d.mau||d.gannDung?` <span class="badge warnb">${esc(d.mauText||"Vị trí gần đúng · đang xác minh")}</span>`:""}
   <h2>${esc(d.ngan)}</h2><div class="meta">${esc(d.ten)}</div>${e?`<span class="eta">🛵 ${esc(e)}</span>`:""}
-  <div class="row"><a class="btn go" href="${esc(dirUrl(d))}" target="_blank" rel="noopener noreferrer">➜ Dẫn đường đến đây</a>${d.maps?`<a class="btn alt" href="${esc(safeUrl(d.maps))}" target="_blank" rel="noopener noreferrer">Google Maps</a>`:""}<button class="btn alt" id="share">Chia sẻ</button></div>
-  ${rows.length?`<div class="qi">${rows.map(r=>`<div><small>${esc(r[0])}</small><b class="${r[1]===NA?"na":""}">${esc(r[1])}</b></div>`).join("")}</div>`:""}
-  ${lh?`<div class="box lh"><h3>Liên hệ</h3>${lh.web?`🌐 <a href="${esc(safeUrl(lh.web))}" target="_blank" rel="noopener noreferrer">${esc(lh.web.replace(/^https?:\/\//,""))}</a><br>`:""}${lh.email?`✉ <a href="mailto:${esc(lh.email)}">${esc(lh.email)}</a><br>`:""}${lh.sdt?`☎ <a href="tel:${esc(lh.sdt)}">${esc(lh.sdt)}</a>`:""}</div>`:""}
-  ${gd&&D.hotlineTreEm?`<div class="box hot">📞 Đường dây nóng bảo vệ trẻ em: <b>${esc(D.hotlineTreEm)}</b></div>`:""}
-  ${d.ke?`<div class="box">${esc(d.ke)}</div>`:""}
-  <details open><summary>Chức năng chính</summary><ul>${d.chucNang.map(x=>`<li>${esc(x)}</li>`).join("")}</ul></details>
-  ${d.luuY?`<div class="box warn"><h3>Lưu ý</h3>${esc(d.luuY)}</div>`:""}
-  ${gio?`<details><summary>Thời gian học</summary><table><tr><th></th><th>Sáng</th><th>Chiều</th></tr>${gio}</table><div class="meta" style="margin-top:6px">Giải lao: ${esc(D.gio[d.khung[d.khung.length-1]].nghi)}</div></details>`:""}
-  ${dv?`<details><summary>Có thể làm tại đây</summary><ul>${dv}</ul></details>`:""}
-  ${cha?`<div class="box"><h3>Trực thuộc</h3><button class="link" data-go="${esc(cha.id)}">${esc(cha.ngan)}</button></div>`:""}
-  ${con.length?`<div class="box"><h3>Đơn vị trực thuộc</h3>${con.map(x=>`<button class="link" data-go="${esc(x.id)}">${esc(x.ngan)}</button>`).join(" · ")}</div>`:""}</div>`;
+  <div class="row">${dir?`<a class="btn go" href="${esc(safeUrl(dir))}" target="_blank" rel="noopener noreferrer">➜ ${hasXY(d)?"Dẫn đường đến đây":"Mở vị trí & dẫn đường"}</a>`:""}${d.maps&&hasXY(d)?`<a class="btn alt" href="${esc(safeUrl(d.maps))}" target="_blank" rel="noopener noreferrer">📍 Google Maps</a>`:""}<button class="btn alt" id="share">🔗 Chia sẻ</button></div>
+  ${rows.length?`<div class="qi">${rows.map(r=>`<div><small>${RIC[r[0]]||"ℹ️"} ${esc(r[0])}</small><b class="${/đang cập nhật/i.test(r[1])?"na":""}">${esc(r[1])}</b></div>`).join("")}</div>`:""}
+  ${lh?`<div class="box lh"><h3>📞 Liên hệ</h3>${lh.web?`🌐 <a href="${esc(safeUrl(lh.web))}" target="_blank" rel="noopener noreferrer">${esc(lh.web.replace(/^https?:\/\//,""))}</a><br>`:""}${lh.email?`✉ <a href="mailto:${esc(lh.email)}">${esc(lh.email)}</a><br>`:""}${lh.sdt?`☎ <a href="tel:${esc(lh.sdt)}">${esc(lh.sdt)}</a>`:""}</div>`:""}
+  ${gd&&D.hotlineTreEm?`<div class="box hot">🛟 Đường dây nóng bảo vệ trẻ em: <b>${esc(D.hotlineTreEm)}</b></div>`:""}
+  ${d.ke?`<div class="box">📖 ${esc(d.ke)}</div>`:""}
+  <details open><summary>🧩 Chức năng chính</summary><ul>${d.chucNang.map(x=>`<li>${esc(x)}</li>`).join("")}</ul></details>
+  ${d.luuY?`<div class="box warn"><h3>⚠️ Lưu ý</h3>${esc(d.luuY)}</div>`:""}
+  ${inAp.length?`<div class="box"><h3>📍 Địa điểm trong ấp</h3>${inAp.map(x=>`<button class="link" data-go="${esc(x.id)}">${esc(D.nhom[D.loai[x.loai].nhom].icon)} ${esc(x.ngan)}</button>`).join(" · ")}</div>`:""}
+  ${gio?`<details><summary>🕐 Thời gian học</summary><table><tr><th></th><th>Sáng</th><th>Chiều</th></tr>${gio}</table><div class="meta" style="margin-top:6px">Giải lao: ${esc(D.gio[d.khung[d.khung.length-1]].nghi)}</div></details>`:""}
+  ${dv?`<details><summary>🧾 Có thể làm tại đây</summary><ul>${dv}</ul></details>`:""}
+  ${cha?`<div class="box"><h3>🔗 Trực thuộc</h3><button class="link" data-go="${esc(cha.id)}">${esc(cha.ngan)}</button></div>`:""}
+  ${con.length?`<div class="box"><h3>🔗 Đơn vị trực thuộc</h3>${con.map(x=>`<button class="link" data-go="${esc(x.id)}">${esc(x.ngan)}</button>`).join(" · ")}</div>`:""}</div>`;
   $("view").scrollTop=0;
   if(isM()&&sheetH<snaps()[1]-20)setSh(snaps()[1],true);
   focus(d,16);
@@ -1090,25 +1155,14 @@ async function share(){
 /* ---------- xem ảnh rõ nét ---------- */
 function lightbox(src){const l=$("lb");l.querySelector("img").src=src;l.hidden=false}
 $("lb").addEventListener("click",()=>{$("lb").hidden=true});
+document.addEventListener("keydown",e=>{if(e.key==="Escape")$("lb").hidden=true});
 
 /* ---------- các trang ---------- */
-document.addEventListener("keydown",e=>{if(e.key==="Escape")$("lb").hidden=true});
-const X=D.xaInfo,PAGES={"tong-quan":$("p-tong-quan"),"ban-do":$("app"),"cac-ap":$("p-cac-ap"),"dich-vu":$("p-dich-vu")};
+const PAGES={"tong-quan":$("p-tong-quan"),"ban-do":$("app"),"cac-ap":$("p-cac-ap"),"bao-cao":$("p-bao-cao"),"dich-vu":$("p-dich-vu")};
 let page="",mapFit=false;
 $("cong").href=safeUrl(X.web);
-function toast(m){const t=$("toast");t.textContent=m;t.hidden=false;clearTimeout(toast.h);toast.h=setTimeout(()=>{t.hidden=true},3200)}
+function toast(m){const t=$("toast");t.textContent=m;t.hidden=false;clearTimeout(toast.h);toast.h=setTimeout(()=>{t.hidden=true},3600)}
 const cntNhom=g=>ALL.filter(d=>nhomOf(d)===g).length;
-const slug=n=>"ap-"+n.toLowerCase().replace(/\s+/g,"-");
-const nv=v=>parseFloat(String(v).replace(/\./g,"").replace(",","."));
-function countUp(){
-  if(matchMedia("(prefers-reduced-motion:reduce)").matches)return;
-  document.querySelectorAll("#p-tong-quan .cnt").forEach(el=>{
-    const to=nv(el.dataset.v),dec=(el.dataset.v.split(",")[1]||"").length,t0=performance.now();
-    const f=now=>{const k=Math.min(1,(now-t0)/900),e=1-Math.pow(1-k,3);
-      el.textContent=(to*e).toLocaleString("vi-VN",{minimumFractionDigits:dec,maximumFractionDigits:dec});
-      if(k<1)requestAnimationFrame(f);else el.textContent=el.dataset.v};
-    requestAnimationFrame(f)});
-}
 function showPage(p){
   if(!PAGES[p])p="ban-do";
   if(p!=="ban-do")stopTour();
@@ -1117,69 +1171,76 @@ function showPage(p){
   document.querySelectorAll("#nav button").forEach(b=>b.classList.toggle("on",b.dataset.p===p));
   if(p!=="ban-do")history.replaceState(null,"","#"+p);
   if(p==="ban-do"){map.invalidateSize();setSh(sheetH,true);if(!mapFit){mapFit=true;fit()}if(!sel)history.replaceState(null,"","#ban-do")}
-  else{PAGES[p].scrollTop=0;if(p==="tong-quan")countUp()}
+  else PAGES[p].scrollTop=0;
 }
 function goMap(o){
   showPage("ban-do");
   if(o.id){open(o.id);return}
   grp=o.grp||"all";apF=o.ap||"";list();fit();
 }
-const SCENE=`<svg class="scene" viewBox="0 0 800 120" preserveAspectRatio="none" aria-hidden="true"><circle cx="650" cy="38" r="26" fill="#ffd466"/><path d="M0 74 L90 32 L170 66 L262 20 L350 70 L432 40 L522 74 L620 34 L720 68 L800 46 L800 120 L0 120Z" fill="#0b3a63" opacity=".5"/><path d="M0 90 Q120 70 240 88 T480 86 T800 80 L800 120 L0 120Z" fill="#1c8a68"/><path d="M0 104 Q150 92 300 102 T600 100 T800 98 L800 120 L0 120Z" fill="#2fb27f"/><g stroke="#8be8b8" stroke-width="1.4" opacity=".55" fill="none"><path d="M0 110 Q200 100 400 109 T800 106"/><path d="M0 116 Q200 108 400 115 T800 113"/></g></svg>`;
+
+/* ---- Tổng quan: bảng điều khiển ---- */
+const LAUNCH=[
+  {ic:"🗺️",t:"Bản đồ",c:"#1f6fb2",a:{}},
+  {ic:"🎓",t:"Trường học",c:"#c8921a",a:{grp:"giaoduc"}},
+  {ic:"🏥",t:"Y tế",c:"#c62839",a:{grp:"yte"}},
+  {ic:"🛡️",t:"An ninh",c:"#3d6b2e",a:{grp:"anninh"}},
+  {ic:"🏘️",t:"Các ấp",c:"#51627d",p:"cac-ap"},
+  {ic:"🧾",t:"Dịch vụ công",c:"#1c8a68",p:"dich-vu"},
+  {ic:"🍜",t:"Ăn uống",c:"#d1451f",a:{grp:"anuong"}},
+  {ic:"🚨",t:"Báo cáo môi trường",c:"#b3261e",p:"bao-cao",hot:1}
+];
 function renderTongQuan(){
-  const links=X.cong.map(c=>`<a class="lnk" href="${esc(safeUrl(c.url))}" target="_blank" rel="noopener noreferrer">${esc(c.icon)} ${esc(c.ten)}</a>`).join("");
-  const stat=(ic,l,v,u,c)=>`<div class="sc k" style="--c:${c}"><i>${ic}</i><small>${esc(l)}</small><b class="cnt" data-v="${esc(v)}">${esc(v)}</b><span>${esc(u)}</span></div>`;
-  const tiles=Object.keys(D.nhom).map(g=>{const n=cntNhom(g),G=D.nhom[g];
-    return `<button class="tile" data-g="${esc(g)}" style="--c:${esc(G.mau)}"><span class="ti">${esc(G.icon)}</span><b>${esc(G.ten)}</b><small>${n?n+" địa điểm":"Sắp cập nhật"}</small></button>`}).join("");
-  const sch=ALL.filter(d=>nhomOf(d)==="giaoduc").map(d=>`<button class="pc" data-id="${esc(d.id)}"><div class="ph" style="background-image:url('${esc(d.anh)}')"><span class="bd" style="background:${esc(D.loai[d.loai].mau)}">${esc(D.loai[d.loai].ten)}</span></div><div class="t"><b>${esc(d.ngan)}</b><small>Ấp ${esc(d.ap)} · ${esc(d.capHoc)}</small></div></button>`).join("");
-  const gi=(l,v)=>`<div><small>${esc(l)}</small><b>${v}</b></div>`;
-  $("p-tong-quan").innerHTML=`<div class="wrap">
-  <div class="hero2"><small>${esc(X.tinh.toUpperCase())}</small><h2>${esc(X.ten)}</h2><p>Bản đồ số · Tiện ích · Dịch vụ công</p>
-   <div class="links">${links}</div>
-   <div class="row"><button class="btn go" data-act="map">🗺️ Mở bản đồ</button><button class="btn alt2" data-act="school">🎓 Dẫn đường tới trường</button></div>${SCENE}</div>
-  <div class="stats">${stat("📐","Diện tích",X.dienTich,"km²","#1f6fb2")}${stat("👥","Dân số ("+X.namDanSo+")",X.danSo,"người","#1c8a68")}${stat("📊","Mật độ",X.matDo,"người/km²","#d9631e")}${stat("🏘️","Số ấp",String(D.ap.length),"ấp","#9b3fb8")}</div>
-  <h2 class="sh">Các trụ sở nhà trường</h2><div class="hs">${sch}</div>
-  <h2 class="sh">Tiện ích trên địa bàn</h2><div class="tiles">${tiles}</div>
-  <h2 class="sh">Hồ sơ hành chính</h2>
-  <div class="gi">${gi("Mã định danh",esc(X.maDinhDanh))}${gi("Mã bưu chính",esc(X.maBuuChinh))}${gi("Loại đơn vị",esc(X.loaiDonVi))}${gi("Hiệu lực từ",esc(X.hieuLuc))}${gi("Hình thành từ",X.hopNhatTu.map(esc).join(" · "))}${gi("Trụ sở UBND",esc(X.truSoUBND))}${gi("Toạ độ trung tâm",`${X.tamBan[0]}°, ${X.tamBan[1]}° · <a href="https://www.google.com/maps?q=${X.tamBan[0]}%2C${X.tamBan[1]}" target="_blank" rel="noopener noreferrer">Google Maps</a>`)}</div></div>`;
+  const portal=X.cong.map(c=>`<a class="pt" href="${esc(safeUrl(c.url))}" target="_blank" rel="noopener noreferrer"><span>${esc(c.icon)}</span>${esc(c.ten)}</a>`).join("");
+  const launch=LAUNCH.map((l,i)=>`<button class="lc ${l.hot?"hot":""}" data-i="${i}" style="--c:${l.c}"><span>${l.ic}</span><b>${esc(l.t)}</b></button>`).join("");
+  const feat=ALL.filter(d=>d.anh).slice(0,12).map(d=>{const t=D.loai[d.loai];return `<button class="pc" data-id="${esc(d.id)}"><div class="ph" style="background-image:url('${esc(d.anh)}')"><span class="bd" style="background:${esc(t.mau)}">${esc(D.nhom[t.nhom].icon)} ${esc(t.ten)}</span></div><div class="t"><b>${esc(d.ngan)}</b><small>${d.ap&&d.loai!=="ap"?"🏘️ Ấp "+esc(d.ap):"📍 "+esc(TENXA)}</small></div></button>`}).join("");
+  const cats=Object.keys(D.nhom).map(g=>{const n=cntNhom(g),G=D.nhom[g];return `<button class="cat" data-g="${esc(g)}" style="--c:${esc(G.mau)}"><span>${esc(G.icon)}</span>${esc(G.ten)}<em>${n||"–"}</em></button>`}).join("");
+  const info=[["🆔","Mã định danh",esc(X.maDinhDanh)],["📮","Mã bưu chính",esc(X.maBuuChinh)],["🏛️","Loại đơn vị",esc(X.loaiDonVi)],["🗓️","Hiệu lực từ",esc(X.hieuLuc)],["🧩","Hình thành từ",X.hopNhatTu.map(esc).join(" · ")],["🏢","Trụ sở UBND",esc(X.truSoUBND)],["🧭","Toạ độ trung tâm",`${X.tamBan[0]}°, ${X.tamBan[1]}° · <a href="https://www.google.com/maps?q=${X.tamBan[0]}%2C${X.tamBan[1]}" target="_blank" rel="noopener noreferrer">Google Maps</a>`]]
+    .map(r=>`<div class="ir"><i>${r[0]}</i><div><small>${r[1]}</small><b>${r[2]}</b></div></div>`).join("");
+  $("p-tong-quan").innerHTML=`<div class="oh"><div class="ohi">
+    <div class="ot"><span class="logo">⌖</span><div><small>${esc(X.tinh.toUpperCase())}</small><h1>${esc(X.ten)}</h1></div></div>
+    <div class="portal">${portal}</div>
+    <label class="srch"><span>🔍</span><input id="q2" type="search" placeholder="Tìm ấp, trường học, trạm y tế…" autocomplete="off" aria-label="Tìm địa điểm"></label>
+    <div class="chipz"><span>🏘️ ${D.ap.length} ấp</span><span>📍 ${ALL.length} địa điểm</span><span>🎓 ${cntNhom("giaoduc")} trường</span><span>🏥 ${cntNhom("yte")} trạm y tế</span></div></div></div>
+  <div class="wrap2"><div id="sr" hidden></div>
+  <h2 class="sh">⚡ Truy cập nhanh</h2><div class="launch">${launch}</div>
+  <h2 class="sh">📸 Địa điểm nổi bật</h2><div class="hs">${feat}</div>
+  <h2 class="sh">🗂️ Danh mục</h2><div class="cats">${cats}</div>
+  <h2 class="sh">📋 Thông tin xã</h2><div class="irs">${info}</div></div>`;
 }
-const HUE=i=>`hsl(${(i*37+200)%360} 58% 42%)`;
+function searchRes(q){
+  const box=$("sr");q=nz(q.trim());
+  if(!q){box.hidden=true;box.innerHTML="";return}
+  const r=ALL.filter(d=>nz(d.ten+" "+d.ngan+" "+(d.ap||"")+" "+D.loai[d.loai].ten+" "+D.nhom[D.loai[d.loai].nhom].ten).includes(q)).slice(0,8);
+  box.hidden=false;
+  box.innerHTML=r.length?r.map(d=>{const t=D.loai[d.loai];return `<button class="srr" data-id="${esc(d.id)}"><i style="background:${esc(t.mau)}">${esc(D.nhom[t.nhom].icon)}</i><span><b>${esc(d.ngan)}</b><small>${esc(t.ten)}${d.ap&&d.loai!=="ap"?" · Ấp "+esc(d.ap):""}</small></span></button>`}).join(""):'<div class="box">Không tìm thấy. Thử gõ tên ấp hoặc loại địa điểm.</div>';
+}
+document.addEventListener("input",e=>{if(e.target.id==="q2")searchRes(e.target.value)});
+$("p-tong-quan").addEventListener("click",e=>{
+  const l=e.target.closest(".lc");if(l){const x=LAUNCH[+l.dataset.i];if(x.p)showPage(x.p);else goMap(x.a);return}
+  const c=e.target.closest(".cat");if(c){cntNhom(c.dataset.g)?goMap({grp:c.dataset.g}):toast("Nhóm này đang được cập nhật.");return}
+  const p=e.target.closest(".pc,.srr");if(p)goMap({id:p.dataset.id});
+});
+
+/* ---- Các ấp ---- */
 function renderAp(){
-  const done=D.ap.filter(a=>a.lat&&a.lng).length;
-  const cells=D.ap.map((a,i)=>{const n=ALL.filter(d=>d.ap===a.ten&&d.loai!=="ap").length,ok=a.lat&&a.lng;
-    return `<button class="apc" data-a="${esc(a.ten)}" style="--c:${HUE(i)}"><span class="av">${esc(a.ten.split(" ").map(w=>w[0]).join("").slice(0,2))}</span><b>Ấp ${esc(a.ten)}</b>
-    <div class="kv"><span>Diện tích</span><em class="${a.dienTich?"":"na"}">${esc(a.dienTich||"Đang cập nhật")}</em></div><div class="kv"><span>Dân số</span><em class="${a.danSo?"":"na"}">${esc(a.danSo||"Đang cập nhật")}</em></div>
-    <small>${n?n+" địa điểm":"Chưa có địa điểm"} · <u class="${ok?"ok":"pd"}">${ok?"Có trên bản đồ":"Chờ toạ độ"}</u></small></button>`}).join("");
-  $("p-cac-ap").innerHTML=`<div class="wrap"><div class="ph2"><small>${esc(X.ten.toUpperCase())}</small><h2>${D.ap.length} ấp trên địa bàn</h2><p>Chạm vào một ấp để xem diện tích, dân số và các địa điểm trong ấp.</p>
-  <div class="prog"><i style="width:${Math.round(done/D.ap.length*100)}%"></i></div><span class="pl">${done}/${D.ap.length} ấp đã có trên bản đồ</span></div>
+  const done=ALL.filter(d=>d.loai==="ap"&&hasXY(d)).length,withPhoto=D.ap.filter(a=>a.anh).length;
+  const cells=D.ap.map((a,i)=>{const id=slug(a.ten),n=ALL.filter(d=>d.ap===a.ten&&d.loai!=="ap").length,hue=`hsl(${(i*37+200)%360} 58% 42%)`,xy=typeof a.lat==="number";
+    return `<button class="apc" data-a="${esc(a.ten)}" style="--c:${hue}"><div class="apph" style="${a.anh?`background-image:url('${esc(a.anh)}')`:""}">${a.anh?"":`<span class="av">${esc(a.ten.split(" ").map(w=>w[0]).join("").slice(0,2))}</span>`}</div>
+    <b>🏘️ Ấp ${esc(a.ten)}</b><small>${n?"📍 "+n+" địa điểm":"📍 Chưa có địa điểm"}</small><u class="${xy?"ok":"pd"}">${xy?(a.gannDung?"Vị trí gần đúng":"Có trên bản đồ"):"Chờ toạ độ"}</u></button>`}).join("");
+  $("p-cac-ap").innerHTML=`<div class="wrap2"><div class="ph2"><small>🏘️ ${esc(X.ten.toUpperCase())}</small><h2>${D.ap.length} ấp trên địa bàn</h2><p>Chạm vào một ấp để xem ảnh văn phòng ấp, địa điểm trong ấp và dẫn đường.</p>
+  <div class="prog"><i style="width:${Math.round(withPhoto/D.ap.length*100)}%"></i></div><span class="pl">📷 ${withPhoto}/${D.ap.length} ấp đã có ảnh · 📍 ${done}/${D.ap.length} ấp đã có toạ độ</span></div>
   <div class="apgrid">${cells}</div><div id="apd"></div></div>`;
 }
 function apDetail(name){
-  const a=D.ap.find(x=>x.ten===name),ps=ALL.filter(d=>d.ap===name&&d.loai!=="ap"),ok=a.lat&&a.lng;
-  $("apd").innerHTML=`<div class="apd"><h3>Ấp ${esc(name)}</h3>
-  ${a.anh?`<div class="hero" data-img="${esc(a.anh)}" style="background-image:url('${esc(a.anh)}')"></div>`:""}
-  <div class="qi"><div><small>Diện tích</small><b class="${a.dienTich?"":"na"}">${esc(a.dienTich||"Đang cập nhật")}</b></div><div><small>Dân số</small><b class="${a.danSo?"":"na"}">${esc(a.danSo||"Đang cập nhật")}</b></div><div><small>Địa điểm</small><b>${ps.length}</b></div></div>
-  ${a.mota?`<p>${esc(a.mota)}</p>`:""}
-  ${ps.length?`<ul class="lk">${ps.map(d=>`<li><button class="link" data-id="${esc(d.id)}">${esc(D.loai[d.loai].icon)} ${esc(d.ngan)}</button></li>`).join("")}</ul>`:'<p class="meta">Ấp này chưa có địa điểm nào được cập nhật. Thông tin sẽ được bổ sung sau.</p>'}
-  <div class="row">${ok?`<button class="btn go" data-id="${esc(slug(name))}">Xem ấp trên bản đồ</button>`:""}${ps.length?`<button class="btn alt" data-ap="${esc(name)}">Xem các điểm trên bản đồ</button>`:""}</div></div>`;
+  const d=byId(slug(name)),ps=ALL.filter(x=>x.ap===name&&x.loai!=="ap");
+  $("apd").innerHTML=`<div class="apd"><h3>🏘️ Ấp ${esc(name)}</h3>
+  ${d.anh?`<div class="hero" data-img="${esc(d.anh)}" style="${imgStyle(d.anh)}"><span class="zoom">🔍 Chạm để xem rõ</span></div>`:""}
+  ${d.ke?`<p>📖 ${esc(d.ke)}</p>`:""}
+  ${ps.length?`<ul class="lk">${ps.map(x=>`<li><button class="link" data-id="${esc(x.id)}">${esc(D.nhom[D.loai[x.loai].nhom].icon)} ${esc(x.ngan)}</button></li>`).join("")}</ul>`:'<p class="meta">Ấp này chưa có địa điểm nào được cập nhật. Thông tin sẽ được bổ sung sau.</p>'}
+  <div class="row"><button class="btn go" data-id="${esc(d.id)}">🗺️ Xem ấp trên bản đồ</button>${ps.length?`<button class="btn alt" data-ap="${esc(name)}">📍 Các điểm trong ấp</button>`:""}</div></div>`;
   if($("apd").scrollIntoView)$("apd").scrollIntoView({block:"nearest"});
 }
-function renderDv(){
-  const dv=D.dvc.map((x,i)=>`<div class="dvc" style="--c:${["#1f6fb2","#5b4bb7","#1c8a68","#d9631e"][i%4]}"><span class="ic2">${esc(x.icon)}</span><b>${esc(x.ten)}</b><p>${esc(x.mota)}</p></div>`).join("");
-  const ns=D.dichVu.map(s=>`<div class="sv"><b>${esc(s.ten)}${s.online?'<span class="tagon">Trực tuyến</span>':""}</b><span>${esc(s.mota)}</span></div>`).join("");
-  $("p-dich-vu").innerHTML=`<div class="wrap"><div class="ph2 blue"><small>${esc(X.ten.toUpperCase())}</small><h2>Dịch vụ công trực tuyến</h2><p>Nộp hồ sơ, theo dõi tiến độ và nhận kết quả ngay trên điện thoại.</p>
-  <a class="btn go" href="${esc(safeUrl(D.dvcLink))}" target="_blank" rel="noopener noreferrer">Vào Cổng Dịch vụ công Quốc gia ➜</a></div>
-  <div class="dvgrid">${dv}</div>
-  <h2 class="sh">Làm thế nào?</h2>
-  <div class="steps"><div><i>1</i><b>Chuẩn bị</b><p>${esc(D.dvcGhiChu)}</p></div><div><i>2</i><b>Chọn thủ tục</b><p>Tìm đúng thủ tục ở nhóm dịch vụ phía trên.</p></div><div><i>3</i><b>Nộp và nhận kết quả</b><p>Theo dõi tiến độ, nhận kết quả điện tử qua VNeID.</p></div></div>
-  <h2 class="sh">Dịch vụ của nhà trường</h2>${ns}
-  <div class="box lh"><h3>Liên hệ nhà trường</h3>🌐 <a href="${esc(safeUrl(D.website))}" target="_blank" rel="noopener noreferrer">${esc(D.website.replace(/^https?:\/\//,""))}</a><br>✉ <a href="mailto:${esc(D.email)}">${esc(D.email)}</a></div></div>`;
-}
-$("nav").addEventListener("click",e=>{const b=e.target.closest("button");if(b)showPage(b.dataset.p)});
-$("p-tong-quan").addEventListener("click",e=>{
-  const t=e.target.closest(".tile");if(t){cntNhom(t.dataset.g)?goMap({grp:t.dataset.g}):toast("Nhóm này đang được cập nhật.");return}
-  const p=e.target.closest(".pc");if(p){goMap({id:p.dataset.id});return}
-  const a=e.target.closest("[data-act]");if(a)goMap(a.dataset.act==="school"?{grp:"giaoduc"}:{});
-});
 $("p-cac-ap").addEventListener("click",e=>{
   const c=e.target.closest(".apc");if(c){apDetail(c.dataset.a);return}
   const i=e.target.closest("[data-id]");if(i){goMap({id:i.dataset.id});return}
@@ -1187,8 +1248,97 @@ $("p-cac-ap").addEventListener("click",e=>{
   const h=e.target.closest(".hero[data-img]");if(h)lightbox(h.dataset.img);
 });
 
+/* ---- Báo cáo điểm đen môi trường ---- */
+const B=D.baoCao;let rpFiles=[],rpLoc=null,rpMuc=B.mucDo[1]||B.mucDo[0],rpUrls=[];
+function renderBaoCao(){
+  const opt=a=>a.map(x=>`<option>${esc(x)}</option>`).join("");
+  const nDen=cntNhom("diemden");
+  $("p-bao-cao").innerHTML=`<div class="wrap2"><div class="ph2 red"><small>🚨 CÙNG GIỮ GÌN MÔI TRƯỜNG</small><h2>Báo cáo điểm đen môi trường</h2><p>Thấy rác thải, nước thải, khói bụi hay mùi hôi? Gửi báo cáo tới ${esc(B.donViNhan)} chỉ trong một phút.</p></div>
+  <div class="steps"><div><i>📝</i><b>Điền thông tin</b><p>Chọn loại, ấp, mô tả và chụp ảnh.</p></div><div><i>📍</i><b>Gắn vị trí</b><p>Bấm lấy vị trí hiện tại hoặc ghi mốc gần đó.</p></div><div><i>📤</i><b>Gửi đi</b><p>Gửi qua Zalo, email hoặc ứng dụng bạn chọn.</p></div></div>
+  <div id="rpform" class="card2">
+   <label>🗑️ Loại điểm đen<select id="rp-loai"><option value="">— Chọn loại —</option>${opt(B.loai)}</select></label>
+   <div class="lbl2">⚠️ Mức độ</div><div class="seg" id="rp-muc">${B.mucDo.map(m=>`<button type="button" data-m="${esc(m)}" aria-pressed="${m===rpMuc}">${esc(m)}</button>`).join("")}</div>
+   <label>🏘️ Ấp<select id="rp-ap"><option value="">— Chọn ấp —</option>${opt(D.ap.map(a=>a.ten))}<option>Không rõ</option></select></label>
+   <div class="lbl2">📍 Vị trí</div><div class="row"><button type="button" class="btn alt" id="rp-gps">📍 Lấy vị trí hiện tại</button></div><div class="meta" id="rp-gpst">Chưa lấy vị trí. Vị trí chỉ lưu trên máy bạn tới khi bạn bấm gửi.</div>
+   <label>🧭 Hoặc mô tả vị trí<input id="rp-vt" maxlength="160" placeholder="Ví dụ: cạnh cầu, gần nhà văn hóa ấp…"></label>
+   <label>📝 Mô tả tình trạng<textarea id="rp-mt" maxlength="600" rows="4" placeholder="Điểm đen là gì, kéo dài bao lâu, ảnh hưởng thế nào…"></textarea></label><div class="meta" id="rp-cnt">0/600</div>
+   <div class="lbl2">📷 Ảnh (tối đa 3)</div><input id="rp-ph" type="file" accept="image/*" multiple><div class="thumbs" id="rp-th"></div>
+   <label>👤 Liên hệ (không bắt buộc)<input id="rp-lh" maxlength="80" placeholder="Họ tên / số điện thoại để cán bộ liên hệ lại"></label>
+   <div class="row"><button type="button" class="btn go" id="rp-go">🚨 Tạo báo cáo</button></div>
+   <div class="meta" id="rp-err" role="alert"></div></div>
+  <div id="rpres" hidden></div>
+  ${nDen?`<div class="row"><button class="btn alt" id="rp-map">🗺️ Xem ${nDen} điểm đen đã tiếp nhận trên bản đồ</button></div>`:""}
+  <p class="meta">🔒 Báo cáo được soạn ngay trên điện thoại của bạn. Hệ thống không lưu và không gửi dữ liệu về máy chủ nào; chỉ khi bạn bấm gửi thì nội dung mới đến nơi bạn chọn. Không bắt buộc để lại thông tin cá nhân.</p></div>`;
+}
+function rpRefresh(){
+  $("rp-th").innerHTML=rpUrls.map((u,i)=>`<div class="th2"><img src="${u}" alt="Ảnh ${i+1}"><button type="button" data-rm="${i}" aria-label="Bỏ ảnh">✕</button></div>`).join("");
+}
+function rpMsg(code){
+  const g=a=>String(a||"").trim();
+  const now=new Date().toLocaleString("vi-VN",{timeZone:"Asia/Ho_Chi_Minh"});
+  const loc=rpLoc?`${rpLoc.lat.toFixed(6)}, ${rpLoc.lng.toFixed(6)} — https://www.google.com/maps?q=${rpLoc.lat.toFixed(6)},${rpLoc.lng.toFixed(6)}`:"";
+  return [`🚨 BÁO CÁO ĐIỂM ĐEN MÔI TRƯỜNG – ${X.ten.toUpperCase()}`,`Mã báo cáo: ${code}`,`Thời gian: ${now}`,`Loại: ${g($("rp-loai").value)}`,`Mức độ: ${rpMuc}`,`Ấp: ${g($("rp-ap").value)||"Không rõ"}`,
+   loc?`Vị trí GPS: ${loc}`:"",g($("rp-vt").value)?`Mô tả vị trí: ${g($("rp-vt").value)}`:"",`Mô tả: ${g($("rp-mt").value)}`,`Người báo: ${g($("rp-lh").value)||"Ẩn danh"}`,rpFiles.length?`(Kèm ${rpFiles.length} ảnh)`:""].filter(Boolean).join("\n");
+}
+function rpMake(){
+  const err=$("rp-err");err.textContent="";
+  if(!$("rp-loai").value){err.textContent="Vui lòng chọn loại điểm đen.";return}
+  if(!$("rp-ap").value&&!rpLoc&&!$("rp-vt").value.trim()){err.textContent="Vui lòng chọn ấp, lấy vị trí hoặc mô tả vị trí.";return}
+  if($("rp-mt").value.trim().length<10){err.textContent="Vui lòng mô tả tình trạng (ít nhất 10 ký tự).";return}
+  const code="BC-"+new Date().toISOString().slice(2,10).replace(/-/g,"")+"-"+Math.random().toString(36).slice(2,6).toUpperCase();
+  const msg=rpMsg(code),r=$("rpres");
+  const mail=B.email?`mailto:${B.email}?subject=${encodeURIComponent("Báo cáo điểm đen môi trường "+code)}&body=${encodeURIComponent(msg.slice(0,1500))}`:"";
+  r.innerHTML=`<div class="card2 ok2"><h3>✅ Đã tạo báo cáo ${esc(code)}</h3><p class="meta">Bấm một nút bên dưới để gửi. Nên ghi nhớ mã báo cáo để hỏi lại tiến độ.</p>
+  <textarea id="rpout" readonly rows="9">${esc(msg)}</textarea>
+  <div class="row"><button type="button" class="btn go" id="rp-share">📤 Gửi (Zalo / ứng dụng khác)</button>${mail?`<a class="btn alt" href="${esc(mail)}">✉ Gửi email</a>`:""}${B.zalo?`<a class="btn alt" href="https://zalo.me/${esc(B.zalo)}" target="_blank" rel="noopener noreferrer">💬 Mở Zalo</a>`:""}${B.sdt?`<a class="btn alt" href="tel:${esc(B.sdt)}">📞 Gọi ${esc(B.donViNhan)}</a>`:""}${B.bieuMau?`<a class="btn alt" href="${esc(safeUrl(B.bieuMau))}" target="_blank" rel="noopener noreferrer">📋 Biểu mẫu trực tuyến</a>`:""}<button type="button" class="btn alt" id="rp-copy">📋 Sao chép nội dung</button><button type="button" class="btn alt" id="rp-new">➕ Báo cáo mới</button></div>
+  ${rpFiles.length?'<p class="meta">📷 Ảnh sẽ được đính kèm khi bạn gửi bằng nút “Gửi (Zalo / ứng dụng khác)”. Với email, hãy đính kèm ảnh thủ công.</p>':""}
+  ${B.email||B.zalo||B.sdt||B.bieuMau?"":'<p class="meta">ℹ️ UBND xã chưa cấu hình nơi nhận trực tiếp. Hãy dùng nút Gửi để chuyển báo cáo tới cán bộ phụ trách.</p>'}</div>`;
+  r.hidden=false;$("rpform").hidden=true;r.dataset.msg=msg;r.dataset.code=code;
+  r.scrollIntoView&&r.scrollIntoView({block:"start"});
+}
+$("p-bao-cao").addEventListener("click",async e=>{
+  const m=e.target.closest("#rp-muc button");if(m){rpMuc=m.dataset.m;document.querySelectorAll("#rp-muc button").forEach(b=>b.setAttribute("aria-pressed",b===m));return}
+  if(e.target.closest("#rp-gps")){
+    const st=$("rp-gpst");st.textContent="Đang lấy vị trí…";
+    if(!navigator.geolocation){st.textContent="Thiết bị không hỗ trợ định vị.";return}
+    navigator.geolocation.getCurrentPosition(p=>{rpLoc={lat:p.coords.latitude,lng:p.coords.longitude};st.textContent=`📍 Đã lấy: ${rpLoc.lat.toFixed(5)}, ${rpLoc.lng.toFixed(5)} (độ chính xác ~${Math.round(p.coords.accuracy)} m)`},()=>{st.textContent="Không lấy được vị trí. Bạn có thể chọn ấp hoặc mô tả vị trí."},{timeout:12000,enableHighAccuracy:true});return}
+  const rm=e.target.closest("[data-rm]");if(rm){const i=+rm.dataset.rm;URL.revokeObjectURL(rpUrls[i]);rpUrls.splice(i,1);rpFiles.splice(i,1);rpRefresh();return}
+  if(e.target.closest("#rp-go")){rpMake();return}
+  if(e.target.closest("#rp-map")){goMap({grp:"diemden"});return}
+  if(e.target.closest("#rp-new")){rpFiles=[];rpUrls.forEach(u=>URL.revokeObjectURL(u));rpUrls=[];rpLoc=null;renderBaoCao();return}
+  const r=$("rpres"),msg=r&&r.dataset.msg;
+  if(e.target.closest("#rp-copy")){try{await navigator.clipboard.writeText(msg);toast("Đã sao chép nội dung báo cáo")}catch(_){$("rpout").select();toast("Hãy chạm giữ để sao chép nội dung")}return}
+  if(e.target.closest("#rp-share")){
+    const data={title:"Báo cáo điểm đen môi trường",text:msg};
+    try{
+      if(rpFiles.length&&navigator.canShare&&navigator.canShare({files:rpFiles}))data.files=rpFiles;
+      if(navigator.share)await navigator.share(data);else{await navigator.clipboard.writeText(msg);toast("Đã sao chép. Hãy dán vào Zalo hoặc email để gửi.")}
+    }catch(err){if(err&&err.name!=="AbortError"){try{await navigator.clipboard.writeText(msg);toast("Đã sao chép. Hãy dán vào Zalo hoặc email để gửi.")}catch(_){toast("Hãy dùng nút Sao chép nội dung")}}}
+  }
+});
+$("p-bao-cao").addEventListener("input",e=>{if(e.target.id==="rp-mt")$("rp-cnt").textContent=e.target.value.length+"/600"});
+$("p-bao-cao").addEventListener("change",e=>{
+  if(e.target.id!=="rp-ph")return;
+  [...e.target.files].forEach(f=>{if(rpFiles.length<3&&/^image\//.test(f.type)&&f.size<=15*1024*1024){rpFiles.push(f);rpUrls.push(URL.createObjectURL(f))}});
+  e.target.value="";rpRefresh();
+});
+
+/* ---- Dịch vụ ---- */
+function renderDv(){
+  const dv=D.dvc.map((x,i)=>`<div class="dvc" style="--c:${["#1f6fb2","#5b4bb7","#1c8a68","#d9631e"][i%4]}"><span class="ic2">${esc(x.icon)}</span><b>${esc(x.ten)}</b><p>${esc(x.mota)}</p></div>`).join("");
+  const ns=D.dichVu.map(s=>`<div class="sv"><b>${esc(s.ten)}${s.online?'<span class="tagon">Trực tuyến</span>':""}</b><span>${esc(s.mota)}</span></div>`).join("");
+  $("p-dich-vu").innerHTML=`<div class="wrap2"><div class="ph2 blue"><small>🧾 ${esc(X.ten.toUpperCase())}</small><h2>Dịch vụ công trực tuyến</h2><p>Nộp hồ sơ, theo dõi tiến độ và nhận kết quả ngay trên điện thoại.</p>
+  <a class="btn go" href="${esc(safeUrl(D.dvcLink))}" target="_blank" rel="noopener noreferrer">🌐 Vào Cổng Dịch vụ công Quốc gia ➜</a></div>
+  <div class="dvgrid">${dv}</div>
+  <h2 class="sh">🧭 Làm thế nào?</h2>
+  <div class="steps"><div><i>1️⃣</i><b>Chuẩn bị</b><p>${esc(D.dvcGhiChu)}</p></div><div><i>2️⃣</i><b>Chọn thủ tục</b><p>Tìm đúng thủ tục ở nhóm dịch vụ phía trên.</p></div><div><i>3️⃣</i><b>Nộp và nhận kết quả</b><p>Theo dõi tiến độ, nhận kết quả điện tử qua VNeID.</p></div></div>
+  <h2 class="sh">🎓 Dịch vụ của ${esc(D.donVi)}</h2>${ns}
+  <div class="box lh"><h3>📞 Liên hệ ${esc(D.donVi)}</h3>🌐 <a href="${esc(safeUrl(D.website))}" target="_blank" rel="noopener noreferrer">${esc(D.website.replace(/^https?:\/\//,""))}</a><br>✉ <a href="mailto:${esc(D.email)}">${esc(D.email)}</a></div></div>`;
+}
+$("nav").addEventListener("click",e=>{const b=e.target.closest("button");if(b)showPage(b.dataset.p)});
+
 /* ---------- khởi động ---------- */
-renderTongQuan();renderAp();renderDv();
+renderTongQuan();renderAp();renderBaoCao();renderDv();
 list();
 const h0=decodeURIComponent(location.hash.slice(1));
 const start=PAGES[h0]?h0:(h0&&byId(h0)?"ban-do":(D.trangMacDinh||"ban-do"));
