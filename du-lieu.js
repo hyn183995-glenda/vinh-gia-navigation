@@ -4,15 +4,17 @@
    Diện tích, dân số: KHÔNG đưa vào hệ thống (do UBND xã tự công bố khi cần).
    ===================================================================== */
 window.DU_LIEU = {
-  phienBan: "5.1",
+  phienBan: "5.2",
   capNhat: "03/11/2026",
   tenHeThong: "Smart Navigation",
-  donVi: "Trường TH & THCS Vĩnh Gia 2",
+  donVi: "Trường TH&THCS Vĩnh Gia 2",
   xa: "Xã Vĩnh Gia, tỉnh An Giang",
   website: "http://thvathcsvg2.edu.vn",
   email: "c2vinhgia2.vinhgia@angiang.gov.vn",
   ngayHoc: [1, 2, 3, 4, 5],
   hienDuLieuMau: true,                 // true = hiện cả điểm "mau: true"; false = chỉ hiện điểm đã xác minh
+  /* Dấu tác giả hiện ở cuối các trang. Để trống ten và email thì dòng này tự ẩn. */
+  tacGia: { ten: "", email: "", nam: "2026" },
   hotlineTreEm: "111",                 // chỉ hiện khi chọn địa điểm thuộc nhóm Trường học
   // trangMacDinh: "tong-quan",        // bỏ dấu // để mở trang Tổng quan đầu tiên (mặc định mở Bản đồ)
 
@@ -31,13 +33,13 @@ window.DU_LIEU = {
   },
 
   /* ====== BÁO CÁO ĐIỂM ĐEN MÔI TRƯỜNG ======
-     UBND xã điền nơi nhận báo cáo (để trống thì ẩn nút tương ứng):
-       email   : địa chỉ email tiếp nhận (công khai của UBND xã)
-       sdt     : số điện thoại tiếp nhận (bộ phận, không phải số cá nhân)
-       zalo    : số Zalo của bộ phận (dạng 0xxxxxxxxx)
-       bieuMau : đường dẫn biểu mẫu trực tuyến của UBND xã (nếu có)           */
+     Đoàn Thanh niên xã điền nơi nhận báo cáo (để trống thì ẩn nút tương ứng):
+       email   : địa chỉ email tiếp nhận (hộp thư chung của Đoàn)
+       sdt     : số điện thoại tiếp nhận (của Đoàn, không phải số cá nhân)
+       zalo    : số Zalo của Đoàn (dạng 0xxxxxxxxx)
+       bieuMau : đường dẫn Google Form của Đoàn — NÊN DÙNG để báo cáo tự lưu vào Google Sheets */
   baoCao: {
-    donViNhan: "UBND xã Vĩnh Gia",
+    donViNhan: "Đoàn Thanh niên xã Vĩnh Gia",
     email: "", sdt: "", zalo: "", bieuMau: "",
     loai: ["Rác thải tồn đọng, bãi rác tự phát", "Đốt rác, đốt rơm rạ gây khói bụi", "Nước thải, ô nhiễm nguồn nước", "Mùi hôi từ chăn nuôi, nhà máy, cơ sở sản xuất", "Xả thải trái phép ra kênh, rạch", "Chai lọ, bao bì thuốc bảo vệ thực vật bỏ bừa bãi", "Xác động vật, dịch bệnh", "Vấn đề khác"],
     mucDo: ["Nhẹ", "Trung bình", "Nghiêm trọng"]
@@ -56,6 +58,15 @@ window.DU_LIEU = {
     { ten: "Vĩnh Hòa",   anh: "ap-vinh-hoa.jpg",    maps: "https://maps.app.goo.gl/dv1gDgxRW6y44X1j9?g_st=ic", mota: "" },
     { ten: "Vĩnh Lạc",   anh: "ap-vinh-lac.jpg",    maps: "https://maps.app.goo.gl/R6JNGcoZjGMUSySq9?g_st=ic", mota: "" },
     { ten: "Vĩnh Thành", anh: "ap-vinh-thanh.jpg",  maps: "https://maps.app.goo.gl/J5ST455hxFWBfbqYA?g_st=ic", lat: 10.457341, lng: 104.839393, gannDung: true, mota: "" }
+  ],
+
+  /* "Cần làm gì? Đến đâu?" — mục Dịch vụ. act: "grp:<nhóm>" | "id:<mã điểm>" | "page:<trang>" */
+  huongDan: [
+    { ic: "🩺", cau: "Khám bệnh, tiêm chủng, chăm sóc sức khỏe", goiY: "Đến Trạm y tế xã (có 2 cơ sở).", act: "grp:yte", nut: "Xem trạm y tế" },
+    { ic: "👮", cau: "Làm việc với Công an xã, tiếp công dân", goiY: "Công an xã tiếp công dân vào thứ ba hằng tuần, 7h–11h và 13h–17h.", act: "id:cong-an-xa", nut: "Xem Công an xã" },
+    { ic: "🎓", cau: "Tìm trường cho con, xem trụ sở và điểm trường", goiY: "Xem 4 trụ sở của Trường TH&THCS Vĩnh Gia 2 và các trường khác.", act: "grp:giaoduc", nut: "Xem trường học" },
+    { ic: "🏘️", cau: "Tìm văn phòng ấp, hỏi việc tại ấp", goiY: "Mỗi ấp đều có văn phòng ấp, chạm vào ấp để xem ảnh và dẫn đường.", act: "page:cac-ap", nut: "Xem các ấp" },
+    { ic: "🚨", cau: "Phản ánh rác thải, nước thải, khói bụi, mùi hôi", goiY: "Gửi báo cáo điểm đen môi trường tới Đoàn Thanh niên xã.", act: "page:bao-cao", nut: "Báo cáo ngay" }
   ],
 
   dvcLink: "https://dichvucong.gov.vn/dvc-dich-vu-cong-truc-tuyen",
@@ -105,7 +116,7 @@ window.DU_LIEU = {
      truong: "vg2" = thuộc Trường TH & THCS Vĩnh Gia 2 (dùng website/email/dịch vụ của trường này).
      Điểm chưa có lat/lng vẫn hiện trong danh sách; nút dẫn đường sẽ mở liên kết maps. */
   diem: [
-    { id: "truong-chinh", truong: "vg2", loai: "chinh", ten: "Trường TH & THCS Vĩnh Gia 2 – Trụ sở chính", ngan: "Trụ sở chính",
+    { id: "truong-chinh", truong: "vg2", loai: "chinh", ten: "Trường TH&THCS Vĩnh Gia 2 – Trụ sở chính", ngan: "Trường TH&THCS Vĩnh Gia 2 – Trụ sở chính", nhan: "Trụ sở chính",
       ap: "Vĩnh An", lat: 10.464404, lng: 104.876773, anh: "truong-chinh.jpg",
       maps: "https://maps.app.goo.gl/r1rM5LTdB6aQ973t7", khung: ["thcs", "th"], truc: null,
       capHoc: "Lớp 1 đến Lớp 9", quyMo: "khoảng 189 học sinh",
@@ -115,12 +126,12 @@ window.DU_LIEU = {
         "Đầu mối duy nhất quản lý con dấu pháp nhân, tài khoản ngân sách, kế toán và hồ sơ gốc.",
         "Có các phòng chức năng: Thư viện, phòng Tin học, phòng Thiết bị, phòng quản trị hành chính."
       ], luuY: "" },
-    { id: "diem-vinh-thanh", truong: "vg2", loai: "diemtruong", ten: "Điểm trường Vĩnh Thành", ngan: "Vĩnh Thành",
+    { id: "diem-vinh-thanh", truong: "vg2", loai: "diemtruong", ten: "Trường TH&THCS Vĩnh Gia 2 – Điểm trường Vĩnh Thành", ngan: "Trường TH&THCS Vĩnh Gia 2 – Điểm trường Vĩnh Thành", nhan: "Vĩnh Thành",
       ap: "Vĩnh Thành", lat: 10.457341, lng: 104.839393, anh: "vinh-thanh.jpg",
       maps: "https://maps.app.goo.gl/P9JFvfozLazL7AMZ6", khung: ["th"], truc: "truong-chinh",
       capHoc: "Lớp 1 đến Lớp 5", quyMo: "khoảng 87 học sinh",
       chucNang: ["Địa điểm tổ chức lớp học Tiểu học khu vực ấp Vĩnh Thành.", "Do Trụ sở chính trực tiếp điều phối và quản lý."], luuY: "" },
-    { id: "phan-hieu", truong: "vg2", loai: "phanhieu", ten: "Trường TH & THCS Vĩnh Gia 2 – Phân hiệu", ngan: "Phân hiệu",
+    { id: "phan-hieu", truong: "vg2", loai: "phanhieu", ten: "Trường TH&THCS Vĩnh Gia 2 – Phân hiệu", ngan: "Trường TH&THCS Vĩnh Gia 2 – Phân hiệu", nhan: "Phân hiệu",
       ap: "Ninh Phước", lat: 10.381456, lng: 104.884095, anh: "phan-hieu.jpg",
       maps: "https://maps.app.goo.gl/cy1N2mNbtEbkCmAg8", khung: ["th"], truc: "truong-chinh",
       capHoc: "Cấp Tiểu học (Lớp 1 đến Lớp 5)", quyMo: "khoảng 216 – 343 học sinh", khoangCach: "Cách Trụ sở chính hơn 15 km",
@@ -130,7 +141,7 @@ window.DU_LIEU = {
         "Trực tiếp quản lý học sinh, giáo viên, cơ sở vật chất và thiết bị dạy học tại phân hiệu.",
         "Có thư viện, phòng Tiếng Anh, phòng Tin học và các phòng học tiểu học."
       ], luuY: "Phân hiệu không có tư cách pháp nhân độc lập, không có con dấu hay tài khoản ngân hàng riêng. Việc cần con dấu, hồ sơ gốc xử lý tại Trụ sở chính." },
-    { id: "diem-ninh-phuoc", truong: "vg2", loai: "diemtruong", ten: "Điểm trường Ninh Phước", ngan: "Ninh Phước",
+    { id: "diem-ninh-phuoc", truong: "vg2", loai: "diemtruong", ten: "Trường TH&THCS Vĩnh Gia 2 – Điểm trường Ninh Phước", ngan: "Trường TH&THCS Vĩnh Gia 2 – Điểm trường Ninh Phước", nhan: "Ninh Phước",
       ap: "Ninh Phước", lat: 10.3646, lng: 104.870738, anh: "ninh-phuoc.jpg",
       maps: "https://maps.app.goo.gl/Cb5PaBJBbFT3pwJA6", khung: ["th"], truc: "phan-hieu",
       capHoc: "Lớp 1 đến Lớp 5", quyMo: "khoảng 107 học sinh",

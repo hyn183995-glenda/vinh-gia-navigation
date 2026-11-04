@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="vi"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Công cụ lấy toạ độ từ liên kết Google Maps</title>
+<style>body{font-family:system-ui,sans-serif;max-width:760px;margin:0 auto;padding:16px;line-height:1.55;color:#10243f}
+h1{font-size:1.3rem}textarea{width:100%;min-height:170px;font:inherit;font-size:.85rem;padding:10px;border:1px solid #c9d5e6;border-radius:10px}
+button{font:inherit;padding:10px 16px;border:0;border-radius:10px;background:#0b2545;color:#fff;cursor:pointer;margin:8px 8px 8px 0}
+pre{background:#f1f5fb;padding:12px;border-radius:10px;white-space:pre-wrap;font-size:.8rem}.ok{color:#16794f}.no{color:#b3261e}
+li{margin:4px 0}</style></head><body>
+<h1>📍 Lấy toạ độ từ liên kết Google Maps</h1>
+<p>Công cụ chạy ngay trên máy bạn, không gửi dữ liệu đi đâu. Mỗi dòng ghi <b>tên: liên kết</b>, ví dụ <code>Vĩnh Lạc: https://www.google.com/maps/place/.../@10.5,104.8,17z</code></p>
+<ol><li>Mở liên kết rút gọn (<code>maps.app.goo.gl/...</code>) trong trình duyệt, đợi trang chuyển.</li>
+<li>Chép <b>địa chỉ dài</b> trên thanh địa chỉ (có dạng <code>.../@10.50,104.79,17z</code>) và dán vào ô dưới.</li>
+<li>Bấm “Lấy toạ độ”, chép kết quả gửi lại hoặc dán vào <code>du-lieu.js</code>.</li></ol>
+<textarea id="in" placeholder="Cà Na: https://www.google.com/maps/place/.../@10.4,104.8,17z&#10;Vĩnh Lạc: 10.45123, 104.86012"></textarea>
+<div><button id="go">Lấy toạ độ</button><button id="cp">Sao chép kết quả</button></div>
+<ul id="st"></ul><pre id="out"></pre>
+<script>
+const num="(-?\\d{1,3}\\.\\d+)";
+const pats=[new RegExp("!3d"+num+"!4d"+num),new RegExp("@"+num+","+num),new RegExp("[?&](?:q|ll|query|center|destination|coordinate)="+num+"(?:,|%2C)"+num),new RegExp("^\\s*"+num+"\\s*[, ]\\s*"+num+"\\s*$")];
+document.getElementById("go").onclick=()=>{
+  const lines=document.getElementById("in").value.split(/\n+/).map(x=>x.trim()).filter(Boolean),st=[],out=[];
+  lines.forEach(l=>{
+    const m=l.match(/^(.*?)\s*[:：]\s*(https?:.*|[-\d.,\s]+)$/),ten=(m?m[1]:"").trim()||"(không tên)",val=m?m[2]:l;
+    let r=null;for(const p of pats){const k=decodeURIComponent(val.replace(/%(?![0-9A-F]{2})/gi,"%25")).match(p)||val.match(p);if(k){r=[k[1],k[2]];break}}
+    if(r){out.push(`{ ten: "${ten.replace(/^Ấp /,"")}", lat: ${(+r[0]).toFixed(6)}, lng: ${(+r[1]).toFixed(6)} },`);st.push(`<li class="ok">✅ ${ten}: ${(+r[0]).toFixed(6)}, ${(+r[1]).toFixed(6)}</li>`)}
+    else st.push(`<li class="no">❌ ${ten}: chưa thấy toạ độ${/goo\.gl|maps\.app/.test(val)?" (đây là liên kết rút gọn, hãy mở nó rồi chép địa chỉ dài)":""}</li>`);
+  });
+  document.getElementById("st").innerHTML=st.join("");document.getElementById("out").textContent=out.join("\n");
+};
+document.getElementById("cp").onclick=async()=>{try{await navigator.clipboard.writeText(document.getElementById("out").textContent);alert("Đã sao chép")}catch(e){alert("Hãy chạm giữ để sao chép")}};
+</script></body></html>

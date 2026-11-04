@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' 'sha256-4/kV/mw8+ipf5jgwSCE2+BSawOdX/DCdfXoJh3Bb7jw='; style-src 'unsafe-inline'; img-src 'self' data: blob: https://*.tile.openstreetmap.org https://tile.openstreetmap.org; connect-src 'none'; base-uri 'none'; form-action 'none'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' 'sha256-gK39bvMCv3BFRNPGMPxzngActntWvSqiGZYKJsFwcg8='; style-src 'unsafe-inline'; img-src 'self' data: blob: https://*.tile.openstreetmap.org https://tile.openstreetmap.org; connect-src 'none'; base-uri 'none'; form-action 'none'">
 <meta name="referrer" content="no-referrer">
 <meta name="theme-color" content="#0b2545">
 <title>Bản đồ số xã Vĩnh Gia</title>
@@ -915,6 +915,27 @@ h2.sh{font-size:1.1rem;margin:26px 2px 12px}
 .ok2{border-top:5px solid #16794f}.ok2 textarea{font-size:.85rem}
 #rpres{margin-top:12px}#rpform[hidden]{display:none}
 @media(min-width:760px){.launch{grid-template-columns:repeat(8,1fr)}}
+
+/* ===== v5.2 ===== */
+.cr{margin:34px 0 8px;padding:14px 12px;text-align:center;font-size:.8rem;color:var(--mute);border-top:1px dashed var(--line)}
+.cr b{color:var(--ink)}.cr a{color:inherit}
+.where{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:0 14px;margin:14px 0;font-size:.88rem;line-height:1.55}
+.where summary{cursor:pointer;font-weight:700;padding:12px 0}.where p{margin:0 0 12px}
+.gds{display:grid;gap:10px}
+.gd{display:flex;gap:12px;align-items:center;background:var(--card);border:1px solid var(--line);border-radius:16px;padding:12px 14px}
+.gd>i{font-style:normal;width:46px;height:46px;border-radius:14px;display:grid;place-items:center;font-size:1.5rem;background:var(--bg);flex:none}
+.gd div{flex:1;min-width:0}.gd b{display:block;font-size:.92rem}.gd p{margin:2px 0 0;font-size:.8rem;color:var(--mute)}
+.gd .btn{flex:none;padding:9px 12px;font-size:.8rem}
+.tels{display:grid;gap:10px;grid-template-columns:repeat(auto-fit,minmax(290px,1fr))}
+.tel{display:flex;gap:10px;align-items:center;flex-wrap:wrap;background:var(--card);border:1px solid var(--line);border-left:6px solid var(--c);border-radius:16px;padding:12px}
+.tel>i{font-style:normal;font-size:1.5rem}.tel div{flex:1;min-width:120px}.tel b{display:block;font-size:.9rem}.tel small{color:var(--mute);font-size:.76rem}
+.tel .btn{flex:none;padding:9px 12px;font-size:.82rem}
+.portal2{display:flex;flex-wrap:wrap;gap:10px}
+.pt2{display:inline-flex;gap:8px;align-items:center;padding:11px 16px;border-radius:16px;background:var(--card);border:1px solid var(--line);color:var(--ink);text-decoration:none;font-weight:600;font-size:.88rem}
+.apgrid{grid-template-columns:repeat(auto-fill,minmax(190px,1fr))!important;gap:14px!important}
+.apph{height:150px!important;margin:-14px -14px 6px!important;border-radius:18px 18px 0 0}
+.apc b{font-size:.98rem}
+@media(max-width:520px){.apgrid{grid-template-columns:repeat(2,1fr)!important;gap:10px!important}.apph{height:120px!important}.gd{flex-wrap:wrap}.gd .btn{width:100%}}
 </style>
 </head>
 <body>
@@ -961,6 +982,9 @@ const isM=()=>matchMedia("(max-width:800px)").matches;
 const nhomOf=d=>D.loai[d.loai].nhom;
 let sel=null,userPos=null,grp="all",apF="",userMk=null,sheetH=210,tourT=null;
 
+const TG=D.tacGia||{};
+const CR=()=>(TG.ten||TG.email)?`<footer class="cr">✍️ Thiết kế & phát triển${TG.ten?": <b>"+esc(TG.ten)+"</b>":""}${TG.email?` · ✉ <a href="mailto:${esc(TG.email)}">${esc(TG.email)}</a>`:""}${TG.nam?" · © "+esc(TG.nam):""}</footer>`:"";
+if(TG.ten||TG.email){const m=document.createElement("meta");m.name="author";m.content=(TG.ten||"")+(TG.email?" <"+TG.email+">":"");document.head.appendChild(m)}
 $("sub").textContent=X.ten+" · "+X.tinh;
 document.title="Bản đồ số "+X.ten+" – "+D.tenHeThong;
 
@@ -1023,7 +1047,7 @@ grip.addEventListener("keydown",e=>{if(e.key==="ArrowUp")setSh(sheetH+60,true);i
 /* ---------- vẽ bản đồ ---------- */
 function mk(d){
   const t=D.loai[d.loai];
-  return L.divIcon({className:"",iconSize:[0,0],html:`<div class="pw ${sel===d.id?"sel":""} ${d.mau||d.gannDung?"mau":""}"><div class="pin" style="--c:${esc(t.mau)}"><i>${esc(t.icon)}</i></div><div class="lbl">${esc(d.ngan)}</div></div>`});
+  return L.divIcon({className:"",iconSize:[0,0],html:`<div class="pw ${sel===d.id?"sel":""} ${d.mau||d.gannDung?"mau":""}"><div class="pin" style="--c:${esc(t.mau)}"><i>${esc(t.icon)}</i></div><div class="lbl">${esc(d.nhan||d.ngan)}</div></div>`});
 }
 function draw(){
   const r=vis().filter(hasXY);lg.clearLayers();
@@ -1096,7 +1120,7 @@ function list(){
   const sv=D.dichVu.map(s=>`<div class="sv"><b>${esc(s.ten)}${s.online?'<span class="tagon">Trực tuyến</span>':""}</b><span>${esc(s.mota)}</span></div>`).join("");
   $("view").innerHTML=`<div class="fl"><select id="ap" aria-label="Lọc theo ấp"><option value="">🏘️ Lọc theo ấp…</option>${aps.map(a=>`<option ${apF===a?"selected":""}>${esc(a)}</option>`).join("")}</select></div>`+
   (r.length?r.map(card).join(""):`<div class="box">${apF?"Ấp "+esc(apF)+" chưa có địa điểm nào được cập nhật.":"Không có điểm phù hợp."}</div>`)+
-  (grp==="all"||grp==="giaoduc"?`<h2 class="sec">🧾 Dịch vụ của ${esc(D.donVi)}</h2>${sv}<div class="box lh"><h3>📞 Liên hệ ${esc(D.donVi)}</h3>🌐 <a href="${esc(safeUrl(D.website))}" target="_blank" rel="noopener noreferrer">${esc(D.website.replace(/^https?:\/\//,""))}</a><br>✉ <a href="mailto:${esc(D.email)}">${esc(D.email)}</a></div>`:"");
+  (grp==="all"||grp==="giaoduc"?`<h2 class="sec">🧾 Dịch vụ của ${esc(D.donVi)}</h2>${sv}<div class="box lh"><h3>📞 Liên hệ ${esc(D.donVi)}</h3>🌐 <a href="${esc(safeUrl(D.website))}" target="_blank" rel="noopener noreferrer">${esc(D.website.replace(/^https?:\/\//,""))}</a><br>✉ <a href="mailto:${esc(D.email)}">${esc(D.email)}</a></div>`:"")+CR();
   $("view").scrollTop=0;
 }
 $("view").addEventListener("click",e=>{
@@ -1129,7 +1153,7 @@ function open(id){
   $("view").innerHTML=`<div class="det"><div class="dnav"><button class="link" id="back">← Tất cả điểm</button><span><button class="ic" data-step="-1" aria-label="Điểm trước">‹</button><button class="ic" data-step="1" aria-label="Điểm sau">›</button></span></div>
   ${hero}
   <span class="badge" style="background:${esc(t.mau)}">${esc(D.nhom[t.nhom].icon)} ${esc(t.ten)}</span> ${stHtml(s)}${d.mau||d.gannDung?` <span class="badge warnb">${esc(d.mauText||"Vị trí gần đúng · đang xác minh")}</span>`:""}
-  <h2>${esc(d.ngan)}</h2><div class="meta">${esc(d.ten)}</div>${e?`<span class="eta">🛵 ${esc(e)}</span>`:""}
+  <h2>${esc(d.ngan)}</h2>${d.ten!==d.ngan?`<div class="meta">${esc(d.ten)}</div>`:""}${e?`<span class="eta">🛵 ${esc(e)}</span>`:""}
   <div class="row">${dir?`<a class="btn go" href="${esc(safeUrl(dir))}" target="_blank" rel="noopener noreferrer">➜ ${hasXY(d)?"Dẫn đường đến đây":"Mở vị trí & dẫn đường"}</a>`:""}${d.maps&&hasXY(d)?`<a class="btn alt" href="${esc(safeUrl(d.maps))}" target="_blank" rel="noopener noreferrer">📍 Google Maps</a>`:""}<button class="btn alt" id="share">🔗 Chia sẻ</button></div>
   ${rows.length?`<div class="qi">${rows.map(r=>`<div><small>${RIC[r[0]]||"ℹ️"} ${esc(r[0])}</small><b class="${/đang cập nhật/i.test(r[1])?"na":""}">${esc(r[1])}</b></div>`).join("")}</div>`:""}
   ${lh?`<div class="box lh"><h3>📞 Liên hệ</h3>${lh.web?`🌐 <a href="${esc(safeUrl(lh.web))}" target="_blank" rel="noopener noreferrer">${esc(lh.web.replace(/^https?:\/\//,""))}</a><br>`:""}${lh.email?`✉ <a href="mailto:${esc(lh.email)}">${esc(lh.email)}</a><br>`:""}${lh.sdt?`☎ <a href="tel:${esc(lh.sdt)}">${esc(lh.sdt)}</a>`:""}</div>`:""}
@@ -1206,7 +1230,7 @@ function renderTongQuan(){
   <h2 class="sh">⚡ Truy cập nhanh</h2><div class="launch">${launch}</div>
   <h2 class="sh">📸 Địa điểm nổi bật</h2><div class="hs">${feat}</div>
   <h2 class="sh">🗂️ Danh mục</h2><div class="cats">${cats}</div>
-  <h2 class="sh">📋 Thông tin xã</h2><div class="irs">${info}</div></div>`;
+  <h2 class="sh">📋 Thông tin xã</h2><div class="irs">${info}</div>${CR()}</div>`;
 }
 function searchRes(q){
   const box=$("sr");q=nz(q.trim());
@@ -1230,7 +1254,7 @@ function renderAp(){
     <b>🏘️ Ấp ${esc(a.ten)}</b><small>${n?"📍 "+n+" địa điểm":"📍 Chưa có địa điểm"}</small><u class="${xy?"ok":"pd"}">${xy?(a.gannDung?"Vị trí gần đúng":"Có trên bản đồ"):"Chờ toạ độ"}</u></button>`}).join("");
   $("p-cac-ap").innerHTML=`<div class="wrap2"><div class="ph2"><small>🏘️ ${esc(X.ten.toUpperCase())}</small><h2>${D.ap.length} ấp trên địa bàn</h2><p>Chạm vào một ấp để xem ảnh văn phòng ấp, địa điểm trong ấp và dẫn đường.</p>
   <div class="prog"><i style="width:${Math.round(withPhoto/D.ap.length*100)}%"></i></div><span class="pl">📷 ${withPhoto}/${D.ap.length} ấp đã có ảnh · 📍 ${done}/${D.ap.length} ấp đã có toạ độ</span></div>
-  <div class="apgrid">${cells}</div><div id="apd"></div></div>`;
+  <div class="apgrid">${cells}</div><div id="apd"></div>${CR()}</div>`;
 }
 function apDetail(name){
   const d=byId(slug(name)),ps=ALL.filter(x=>x.ap===name&&x.loai!=="ap");
@@ -1268,7 +1292,8 @@ function renderBaoCao(){
    <div class="meta" id="rp-err" role="alert"></div></div>
   <div id="rpres" hidden></div>
   ${nDen?`<div class="row"><button class="btn alt" id="rp-map">🗺️ Xem ${nDen} điểm đen đã tiếp nhận trên bản đồ</button></div>`:""}
-  <p class="meta">🔒 Báo cáo được soạn ngay trên điện thoại của bạn. Hệ thống không lưu và không gửi dữ liệu về máy chủ nào; chỉ khi bạn bấm gửi thì nội dung mới đến nơi bạn chọn. Không bắt buộc để lại thông tin cá nhân.</p></div>`;
+  <details class="where"><summary>🗄️ Báo cáo được lưu ở đâu?</summary><p>Trang này <b>không có máy chủ và không lưu báo cáo</b>. Nội dung chỉ được soạn trên điện thoại của bạn. Khi bạn bấm gửi, báo cáo đến ${esc(B.donViNhan)} qua kênh bạn chọn (Zalo, email hoặc biểu mẫu) và được lưu tại kênh đó. Nếu Đoàn dùng biểu mẫu Google Form, báo cáo sẽ tự lưu vào bảng tính Google Sheets của Đoàn.</p></details>
+  <p class="meta">🔒 Không bắt buộc để lại thông tin cá nhân. Ảnh và vị trí chỉ được gửi khi bạn bấm gửi.</p>${CR()}</div>`;
 }
 function rpRefresh(){
   $("rp-th").innerHTML=rpUrls.map((u,i)=>`<div class="th2"><img src="${u}" alt="Ảnh ${i+1}"><button type="button" data-rm="${i}" aria-label="Bỏ ảnh">✕</button></div>`).join("");
@@ -1277,7 +1302,7 @@ function rpMsg(code){
   const g=a=>String(a||"").trim();
   const now=new Date().toLocaleString("vi-VN",{timeZone:"Asia/Ho_Chi_Minh"});
   const loc=rpLoc?`${rpLoc.lat.toFixed(6)}, ${rpLoc.lng.toFixed(6)} — https://www.google.com/maps?q=${rpLoc.lat.toFixed(6)},${rpLoc.lng.toFixed(6)}`:"";
-  return [`🚨 BÁO CÁO ĐIỂM ĐEN MÔI TRƯỜNG – ${X.ten.toUpperCase()}`,`Mã báo cáo: ${code}`,`Thời gian: ${now}`,`Loại: ${g($("rp-loai").value)}`,`Mức độ: ${rpMuc}`,`Ấp: ${g($("rp-ap").value)||"Không rõ"}`,
+  return [`🚨 BÁO CÁO ĐIỂM ĐEN MÔI TRƯỜNG – ${X.ten.toUpperCase()}`,`Kính gửi: ${B.donViNhan}`,`Mã báo cáo: ${code}`,`Thời gian: ${now}`,`Loại: ${g($("rp-loai").value)}`,`Mức độ: ${rpMuc}`,`Ấp: ${g($("rp-ap").value)||"Không rõ"}`,
    loc?`Vị trí GPS: ${loc}`:"",g($("rp-vt").value)?`Mô tả vị trí: ${g($("rp-vt").value)}`:"",`Mô tả: ${g($("rp-mt").value)}`,`Người báo: ${g($("rp-lh").value)||"Ẩn danh"}`,rpFiles.length?`(Kèm ${rpFiles.length} ảnh)`:""].filter(Boolean).join("\n");
 }
 function rpMake(){
@@ -1290,9 +1315,9 @@ function rpMake(){
   const mail=B.email?`mailto:${B.email}?subject=${encodeURIComponent("Báo cáo điểm đen môi trường "+code)}&body=${encodeURIComponent(msg.slice(0,1500))}`:"";
   r.innerHTML=`<div class="card2 ok2"><h3>✅ Đã tạo báo cáo ${esc(code)}</h3><p class="meta">Bấm một nút bên dưới để gửi. Nên ghi nhớ mã báo cáo để hỏi lại tiến độ.</p>
   <textarea id="rpout" readonly rows="9">${esc(msg)}</textarea>
-  <div class="row"><button type="button" class="btn go" id="rp-share">📤 Gửi (Zalo / ứng dụng khác)</button>${mail?`<a class="btn alt" href="${esc(mail)}">✉ Gửi email</a>`:""}${B.zalo?`<a class="btn alt" href="https://zalo.me/${esc(B.zalo)}" target="_blank" rel="noopener noreferrer">💬 Mở Zalo</a>`:""}${B.sdt?`<a class="btn alt" href="tel:${esc(B.sdt)}">📞 Gọi ${esc(B.donViNhan)}</a>`:""}${B.bieuMau?`<a class="btn alt" href="${esc(safeUrl(B.bieuMau))}" target="_blank" rel="noopener noreferrer">📋 Biểu mẫu trực tuyến</a>`:""}<button type="button" class="btn alt" id="rp-copy">📋 Sao chép nội dung</button><button type="button" class="btn alt" id="rp-new">➕ Báo cáo mới</button></div>
+  <div class="row"><button type="button" class="btn go" id="rp-share">📤 Gửi (Zalo / ứng dụng khác)</button>${mail?`<a class="btn alt" href="${esc(mail)}">✉ Gửi email</a>`:""}${B.zalo?`<a class="btn alt" href="https://zalo.me/${esc(B.zalo)}" target="_blank" rel="noopener noreferrer">💬 Mở Zalo</a>`:""}${B.sdt?`<a class="btn alt" href="tel:${esc(B.sdt)}">📞 Gọi ${esc(B.donViNhan)}</a>`:""}${B.bieuMau?`<button type="button" class="btn alt" id="rp-form">📋 Gửi qua biểu mẫu của Đoàn</button>`:""}<button type="button" class="btn alt" id="rp-copy">📋 Sao chép nội dung</button><button type="button" class="btn alt" id="rp-new">➕ Báo cáo mới</button></div>
   ${rpFiles.length?'<p class="meta">📷 Ảnh sẽ được đính kèm khi bạn gửi bằng nút “Gửi (Zalo / ứng dụng khác)”. Với email, hãy đính kèm ảnh thủ công.</p>':""}
-  ${B.email||B.zalo||B.sdt||B.bieuMau?"":'<p class="meta">ℹ️ UBND xã chưa cấu hình nơi nhận trực tiếp. Hãy dùng nút Gửi để chuyển báo cáo tới cán bộ phụ trách.</p>'}</div>`;
+  ${B.email||B.zalo||B.sdt||B.bieuMau?"":'<p class="meta">ℹ️ ${esc(B.donViNhan)} chưa cấu hình nơi nhận trực tiếp. Hãy dùng nút Gửi để chuyển báo cáo tới cán bộ phụ trách.</p>'}</div>`;
   r.hidden=false;$("rpform").hidden=true;r.dataset.msg=msg;r.dataset.code=code;
   r.scrollIntoView&&r.scrollIntoView({block:"start"});
 }
@@ -1308,6 +1333,7 @@ $("p-bao-cao").addEventListener("click",async e=>{
   if(e.target.closest("#rp-new")){rpFiles=[];rpUrls.forEach(u=>URL.revokeObjectURL(u));rpUrls=[];rpLoc=null;renderBaoCao();return}
   const r=$("rpres"),msg=r&&r.dataset.msg;
   if(e.target.closest("#rp-copy")){try{await navigator.clipboard.writeText(msg);toast("Đã sao chép nội dung báo cáo")}catch(_){$("rpout").select();toast("Hãy chạm giữ để sao chép nội dung")}return}
+  if(e.target.closest("#rp-form")){try{await navigator.clipboard.writeText(msg);toast("Đã sao chép nội dung. Hãy dán vào biểu mẫu.")}catch(_){}window.open(safeUrl(B.bieuMau),"_blank","noopener");return}
   if(e.target.closest("#rp-share")){
     const data={title:"Báo cáo điểm đen môi trường",text:msg};
     try{
@@ -1326,15 +1352,22 @@ $("p-bao-cao").addEventListener("change",e=>{
 /* ---- Dịch vụ ---- */
 function renderDv(){
   const dv=D.dvc.map((x,i)=>`<div class="dvc" style="--c:${["#1f6fb2","#5b4bb7","#1c8a68","#d9631e"][i%4]}"><span class="ic2">${esc(x.icon)}</span><b>${esc(x.ten)}</b><p>${esc(x.mota)}</p></div>`).join("");
-  const ns=D.dichVu.map(s=>`<div class="sv"><b>${esc(s.ten)}${s.online?'<span class="tagon">Trực tuyến</span>':""}</b><span>${esc(s.mota)}</span></div>`).join("");
-  $("p-dich-vu").innerHTML=`<div class="wrap2"><div class="ph2 blue"><small>🧾 ${esc(X.ten.toUpperCase())}</small><h2>Dịch vụ công trực tuyến</h2><p>Nộp hồ sơ, theo dõi tiến độ và nhận kết quả ngay trên điện thoại.</p>
+  const tels=ALL.filter(d=>d.lienHe&&d.lienHe.sdt).map(d=>{const t=D.loai[d.loai];return `<div class="tel" style="--c:${esc(t.mau)}"><i>${esc(D.nhom[t.nhom].icon)}</i><div><b>${esc(d.ngan)}</b><small>${esc(d.gioText||t.ten)}</small></div><a class="btn go" href="tel:${esc(d.lienHe.sdt)}">📞 ${esc(d.lienHe.sdt.replace(/^(\d{4})(\d{4})(\d+)$/,"$1 $2 $3"))}</a><button class="btn alt" data-id="${esc(d.id)}">🗺️</button></div>`}).join("");
+  const hd=(D.huongDan||[]).map((h,i)=>`<div class="gd"><i>${esc(h.ic)}</i><div><b>${esc(h.cau)}</b><p>${esc(h.goiY)}</p></div><button class="btn alt" data-gd="${i}">${esc(h.nut)} ➜</button></div>`).join("");
+  $("p-dich-vu").innerHTML=`<div class="wrap2"><div class="ph2 blue"><small>🧾 ${esc(X.ten.toUpperCase())}</small><h2>Dịch vụ & tiện ích cho người dân</h2><p>Dịch vụ công trực tuyến, số điện thoại cần biết và gợi ý cần làm gì, đến đâu.</p>
   <a class="btn go" href="${esc(safeUrl(D.dvcLink))}" target="_blank" rel="noopener noreferrer">🌐 Vào Cổng Dịch vụ công Quốc gia ➜</a></div>
-  <div class="dvgrid">${dv}</div>
-  <h2 class="sh">🧭 Làm thế nào?</h2>
+  <h2 class="sh">🧭 Cần làm gì? Đến đâu?</h2><div class="gds">${hd}</div>
+  ${tels?`<h2 class="sh">📞 Số điện thoại hữu ích</h2><div class="tels">${tels}</div>`:""}
+  <h2 class="sh">🧾 Dịch vụ công trực tuyến</h2><div class="dvgrid">${dv}</div>
   <div class="steps"><div><i>1️⃣</i><b>Chuẩn bị</b><p>${esc(D.dvcGhiChu)}</p></div><div><i>2️⃣</i><b>Chọn thủ tục</b><p>Tìm đúng thủ tục ở nhóm dịch vụ phía trên.</p></div><div><i>3️⃣</i><b>Nộp và nhận kết quả</b><p>Theo dõi tiến độ, nhận kết quả điện tử qua VNeID.</p></div></div>
-  <h2 class="sh">🎓 Dịch vụ của ${esc(D.donVi)}</h2>${ns}
-  <div class="box lh"><h3>📞 Liên hệ ${esc(D.donVi)}</h3>🌐 <a href="${esc(safeUrl(D.website))}" target="_blank" rel="noopener noreferrer">${esc(D.website.replace(/^https?:\/\//,""))}</a><br>✉ <a href="mailto:${esc(D.email)}">${esc(D.email)}</a></div></div>`;
+  <h2 class="sh">🌐 Cổng thông tin</h2><div class="portal2">${X.cong.map(c=>`<a class="pt2" href="${esc(safeUrl(c.url))}" target="_blank" rel="noopener noreferrer"><span>${esc(c.icon)}</span>${esc(c.ten)}</a>`).join("")}</div>${CR()}</div>`;
 }
+$("p-dich-vu").addEventListener("click",e=>{
+  const i=e.target.closest("[data-id]");if(i){goMap({id:i.dataset.id});return}
+  const g=e.target.closest("[data-gd]");if(!g)return;
+  const [k,v]=D.huongDan[+g.dataset.gd].act.split(":");
+  if(k==="grp")goMap({grp:v});else if(k==="id")goMap({id:v});else if(k==="page")showPage(v);
+});
 $("nav").addEventListener("click",e=>{const b=e.target.closest("button");if(b)showPage(b.dataset.p)});
 
 /* ---------- khởi động ---------- */
