@@ -4,8 +4,8 @@
    Diện tích, dân số: KHÔNG đưa vào hệ thống (do UBND xã tự công bố khi cần).
    ===================================================================== */
 window.DU_LIEU = {
-  phienBan: "5.2",
-  capNhat: "03/11/2026",
+  phienBan: "5.6",
+  capNhat: "04/11/2026",
   tenHeThong: "Smart Navigation",
   donVi: "Trường TH&THCS Vĩnh Gia 2",
   xa: "Xã Vĩnh Gia, tỉnh An Giang",
@@ -22,7 +22,7 @@ window.DU_LIEU = {
     ten: "Xã Vĩnh Gia", tinh: "Tỉnh An Giang",
     maDinhDanh: "30568", maBuuChinh: "90811", loaiDonVi: "Xã",
     hopNhatTu: ["Xã Vĩnh Phước", "Xã Lương An Trà", "Xã Vĩnh Gia"],
-    hieuLuc: "01/07/2025", truSoUBND: "UBND xã Lương An Trà (cũ)",
+    hieuLuc: "01/07/2025", truSoUBND: "Đường Tỉnh 958, ấp Giồng Cát",
     tamBan: [10.4311, 104.86],
     web: "http://vinhgia.angiang.gov.vn", webTinh: "https://angiang.gov.vn",
     cong: [
@@ -37,31 +37,36 @@ window.DU_LIEU = {
        email   : địa chỉ email tiếp nhận (hộp thư chung của Đoàn)
        sdt     : số điện thoại tiếp nhận (của Đoàn, không phải số cá nhân)
        zalo    : số Zalo của Đoàn (dạng 0xxxxxxxxx)
-       bieuMau : đường dẫn Google Form của Đoàn — NÊN DÙNG để báo cáo tự lưu vào Google Sheets */
+       bieuMau : đường dẫn Google Form của Đoàn, dạng https://docs.google.com/forms/d/e/.../viewform
+                 (KHÔNG dùng link rút gọn forms.gle). Báo cáo tự lưu vào Google Sheets và gửi email thông báo.
+       bieuMauEntry : mã ô "Nội dung báo cáo" trong biểu mẫu, dạng entry.1234567890 — để hệ thống điền sẵn nội dung,
+                 người dân chỉ cần bấm Gửi. Cách lấy mã: xem hướng dẫn. */
   baoCao: {
     donViNhan: "Đoàn Thanh niên xã Vĩnh Gia",
-    email: "", sdt: "", zalo: "", bieuMau: "",
+    email: "", sdt: "", zalo: "", bieuMau: "", bieuMauEntry: "",
     loai: ["Rác thải tồn đọng, bãi rác tự phát", "Đốt rác, đốt rơm rạ gây khói bụi", "Nước thải, ô nhiễm nguồn nước", "Mùi hôi từ chăn nuôi, nhà máy, cơ sở sản xuất", "Xả thải trái phép ra kênh, rạch", "Chai lọ, bao bì thuốc bảo vệ thực vật bỏ bừa bãi", "Xác động vật, dịch bệnh", "Vấn đề khác"],
     mucDo: ["Nhẹ", "Trung bình", "Nghiêm trọng"]
   },
 
-  /* ====== CÁC ẤP — lat, lng (toạ độ), anh (tên file), maps (liên kết vị trí). gannDung: true = vị trí chỉ gần đúng ====== */
+  /* ====== CÁC ẤP — lat, lng (toạ độ ghim), anh (tên file), maps (liên kết vị trí). gannDung: true = ghim chỉ gần đúng.
+     datDen: [vĩ độ, kinh độ] = toạ độ dùng cho nút Dẫn đường (nếu khác vị trí ghim) ====== */
   ap: [
-    { ten: "Cà Na",      anh: "ap-ca-na.jpg",     maps: "https://maps.app.goo.gl/jvwFJr3KE18D6SnS7", mota: "" },
-    { ten: "Cây Gòn",    anh: "ap-cay-gon.jpg",     maps: "https://maps.app.goo.gl/AzmfPcqdN6VYz3UT9", mota: "" },
-    { ten: "Giồng Cát",  anh: "ap-giong-cat.jpg",   maps: "https://maps.apple/p/z6Rf9aWgNy-1uG", mota: "" },
-    { ten: "Ninh Phước", anh: "ap-ninh-phuoc.jpg",  maps: "https://maps.app.goo.gl/UNct7PHu7mY8k5nF6", lat: 10.3715, lng: 104.8775, gannDung: true, mota: "Văn phòng ấp đặt tại Tỉnh lộ 958." },
-    { ten: "Phú Lâm",    anh: "ap-phu-lam.jpg",     maps: "https://maps.app.goo.gl/ZnE7PefUYDT2mJLG9", mota: "" },
-    { ten: "Vĩnh An",    anh: "ap-vinh-an.jpg",     maps: "https://maps.app.goo.gl/Jp7q8kzFf7Ec6q4h8", lat: 10.4644, lng: 104.8768, gannDung: true, mota: "" },
-    { ten: "Vĩnh Cầu",   anh: "ap-vinh-cau.jpg",    maps: "https://maps.app.goo.gl/5axZCsNciQWg8hkRA", mota: "" },
-    { ten: "Vĩnh Hiệp",  anh: "ap-vinh-hiep.jpg",   maps: "https://maps.apple.com/place?coordinate=10.505613,104.794684", lat: 10.505613, lng: 104.794684, mota: "Điểm sinh hoạt văn hóa cộng đồng ấp." },
-    { ten: "Vĩnh Hòa",   anh: "ap-vinh-hoa.jpg",    maps: "https://maps.app.goo.gl/dv1gDgxRW6y44X1j9?g_st=ic", mota: "" },
-    { ten: "Vĩnh Lạc",   anh: "ap-vinh-lac.jpg",    maps: "https://maps.app.goo.gl/R6JNGcoZjGMUSySq9?g_st=ic", mota: "" },
-    { ten: "Vĩnh Thành", anh: "ap-vinh-thanh.jpg",  maps: "https://maps.app.goo.gl/J5ST455hxFWBfbqYA?g_st=ic", lat: 10.457341, lng: 104.839393, gannDung: true, mota: "" }
+    { ten: "Cà Na", anh: "ap-ca-na.jpg", maps: "https://maps.app.goo.gl/jvwFJr3KE18D6SnS7", lat: 10.415917, lng: 104.908444, mota: "" },
+    { ten: "Cây Gòn", anh: "ap-cay-gon.jpg", maps: "https://maps.app.goo.gl/AzmfPcqdN6VYz3UT9", lat: 10.356441, lng: 104.864725, mota: "" },
+    { ten: "Giồng Cát", anh: "ap-giong-cat.jpg", maps: "https://maps.apple/p/z6Rf9aWgNy-1uG", lat: 10.477603, lng: 104.903846, mota: "" },
+    { ten: "Ninh Phước", anh: "ap-ninh-phuoc.jpg", maps: "https://maps.app.goo.gl/UNct7PHu7mY8k5nF6", lat: 10.377330, lng: 104.881258, mota: "Văn phòng ấp đặt tại Tỉnh lộ 958." },
+    { ten: "Phú Lâm", anh: "ap-phu-lam.jpg", maps: "https://maps.app.goo.gl/ZnE7PefUYDT2mJLG9", lat: 10.352496, lng: 104.942773, mota: "" },
+    { ten: "Vĩnh An", anh: "ap-vinh-an.jpg", maps: "https://maps.app.goo.gl/Jp7q8kzFf7Ec6q4h8", lat: 10.463449, lng: 104.876793, mota: "" },
+    { ten: "Vĩnh Cầu", anh: "ap-vinh-cau.jpg", maps: "https://maps.app.goo.gl/5axZCsNciQWg8hkRA", lat: 10.506869, lng: 104.814621, mota: "" },
+    { ten: "Vĩnh Hiệp", anh: "ap-vinh-hiep.jpg", maps: "https://maps.apple.com/place?coordinate=10.505613,104.794684", lat: 10.507400, lng: 104.817000, gannDung: true, datDen: [10.505613, 104.794684], mota: "Điểm sinh hoạt văn hóa cộng đồng ấp." },
+    { ten: "Vĩnh Hòa", anh: "ap-vinh-hoa.jpg", maps: "https://maps.app.goo.gl/dv1gDgxRW6y44X1j9?g_st=ic", lat: 10.507051, lng: 104.788868, mota: "" },
+    { ten: "Vĩnh Lạc", anh: "ap-vinh-lac.jpg", maps: "https://maps.app.goo.gl/R6JNGcoZjGMUSySq9?g_st=ic", lat: 10.507882, lng: 104.839909, mota: "" },
+    { ten: "Vĩnh Thành", anh: "ap-vinh-thanh.jpg", maps: "https://maps.app.goo.gl/J5ST455hxFWBfbqYA?g_st=ic", lat: 10.457366, lng: 104.836857, mota: "" }
   ],
 
   /* "Cần làm gì? Đến đâu?" — mục Dịch vụ. act: "grp:<nhóm>" | "id:<mã điểm>" | "page:<trang>" */
   huongDan: [
+    { ic: "🏛️", cau: "Làm thủ tục hành chính, gặp chính quyền xã", goiY: "UBND xã tại Đường Tỉnh 958, ấp Giồng Cát. Nhiều thủ tục làm được trực tuyến.", act: "id:ubnd-xa", nut: "Xem UBND xã" },
     { ic: "🩺", cau: "Khám bệnh, tiêm chủng, chăm sóc sức khỏe", goiY: "Đến Trạm y tế xã (có 2 cơ sở).", act: "grp:yte", nut: "Xem trạm y tế" },
     { ic: "👮", cau: "Làm việc với Công an xã, tiếp công dân", goiY: "Công an xã tiếp công dân vào thứ ba hằng tuần, 7h–11h và 13h–17h.", act: "id:cong-an-xa", nut: "Xem Công an xã" },
     { ic: "🎓", cau: "Tìm trường cho con, xem trụ sở và điểm trường", goiY: "Xem 4 trụ sở của Trường TH&THCS Vĩnh Gia 2 và các trường khác.", act: "grp:giaoduc", nut: "Xem trường học" },
@@ -87,7 +92,7 @@ window.DU_LIEU = {
     giaoduc:  { ten: "Trường học", icon: "🎓", mau: "#c8921a" },
     hanhchinh:{ ten: "Cơ quan hành chính", icon: "🏛️", mau: "#5b4bb7" },
     yte:      { ten: "Y tế", icon: "🏥", mau: "#c62839" },
-    anninh:   { ten: "An ninh – Biên phòng", icon: "🛡️", mau: "#3d6b2e" },
+    anninh:   { ten: "An ninh – Quốc phòng", icon: "🛡️", mau: "#3d6b2e" },
     diemden:  { ten: "Điểm đen môi trường", icon: "⚠️", mau: "#b3261e" },
     anuong:   { ten: "Ăn uống", icon: "🍜", mau: "#d1451f" },
     giaitri:  { ten: "Giải trí", icon: "🎡", mau: "#9b3fb8" },
@@ -105,6 +110,7 @@ window.DU_LIEU = {
     hanhchinh:  { ten: "Cơ quan",      mau: "#5b4bb7", icon: "▲", nhom: "hanhchinh" },
     yte:        { ten: "Y tế",         mau: "#c62839", icon: "✚", nhom: "yte" },
     anninh:     { ten: "Công an – Biên phòng", mau: "#3d6b2e", icon: "⚑", nhom: "anninh" },
+    quansu:     { ten: "Quân sự",       mau: "#556b2f", icon: "✪", nhom: "anninh" },
     diemden:    { ten: "Điểm đen",     mau: "#b3261e", icon: "!", nhom: "diemden" },
     danhthang:  { ten: "Danh thắng",   mau: "#d9631e", icon: "❖", nhom: "danhthang" },
     anuong:     { ten: "Quán ăn",      mau: "#d1451f", icon: "♨", nhom: "anuong" },
@@ -148,7 +154,7 @@ window.DU_LIEU = {
       chucNang: ["Tổ chức các lớp học Tiểu học, giúp rút ngắn khoảng cách đi lại cho học sinh.", "Do Phân hiệu trực tiếp quản lý, không có bộ máy quản lý riêng."], luuY: "" },
 
     { id: "truong-vg1", loai: "truong", ten: "Trường Tiểu học và Trung học cơ sở Vĩnh Gia 1", ngan: "Trường Vĩnh Gia 1",
-      ap: "", anh: "truong-vg1.jpg", maps: "https://maps.app.goo.gl/QBM5sv1JCqF5CNHX9", truc: null,
+      ap: "", lat: 10.506456, lng: 104.798614, anh: "truong-vg1.jpg", maps: "https://maps.app.goo.gl/QBM5sv1JCqF5CNHX9", truc: null,
       capHoc: "Tiểu học và Trung học cơ sở",
       lienHe: { web: "http://thcsvinhgia.pgdtriton.edu.vn" },
       chucNang: ["Trường Tiểu học và Trung học cơ sở trên địa bàn xã Vĩnh Gia.", "Thông tin chi tiết cập nhật theo trang web của nhà trường."], luuY: "" },
@@ -157,7 +163,7 @@ window.DU_LIEU = {
       chucNang: ["Cơ sở giáo dục trên địa bàn xã Vĩnh Gia.", "Thông tin chi tiết đang được cập nhật."], luuY: "" },
 
     { id: "cong-an-xa", loai: "anninh", ten: "Công an xã Vĩnh Gia", ngan: "Công an xã",
-      ap: "Vĩnh An", anh: "cong-an-xa.jpg", maps: "https://maps.app.goo.gl/Jp7q8kzFf7Ec6q4h8", truc: null,
+      ap: "Vĩnh An", lat: 10.463449, lng: 104.876793, anh: "cong-an-xa.jpg", maps: "https://maps.app.goo.gl/Jp7q8kzFf7Ec6q4h8", truc: null,
       nhanh: [["Tiếp công dân", "Thứ ba hằng tuần · 7h–11h, 13h–17h"]],
       chucNang: [
         "Giữ gìn an ninh, trật tự trên địa bàn xã.",
@@ -165,19 +171,23 @@ window.DU_LIEU = {
         "Điểm tiếp công dân tại ấp Vĩnh An; có hòm thư góp ý."
       ], luuY: "" },
     { id: "tram-y-te-vg", loai: "yte", ten: "Trạm y tế xã Vĩnh Gia (cơ sở 1)", ngan: "Trạm y tế 1",
-      ap: "", anh: "tram-y-te-vg.jpg", maps: "https://maps.app.goo.gl/UNgwbYFqWw6nHqna8", truc: null,
+      ap: "", lat: 10.506323, lng: 104.796684, anh: "tram-y-te-vg.jpg", maps: "https://maps.app.goo.gl/UNgwbYFqWw6nHqna8", truc: null,
       lienHe: { sdt: "02963893010" }, gioText: "Cần xác nhận giờ khám",
       chucNang: ["Khám, chữa bệnh ban đầu và chăm sóc sức khỏe cho người dân.", "Tiêm chủng, tuyên truyền phòng bệnh."], luuY: "" },
     { id: "tram-y-te-xa", loai: "yte", ten: "Trạm y tế xã Vĩnh Gia (cơ sở 2)", ngan: "Trạm y tế 2",
-      ap: "", anh: "tram-y-te-xa.jpg", maps: "https://maps.apple/p/gkekoYvm-L8g37", truc: null,
+      ap: "", lat: 10.405346, lng: 104.899922, anh: "tram-y-te-xa.jpg", maps: "https://maps.apple/p/gkekoYvm-L8g37", truc: null,
       lienHe: { sdt: "02963500058" }, gioText: "Cần xác nhận giờ khám",
       chucNang: ["Khám, chữa bệnh ban đầu và chăm sóc sức khỏe cho người dân.", "Phục vụ khu vực lân cận cơ sở."], luuY: "" },
 
     /* ----- Điểm còn là dữ liệu mẫu / gần đúng (cần xác minh, thay bằng dữ liệu thật) ----- */
-    { id: "ubnd-xa", loai: "hanhchinh", ten: "Ủy ban nhân dân xã Vĩnh Gia (đặt tại trụ sở UBND xã Lương An Trà cũ)", ngan: "UBND xã", mau: true,
-      ap: "", lat: 10.4690, lng: 104.8580, anh: "", maps: "", truc: null, lienHe: { web: "http://vinhgia.angiang.gov.vn" },
-      gioText: "Giờ hành chính (cần xác nhận)",
-      chucNang: ["Tiếp nhận và giải quyết thủ tục hành chính cho người dân.", "Quản lý nhà nước trên địa bàn xã."], luuY: "" },
+    { id: "ubnd-xa", loai: "hanhchinh", ten: "UBND xã Vĩnh Gia (Đảng ủy – HĐND – UBND – UBMTTQVN)", ngan: "UBND xã Vĩnh Gia", nhan: "UBND xã",
+      ap: "Giồng Cát", lat: 10.405346, lng: 104.899922, anh: "ubnd-xa.jpg", maps: "https://maps.app.goo.gl/HhxGf9DzL6Ybhj8N9", truc: null,
+      lienHe: { web: "http://vinhgia.angiang.gov.vn" }, gioText: "Giờ hành chính (cần xác nhận)",
+      nhanh: [["Địa chỉ", "Đường Tỉnh 958, ấp Giồng Cát"]],
+      chucNang: ["Tiếp nhận và giải quyết thủ tục hành chính cho người dân.", "Nơi làm việc của Đảng ủy, HĐND, UBND và Ủy ban MTTQ Việt Nam xã.", "Nhiều thủ tục có thể thực hiện trực tuyến qua Cổng Dịch vụ công."], luuY: "" },
+    { id: "quan-su-xa", loai: "quansu", ten: "Ban Chỉ huy Quân sự xã Vĩnh Gia", ngan: "Ban Chỉ huy Quân sự xã Vĩnh Gia", nhan: "Quân sự xã",
+      ap: "", lat: 10.506043, lng: 104.799202, anh: "quan-su-xa.jpg", maps: "https://maps.app.goo.gl/o1hC4QPBCLysbf7CA", truc: null, gioText: "Giờ hành chính (cần xác nhận)",
+      chucNang: ["Cơ quan quân sự cấp xã, trực thuộc Bộ Chỉ huy Quân sự tỉnh An Giang.", "Thực hiện nhiệm vụ quốc phòng, quân sự địa phương trên địa bàn xã."], luuY: "Khu vực quân sự: không vào những nơi có biển “Khu quân sự cấm vào”." },
     { id: "don-bien-phong", loai: "anninh", ten: "Đồn Biên phòng Vĩnh Gia", ngan: "Đồn Biên phòng", mau: true,
       ap: "", lat: 10.4420, lng: 104.8930, anh: "", maps: "", truc: null, gioText: "Trực 24/24",
       chucNang: ["Bảo vệ chủ quyền, an ninh biên giới khu vực.", "Phối hợp cùng chính quyền và nhân dân giữ gìn trật tự địa bàn."], luuY: "" },

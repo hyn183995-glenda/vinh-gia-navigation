@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' 'sha256-gK39bvMCv3BFRNPGMPxzngActntWvSqiGZYKJsFwcg8='; style-src 'unsafe-inline'; img-src 'self' data: blob: https://*.tile.openstreetmap.org https://tile.openstreetmap.org; connect-src 'none'; base-uri 'none'; form-action 'none'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' 'sha256-E7hyOhfgW0ovoJISA65I4b86/0Jsl30f6iFE2WGkpHs='; style-src 'unsafe-inline'; img-src 'self' data: blob: https://*.tile.openstreetmap.org https://tile.openstreetmap.org; connect-src 'none'; base-uri 'none'; form-action 'none'">
 <meta name="referrer" content="no-referrer">
 <meta name="theme-color" content="#0b2545">
 <title>Bản đồ số xã Vĩnh Gia</title>
@@ -975,7 +975,7 @@ const nz=s=>String(s||"").normalize("NFD").replace(/[\u0300-\u036f]/g,"").replac
 const slug=n=>"ap-"+nz(n).replace(/[^a-z0-9]+/g,"-").replace(/^-|-$/g,"");
 const hasXY=d=>typeof d.lat==="number"&&typeof d.lng==="number";
 const X=D.xaInfo,TENXA=X.ten.replace(/^Xã /,"");
-const apPts=D.ap.map(a=>({id:slug(a.ten),loai:"ap",ten:"Ấp "+a.ten,ngan:"Ấp "+a.ten,ap:a.ten,lat:a.lat,lng:a.lng,gannDung:!!a.gannDung,anh:a.anh||"",maps:a.maps||"",truc:null,gioText:"",ke:a.mota||"",chucNang:["Khu dân cư thuộc xã "+TENXA+".","Văn phòng ấp là nơi tiếp nhận và hỗ trợ người dân tại địa bàn ấp."],luuY:""}));
+const apPts=D.ap.map(a=>({id:slug(a.ten),loai:"ap",ten:"Ấp "+a.ten,ngan:"Ấp "+a.ten,ap:a.ten,lat:a.lat,lng:a.lng,gannDung:!!a.gannDung,datDen:a.datDen,anh:a.anh||"",maps:a.maps||"",truc:null,gioText:"",ke:a.mota||"",chucNang:["Khu dân cư thuộc xã "+TENXA+".","Văn phòng ấp là nơi tiếp nhận và hỗ trợ người dân tại địa bàn ấp."],luuY:""}));
 const ALL=D.diem.concat(apPts).filter(d=>!d.mau||D.hienDuLieuMau);
 const byId=id=>ALL.find(d=>d.id===id);
 const isM=()=>matchMedia("(max-width:800px)").matches;
@@ -1013,7 +1013,7 @@ function eta(d){
   return `≈ ${k.toFixed(1)} km · khoảng ${t} đi xe máy (ước tính)`;
 }
 const distTxt=d=>userPos&&hasXY(d)?` · ≈ ${km(userPos,d).toFixed(1)} km`:"";
-const dirUrl=d=>hasXY(d)?`https://www.google.com/maps/dir/?api=1&destination=${d.lat},${d.lng}&travelmode=driving`:(d.maps||"");
+const dirUrl=d=>{const t=d.datDen||(hasXY(d)?[d.lat,d.lng]:null);return t?`https://www.google.com/maps/dir/?api=1&destination=${t[0]},${t[1]}&travelmode=driving`:(d.maps||"")};
 const lienHe=d=>d.lienHe||(d.truong==="vg2"?{web:D.website,email:D.email}:null);
 function vis(){
   const r=ALL.filter(d=>(grp==="all"||nhomOf(d)===grp)&&(!apF||d.ap===apF));
@@ -1053,7 +1053,9 @@ function draw(){
   const r=vis().filter(hasXY);lg.clearLayers();
   r.forEach(d=>{const p=d.truc&&r.find(x=>x.id===d.truc);
     if(p)L.polyline([[p.lat,p.lng],[d.lat,d.lng]],{color:D.loai[p.loai].mau,weight:3,opacity:.7,dashArray:"4 9"}).addTo(lg)});
-  r.forEach(d=>L.marker([d.lat,d.lng],{icon:mk(d),title:d.ten,keyboard:true}).on("click",()=>{stopTour();open(d.id)}).addTo(lg));
+  const seen={};
+  r.forEach(d=>{const k=d.lat.toFixed(5)+","+d.lng.toFixed(5),n=seen[k]=(seen[k]||0)+1,o=(n-1)*0.00024;
+    L.marker([d.lat-o*0.7,d.lng+o],{icon:mk(d),title:d.ten,keyboard:true}).on("click",()=>{stopTour();open(d.id)}).addTo(lg)});
 }
 function focus(d,z){
   if(!hasXY(d)){toast("Địa điểm này chưa có toạ độ trên bản đồ. Bạn vẫn có thể bấm “Dẫn đường”.");return}
@@ -1135,7 +1137,7 @@ $("view").addEventListener("change",e=>{if(e.target.id==="ap"){apF=e.target.valu
 $("view").addEventListener("keydown",e=>{if(e.key==="Enter"){const c=e.target.closest(".card");if(c)open(c.dataset.id)}});
 
 /* ---------- chi tiết ---------- */
-const RIC={"Ấp":"🏘️","Cấp học":"🎓","Quy mô":"👥","Khoảng cách":"🛣️","Giờ":"🕐","Tiếp công dân":"📣","Địa điểm":"📍","Tình trạng":"🛠️","Tiếp nhận":"🗓️"};
+const RIC={"Ấp":"🏘️","Cấp học":"🎓","Quy mô":"👥","Khoảng cách":"🛣️","Giờ":"🕐","Tiếp công dân":"📣","Địa điểm":"📍","Tình trạng":"🛠️","Tiếp nhận":"🗓️","Địa chỉ":"🏠"};
 function step(n){const r=vis(),i=r.findIndex(x=>x.id===sel);if(r.length)open(r[(i+n+r.length)%r.length].id)}
 function open(id){
   const d=byId(id);if(!d)return;
@@ -1292,8 +1294,7 @@ function renderBaoCao(){
    <div class="meta" id="rp-err" role="alert"></div></div>
   <div id="rpres" hidden></div>
   ${nDen?`<div class="row"><button class="btn alt" id="rp-map">🗺️ Xem ${nDen} điểm đen đã tiếp nhận trên bản đồ</button></div>`:""}
-  <details class="where"><summary>🗄️ Báo cáo được lưu ở đâu?</summary><p>Trang này <b>không có máy chủ và không lưu báo cáo</b>. Nội dung chỉ được soạn trên điện thoại của bạn. Khi bạn bấm gửi, báo cáo đến ${esc(B.donViNhan)} qua kênh bạn chọn (Zalo, email hoặc biểu mẫu) và được lưu tại kênh đó. Nếu Đoàn dùng biểu mẫu Google Form, báo cáo sẽ tự lưu vào bảng tính Google Sheets của Đoàn.</p></details>
-  <p class="meta">🔒 Không bắt buộc để lại thông tin cá nhân. Ảnh và vị trí chỉ được gửi khi bạn bấm gửi.</p>${CR()}</div>`;
+    <p class="meta">🔒 Không bắt buộc để lại thông tin cá nhân. Ảnh và vị trí chỉ được gửi khi bạn bấm gửi.</p>${CR()}</div>`;
 }
 function rpRefresh(){
   $("rp-th").innerHTML=rpUrls.map((u,i)=>`<div class="th2"><img src="${u}" alt="Ảnh ${i+1}"><button type="button" data-rm="${i}" aria-label="Bỏ ảnh">✕</button></div>`).join("");
@@ -1333,7 +1334,12 @@ $("p-bao-cao").addEventListener("click",async e=>{
   if(e.target.closest("#rp-new")){rpFiles=[];rpUrls.forEach(u=>URL.revokeObjectURL(u));rpUrls=[];rpLoc=null;renderBaoCao();return}
   const r=$("rpres"),msg=r&&r.dataset.msg;
   if(e.target.closest("#rp-copy")){try{await navigator.clipboard.writeText(msg);toast("Đã sao chép nội dung báo cáo")}catch(_){$("rpout").select();toast("Hãy chạm giữ để sao chép nội dung")}return}
-  if(e.target.closest("#rp-form")){try{await navigator.clipboard.writeText(msg);toast("Đã sao chép nội dung. Hãy dán vào biểu mẫu.")}catch(_){}window.open(safeUrl(B.bieuMau),"_blank","noopener");return}
+  if(e.target.closest("#rp-form")){
+    let u=safeUrl(B.bieuMau),pre=false;
+    if(B.bieuMauEntry){u+=(u.includes("?")?"&":"?")+"usp=pp_url&"+encodeURIComponent(B.bieuMauEntry)+"="+encodeURIComponent(msg.slice(0,1200));pre=true}
+    try{await navigator.clipboard.writeText(msg)}catch(_){}
+    toast(pre?"Biểu mẫu đã được điền sẵn. Chỉ cần bấm Gửi.":"Đã sao chép nội dung. Hãy dán vào biểu mẫu.");
+    window.open(u,"_blank","noopener");return}
   if(e.target.closest("#rp-share")){
     const data={title:"Báo cáo điểm đen môi trường",text:msg};
     try{
