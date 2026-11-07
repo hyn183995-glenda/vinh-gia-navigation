@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' 'sha256-E7hyOhfgW0ovoJISA65I4b86/0Jsl30f6iFE2WGkpHs='; style-src 'unsafe-inline'; img-src 'self' data: blob: https://*.tile.openstreetmap.org https://tile.openstreetmap.org; connect-src 'none'; base-uri 'none'; form-action 'none'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' 'sha256-a4+F1pJVbQlh8IzrbkqvCMSkoI7sksGf6l7S4IJVXwM='; style-src 'unsafe-inline'; img-src 'self' data: blob: https://*.tile.openstreetmap.org https://tile.openstreetmap.org; connect-src 'none'; base-uri 'none'; form-action 'none'">
 <meta name="referrer" content="no-referrer">
 <meta name="theme-color" content="#0b2545">
 <title>Bản đồ số xã Vĩnh Gia</title>
@@ -936,6 +936,33 @@ h2.sh{font-size:1.1rem;margin:26px 2px 12px}
 .apph{height:150px!important;margin:-14px -14px 6px!important;border-radius:18px 18px 0 0}
 .apc b{font-size:.98rem}
 @media(max-width:520px){.apgrid{grid-template-columns:repeat(2,1fr)!important;gap:10px!important}.apph{height:120px!important}.gd{flex-wrap:wrap}.gd .btn{width:100%}}
+
+/* ===== GIAO DIỆN BẢN ĐỒ VIỆT NAM (v5.7): đỏ cờ – vàng sao – sen hồng – lúa xanh ===== */
+:root{--gold:#e9a400;--vr:#d7261e;--vy:#ffcd1f}
+#top{background:linear-gradient(160deg,#7d0d12,#c8201e 62%,#ee5a24);background-image:radial-gradient(circle at 100% 0,rgba(255,205,31,.5),transparent 52%),linear-gradient(160deg,#7d0d12,#c8201e 62%,#ee5a24)}
+.logo{background:var(--vr);color:var(--vy);font-size:0;box-shadow:0 0 0 3px var(--vy),0 0 18px rgba(255,205,31,.8)}.logo:after{content:"★";font-size:1.6rem}
+.pill.gps,.btn.go{background:linear-gradient(135deg,#ffe27a,#ffb300);border-color:#ffb300;color:#4a2600}
+.pill.on,.pill.on#tour{background:#fff;color:#8f1015}
+.pill i{width:25px;height:25px;display:grid;place-items:center;font-style:normal;font-size:14px;background:#fff;box-shadow:0 0 0 2px var(--c),0 0 12px var(--c)}
+.pill.live i{box-shadow:0 0 0 2px #4fd1a0,0 0 12px #4fd1a0}
+#map{box-shadow:inset 0 0 0 3px var(--vy),inset 0 0 0 6px var(--vr)}
+#map .leaflet-tile-pane{filter:sepia(.38) saturate(1.35) hue-rotate(-10deg) brightness(1.03)}
+#map:after{content:"";position:absolute;inset:0;pointer-events:none;z-index:500;background:radial-gradient(ellipse at center,transparent 60%,rgba(215,38,30,.14))}
+.pin{background:radial-gradient(circle at 30% 25%,rgba(255,255,255,.55),transparent 45%),var(--c);box-shadow:0 0 0 2px var(--c),0 4px 12px rgba(0,0,0,.4),0 0 18px var(--c)}
+.pin i{font-size:19px;filter:drop-shadow(0 1px 1px rgba(0,0,0,.35))}
+.lbl{background:#fff;color:#7d0d12;border:1.5px solid var(--vy);box-shadow:0 2px 6px rgba(0,0,0,.3)}
+#nav{background:linear-gradient(#fff,#fff7e0);border-bottom:3px solid var(--vy)}
+#nav button span{display:grid;place-items:center;width:32px;height:32px;border-radius:11px;font-size:1.15rem;background:linear-gradient(135deg,#ffe27a,#ffb300);box-shadow:0 0 12px rgba(255,180,0,.75)}
+#nav button:nth-child(2) span{background:linear-gradient(135deg,#7be0a4,#1c8a68);box-shadow:0 0 12px rgba(40,190,120,.7)}
+#nav button:nth-child(3) span{background:linear-gradient(135deg,#ffb3cf,#e8588c);box-shadow:0 0 12px rgba(232,88,140,.7)}
+#nav button:nth-child(4) span{background:linear-gradient(135deg,#ff9a8a,#d7261e);box-shadow:0 0 12px rgba(215,38,30,.7)}
+#nav button:nth-child(5) span{background:linear-gradient(135deg,#8fd0ff,#1f6fb2);box-shadow:0 0 12px rgba(40,140,230,.7)}
+#nav button.on{background:linear-gradient(135deg,#d7261e,#8f1015);color:#fff}
+.hero2{background:linear-gradient(165deg,#7d0d12 0%,#c8201e 52%,#f08a24 100%)}
+.ph2{background:linear-gradient(150deg,#7d0d12,#c8201e)}
+.tile .ti,.sc.k i{filter:drop-shadow(0 0 6px var(--c))}
+.tile .ti{box-shadow:0 0 16px var(--c)}
+.card .th{box-shadow:0 0 0 2px var(--vy)}
 </style>
 </head>
 <body>
@@ -1082,7 +1109,7 @@ function menu(){
   const r=vis();
   $("menu").innerHTML=r.map((d,i)=>{
     const live=trangThai(d).on===true;
-    return `<button class="pill ${sel===d.id?"on":""} ${live?"live":""}" data-id="${esc(d.id)}" style="--c:${esc(D.loai[d.loai].mau)}"><i></i>${esc(d.ngan)}${userPos&&i===0&&hasXY(d)?" · gần nhất":""}</button>`}).join("");
+    return `<button class="pill ${sel===d.id?"on":""} ${live?"live":""}" data-id="${esc(d.id)}" style="--c:${esc(D.loai[d.loai].mau)}"><i>${esc(D.loai[d.loai].icon)}</i>${esc(d.ngan)}${userPos&&i===0&&hasXY(d)?" · gần nhất":""}</button>`}).join("");
   const b=document.querySelector(".pill.on");
   if(b&&b.scrollIntoView)b.scrollIntoView({inline:"center",block:"nearest"});
 }

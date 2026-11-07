@@ -4,8 +4,8 @@
    Diện tích, dân số: KHÔNG đưa vào hệ thống (do UBND xã tự công bố khi cần).
    ===================================================================== */
 window.DU_LIEU = {
-  phienBan: "5.6",
-  capNhat: "04/11/2026",
+  phienBan: "5.7",
+  capNhat: "07/11/2026",
   tenHeThong: "Smart Navigation",
   donVi: "Trường TH&THCS Vĩnh Gia 2",
   xa: "Xã Vĩnh Gia, tỉnh An Giang",
@@ -103,19 +103,21 @@ window.DU_LIEU = {
     ap:       { ten: "Các ấp", icon: "🏘️", mau: "#51627d" }
   },
   loai: {
-    chinh:      { ten: "Trụ sở chính", mau: "#c8921a", icon: "★", nhom: "giaoduc" },
-    phanhieu:   { ten: "Phân hiệu",    mau: "#1f6fb2", icon: "◆", nhom: "giaoduc" },
-    diemtruong: { ten: "Điểm trường",  mau: "#1c8a68", icon: "●", nhom: "giaoduc" },
-    truong:     { ten: "Trường học",   mau: "#b5781c", icon: "▣", nhom: "giaoduc" },
-    hanhchinh:  { ten: "Cơ quan",      mau: "#5b4bb7", icon: "▲", nhom: "hanhchinh" },
-    yte:        { ten: "Y tế",         mau: "#c62839", icon: "✚", nhom: "yte" },
-    anninh:     { ten: "Công an – Biên phòng", mau: "#3d6b2e", icon: "⚑", nhom: "anninh" },
-    quansu:     { ten: "Quân sự",       mau: "#556b2f", icon: "✪", nhom: "anninh" },
-    diemden:    { ten: "Điểm đen",     mau: "#b3261e", icon: "!", nhom: "diemden" },
-    danhthang:  { ten: "Danh thắng",   mau: "#d9631e", icon: "❖", nhom: "danhthang" },
-    anuong:     { ten: "Quán ăn",      mau: "#d1451f", icon: "♨", nhom: "anuong" },
-    giaitri:    { ten: "Giải trí",     mau: "#9b3fb8", icon: "♪", nhom: "giaitri" },
-    ap:         { ten: "Ấp",           mau: "#51627d", icon: "⌂", nhom: "ap" }
+    chinh:      { ten: "Trụ sở chính", mau: "#c8921a", icon: "🎓", nhom: "giaoduc" },
+    phanhieu:   { ten: "Phân hiệu",    mau: "#1f6fb2", icon: "🏫", nhom: "giaoduc" },
+    diemtruong: { ten: "Điểm trường",  mau: "#1c8a68", icon: "📚", nhom: "giaoduc" },
+    truong:     { ten: "Trường học",   mau: "#b5781c", icon: "🏫", nhom: "giaoduc" },
+    hanhchinh:  { ten: "Cơ quan",      mau: "#5b4bb7", icon: "🏛️", nhom: "hanhchinh" },
+    yte:        { ten: "Y tế",         mau: "#c62839", icon: "🏥", nhom: "yte" },
+    anninh:     { ten: "Công an – Biên phòng", mau: "#3d6b2e", icon: "🛡️", nhom: "anninh" },
+    quansu:     { ten: "Quân sự",       mau: "#556b2f", icon: "🎖️", nhom: "anninh" },
+    diemden:    { ten: "Điểm đen",     mau: "#b3261e", icon: "⚠️", nhom: "diemden" },
+    danhthang:  { ten: "Danh thắng",   mau: "#d9631e", icon: "🌅", nhom: "danhthang" },
+    anuong:     { ten: "Quán ăn",      mau: "#d1451f", icon: "🍜", nhom: "anuong" },
+    giaitri:    { ten: "Giải trí",     mau: "#9b3fb8", icon: "🎡", nhom: "giaitri" },
+    ap:         { ten: "Ấp",           mau: "#51627d", icon: "🏘️", nhom: "ap" },
+    cho:        { ten: "Chợ",          mau: "#1c8a68", icon: "🛒", nhom: "cho" },
+    dinh:       { ten: "Đình thần",    mau: "#b3261e", icon: "🏮", nhom: "danhthang" }
   },
 
   /* mau: true = thông tin/vị trí còn là mẫu hoặc gần đúng, cần xác minh.
@@ -202,7 +204,23 @@ window.DU_LIEU = {
     { id: "mau-giai-tri", loai: "giaitri", ten: "Điểm vui chơi giải trí (mẫu – thay bằng thông tin thật)", ngan: "Giải trí (mẫu)", mau: true, mauText: "Dữ liệu mẫu",
       ap: "", lat: 10.4390, lng: 104.8540, anh: "", maps: "", truc: null,
       gioText: "Giờ hoạt động: đang cập nhật", nhanh: [["Hoạt động", "Đang cập nhật"], ["Vé vào cổng", "Đang cập nhật"]],
-      chucNang: ["Nhóm Giải trí gồm sân bóng, công viên, khu vui chơi, điểm check-in.", "Khi có dữ liệu thật, thay tên, toạ độ, ảnh và thông tin chi tiết."], luuY: "" }
+      chucNang: ["Nhóm Giải trí gồm sân bóng, công viên, khu vui chơi, điểm check-in.", "Khi có dữ liệu thật, thay tên, toạ độ, ảnh và thông tin chi tiết."], luuY: "" },
+    /* ----- Điểm mới (v5.7): ảnh đã có, CHƯA có toạ độ — điền lat, lng và maps khi có ----- */
+    { id: "cho-vinh-gia", loai: "cho", ten: "Chợ Vĩnh Gia", ngan: "Chợ Vĩnh Gia", nhan: "Chợ",
+      ap: "", anh: "cho-vinh-gia.jpg", maps: "", truc: null, gioText: "Cần xác nhận giờ họp chợ",
+      chucNang: ["Nơi mua bán thực phẩm, hàng hóa hằng ngày của người dân trong xã."], luuY: "" },
+    { id: "dinh-than-cau-dai", loai: "dinh", ten: "Đình thần Cầu Dài", ngan: "Đình thần Cầu Dài", nhan: "Đình Cầu Dài",
+      ap: "", anh: "dinh-than-cau-dai.jpg", maps: "", truc: null, gioText: "Tham quan tự do",
+      chucNang: ["Đình thần trên địa bàn xã Vĩnh Gia, nơi sinh hoạt tín ngưỡng của cộng đồng."], luuY: "Giữ trang nghiêm khi vào tham quan." },
+    { id: "dinh-than-vinh-gia", loai: "dinh", ten: "Đình thần Vĩnh Gia", ngan: "Đình thần Vĩnh Gia", nhan: "Đình Vĩnh Gia",
+      ap: "", anh: "dinh-than-vinh-gia.jpg", maps: "", truc: null, gioText: "Tham quan tự do",
+      chucNang: ["Đình thần trên địa bàn xã Vĩnh Gia, nơi sinh hoạt tín ngưỡng của cộng đồng."], luuY: "Giữ trang nghiêm khi vào tham quan." },
+    { id: "mam-non-giong-cat", loai: "truong", ten: "Trường Mầm non Vĩnh Gia – ấp Giồng Cát", ngan: "Mầm non Giồng Cát", nhan: "Mầm non",
+      ap: "Giồng Cát", anh: "mam-non-giong-cat.jpg", maps: "", truc: null, capHoc: "Mầm non",
+      chucNang: ["Trường Mầm non do UBND xã Vĩnh Gia quản lý, cơ sở tại ấp Giồng Cát."], luuY: "" },
+    { id: "mam-non-vinh-cau", loai: "truong", ten: "Trường Mầm non Vĩnh Gia – Phân hiệu 1 (ấp Vĩnh Cầu)", ngan: "Mầm non Vĩnh Cầu", nhan: "Mầm non PH1",
+      ap: "Vĩnh Cầu", anh: "mam-non-vinh-cau.jpg", maps: "", truc: null, capHoc: "Mầm non", lienHe: { sdt: "02963787269" },
+      chucNang: ["Phân hiệu 1 của Trường Mầm non Vĩnh Gia, đặt tại ấp Vĩnh Cầu."], luuY: "" }
 
     /* Điểm đen môi trường UBND xã đã tiếp nhận (công khai tiến độ xử lý) — ví dụ:
     , { id: "dd-01", loai: "diemden", ten: "Bãi rác tự phát tại ...", ngan: "Bãi rác ...", ap: "Vĩnh An",
