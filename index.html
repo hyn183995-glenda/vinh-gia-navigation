@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' 'sha256-a4+F1pJVbQlh8IzrbkqvCMSkoI7sksGf6l7S4IJVXwM='; style-src 'unsafe-inline'; img-src 'self' data: blob: https://*.tile.openstreetmap.org https://tile.openstreetmap.org; connect-src 'none'; base-uri 'none'; form-action 'none'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' 'sha256-n5Cm4ULxgvRTQ4x6uc0nY8Q+UkxbW+BjtyPRv8xeyJ0='; style-src 'unsafe-inline'; img-src 'self' data: blob: https://*.tile.openstreetmap.org https://tile.openstreetmap.org; connect-src 'none'; base-uri 'none'; form-action 'none'">
 <meta name="referrer" content="no-referrer">
 <meta name="theme-color" content="#0b2545">
 <title>Bản đồ số xã Vĩnh Gia</title>
@@ -963,6 +963,11 @@ h2.sh{font-size:1.1rem;margin:26px 2px 12px}
 .tile .ti,.sc.k i{filter:drop-shadow(0 0 6px var(--c))}
 .tile .ti{box-shadow:0 0 16px var(--c)}
 .card .th{box-shadow:0 0 0 2px var(--vy)}
+.hub{display:block;width:100%;aspect-ratio:16/8;max-height:380px;border:0;border-radius:24px;overflow:hidden;position:relative;color:#fff;text-align:left;cursor:pointer;padding:0;font:inherit;background-size:cover;background-position:center;background-color:#7d0d12;box-shadow:0 0 0 3px var(--vy),0 14px 34px rgba(125,13,18,.35)}
+.hub:after{content:"";position:absolute;inset:0;background:linear-gradient(transparent 38%,rgba(80,5,8,.9))}
+.hub>*{position:absolute;left:18px;right:18px;z-index:1}
+.hub .hb{top:16px;right:auto;background:var(--vy);color:#5a0a0d;font-weight:800;font-size:.78rem;padding:4px 12px;border-radius:12px}
+.hub b{bottom:44px;font-size:clamp(1.25rem,4.5vw,2rem)}.hub small{bottom:16px;font-size:.84rem}
 </style>
 </head>
 <body>
@@ -1246,7 +1251,9 @@ const LAUNCH=[
 function renderTongQuan(){
   const portal=X.cong.map(c=>`<a class="pt" href="${esc(safeUrl(c.url))}" target="_blank" rel="noopener noreferrer"><span>${esc(c.icon)}</span>${esc(c.ten)}</a>`).join("");
   const launch=LAUNCH.map((l,i)=>`<button class="lc ${l.hot?"hot":""}" data-i="${i}" style="--c:${l.c}"><span>${l.ic}</span><b>${esc(l.t)}</b></button>`).join("");
-  const feat=ALL.filter(d=>d.anh).slice(0,12).map(d=>{const t=D.loai[d.loai];return `<button class="pc" data-id="${esc(d.id)}"><div class="ph" style="background-image:url('${esc(d.anh)}')"><span class="bd" style="background:${esc(t.mau)}">${esc(D.nhom[t.nhom].icon)} ${esc(t.ten)}</span></div><div class="t"><b>${esc(d.ngan)}</b><small>${d.ap&&d.loai!=="ap"?"🏘️ Ấp "+esc(d.ap):"📍 "+esc(TENXA)}</small></div></button>`}).join("");
+  const feat=ALL.filter(d=>d.anh&&d.loai!=="ap"&&d.id!=="ubnd-xa").map(d=>{const t=D.loai[d.loai];return `<button class="pc" data-id="${esc(d.id)}"><div class="ph" style="background-image:url('${esc(d.anh)}')"><span class="bd" style="background:${esc(t.mau)}">${esc(D.nhom[t.nhom].icon)} ${esc(t.ten)}</span></div><div class="t"><b>${esc(d.ngan)}</b><small>${d.ap&&d.loai!=="ap"?"🏘️ Ấp "+esc(d.ap):"📍 "+esc(TENXA)}</small></div></button>`}).join("");
+  const U0=byId("ubnd-xa"),hub=U0?`<h2 class="sh">🏛️ Trung tâm hành chính</h2><button class="hub" data-id="ubnd-xa" style="background-image:url('${esc(U0.anh)}')"><span class="hb">🏛️ Trung tâm hành chính</span><b>${esc(U0.ngan)}</b><small>📍 ${esc(X.truSoUBND)}</small></button>`:"";
+  const apc=ALL.filter(d=>d.loai==="ap").map(d=>`<button class="pc" data-id="${esc(d.id)}"><div class="ph" style="background-image:${d.anh?`url('${esc(d.anh)}'),`:""}linear-gradient(135deg,#d7261e,#ee5a24)"><span class="bd" style="background:#51627d">🏘️ Ấp</span></div><div class="t"><b>${esc(d.ngan)}</b><small>📍 ${esc(TENXA)}</small></div></button>`).join("");
   const cats=Object.keys(D.nhom).map(g=>{const n=cntNhom(g),G=D.nhom[g];return `<button class="cat" data-g="${esc(g)}" style="--c:${esc(G.mau)}"><span>${esc(G.icon)}</span>${esc(G.ten)}<em>${n||"–"}</em></button>`}).join("");
   const info=[["🆔","Mã định danh",esc(X.maDinhDanh)],["📮","Mã bưu chính",esc(X.maBuuChinh)],["🏛️","Loại đơn vị",esc(X.loaiDonVi)],["🗓️","Hiệu lực từ",esc(X.hieuLuc)],["🧩","Hình thành từ",X.hopNhatTu.map(esc).join(" · ")],["🏢","Trụ sở UBND",esc(X.truSoUBND)],["🧭","Toạ độ trung tâm",`${X.tamBan[0]}°, ${X.tamBan[1]}° · <a href="https://www.google.com/maps?q=${X.tamBan[0]}%2C${X.tamBan[1]}" target="_blank" rel="noopener noreferrer">Google Maps</a>`]]
     .map(r=>`<div class="ir"><i>${r[0]}</i><div><small>${r[1]}</small><b>${r[2]}</b></div></div>`).join("");
@@ -1256,8 +1263,9 @@ function renderTongQuan(){
     <label class="srch"><span>🔍</span><input id="q2" type="search" placeholder="Tìm ấp, trường học, trạm y tế…" autocomplete="off" aria-label="Tìm địa điểm"></label>
     <div class="chipz"><span>🏘️ ${D.ap.length} ấp</span><span>📍 ${ALL.length} địa điểm</span><span>🎓 ${cntNhom("giaoduc")} trường</span><span>🏥 ${cntNhom("yte")} trạm y tế</span></div></div></div>
   <div class="wrap2"><div id="sr" hidden></div>
+  ${hub}<h2 class="sh">🏘️ Các ấp</h2><div class="hs">${apc}</div>
+  <h2 class="sh">📸 Các điểm tiếp theo</h2><div class="hs">${feat}</div>
   <h2 class="sh">⚡ Truy cập nhanh</h2><div class="launch">${launch}</div>
-  <h2 class="sh">📸 Địa điểm nổi bật</h2><div class="hs">${feat}</div>
   <h2 class="sh">🗂️ Danh mục</h2><div class="cats">${cats}</div>
   <h2 class="sh">📋 Thông tin xã</h2><div class="irs">${info}</div>${CR()}</div>`;
 }
@@ -1272,7 +1280,7 @@ document.addEventListener("input",e=>{if(e.target.id==="q2")searchRes(e.target.v
 $("p-tong-quan").addEventListener("click",e=>{
   const l=e.target.closest(".lc");if(l){const x=LAUNCH[+l.dataset.i];if(x.p)showPage(x.p);else goMap(x.a);return}
   const c=e.target.closest(".cat");if(c){cntNhom(c.dataset.g)?goMap({grp:c.dataset.g}):toast("Nhóm này đang được cập nhật.");return}
-  const p=e.target.closest(".pc,.srr");if(p)goMap({id:p.dataset.id});
+  const p=e.target.closest(".pc,.srr,.hub");if(p)goMap({id:p.dataset.id});
 });
 
 /* ---- Các ấp ---- */

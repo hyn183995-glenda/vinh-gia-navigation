@@ -4,7 +4,7 @@
    Diện tích, dân số: KHÔNG đưa vào hệ thống (do UBND xã tự công bố khi cần).
    ===================================================================== */
 window.DU_LIEU = {
-  phienBan: "5.7",
+  phienBan: "5.8",
   capNhat: "07/11/2026",
   tenHeThong: "Smart Navigation",
   donVi: "Trường TH&THCS Vĩnh Gia 2",
@@ -16,7 +16,7 @@ window.DU_LIEU = {
   /* Dấu tác giả hiện ở cuối các trang. Để trống ten và email thì dòng này tự ẩn. */
   tacGia: { ten: "", email: "", nam: "2026" },
   hotlineTreEm: "111",                 // chỉ hiện khi chọn địa điểm thuộc nhóm Trường học
-  // trangMacDinh: "tong-quan",        // bỏ dấu // để mở trang Tổng quan đầu tiên (mặc định mở Bản đồ)
+  trangMacDinh: "tong-quan",        // bỏ dấu // để mở trang Tổng quan đầu tiên (mặc định mở Bản đồ)
 
   xaInfo: {
     ten: "Xã Vĩnh Gia", tinh: "Tỉnh An Giang",
