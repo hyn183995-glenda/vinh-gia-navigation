@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' 'sha256-nswK8ZWS32li/+jF98qfzuZC+T7u7kRmaUyJ6oW9jKk='; style-src 'unsafe-inline'; img-src 'self' data: blob: https://*.tile.openstreetmap.org https://tile.openstreetmap.org; connect-src 'none'; base-uri 'none'; form-action 'none'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' 'sha256-KZq9fk5YqBJw33+5uVCpizF3PXAialnRVBRgePbMn7M='; style-src 'unsafe-inline'; img-src 'self' data: blob: https://*.tile.openstreetmap.org https://tile.openstreetmap.org; connect-src 'none'; base-uri 'none'; form-action 'none'">
 <meta name="referrer" content="no-referrer">
 <meta name="theme-color" content="#0b2545">
 <title>Bản đồ số xã Vĩnh Gia</title>
@@ -1035,7 +1035,7 @@ const nhomOf=d=>D.loai[d.loai].nhom;
 let sel=null,userPos=null,grp="all",apF="",userMk=null,sheetH=210,tourT=null;
 
 const TG=D.tacGia||{};
-const CR=()=>(TG.ten||TG.email)?`<footer class="cr">✍️ Thiết kế & phát triển${TG.ten?": <b>"+esc(TG.ten)+"</b>":""}${TG.email?` · ✉ <a href="mailto:${esc(TG.email)}">${esc(TG.email)}</a>`:""}${TG.nam?" · © "+esc(TG.nam):""}</footer>`:"";
+const CR=()=>{const t=D.banQuyen||(TG.ten?"© "+(TG.nam||"")+" "+TG.ten+". All rights reserved.":"");return t?`<footer class="cr">${esc(t)}</footer>`:""};
 if(TG.ten||TG.email){const m=document.createElement("meta");m.name="author";m.content=(TG.ten||"")+(TG.email?" <"+TG.email+">":"");document.head.appendChild(m)}
 $("sub").textContent=X.ten+" · "+X.tinh;
 document.title="Bản đồ số "+X.ten+" – "+D.tenHeThong;
@@ -1219,7 +1219,7 @@ function open(id){
   ${gio?`<details><summary>🕐 Thời gian học</summary><table><tr><th></th><th>Sáng</th><th>Chiều</th></tr>${gio}</table><div class="meta" style="margin-top:6px">Giải lao: ${esc(D.gio[d.khung[d.khung.length-1]].nghi)}</div></details>`:""}
   ${dv?`<details><summary>🧾 Có thể làm tại đây</summary><ul>${dv}</ul></details>`:""}
   ${cha?`<div class="box"><h3>🔗 Trực thuộc</h3><button class="link" data-go="${esc(cha.id)}">${esc(cha.ngan)}</button></div>`:""}
-  ${con.length?`<div class="box"><h3>🔗 Đơn vị trực thuộc</h3>${con.map(x=>`<button class="link" data-go="${esc(x.id)}">${esc(x.ngan)}</button>`).join(" · ")}</div>`:""}</div>`;
+  ${con.length?`<div class="box"><h3>🔗 Đơn vị trực thuộc</h3>${con.map(x=>`<button class="link" data-go="${esc(x.id)}">${esc(x.ngan)}</button>`).join(" · ")}</div>`:""}${CR()}</div>`;
   $("view").scrollTop=0;
   if(isM()&&sheetH<snaps()[1]-20)setSh(snaps()[1],true);
   focus(d,16);

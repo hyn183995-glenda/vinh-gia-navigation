@@ -4,7 +4,7 @@
    Diện tích, dân số: KHÔNG đưa vào hệ thống (do UBND xã tự công bố khi cần).
    ===================================================================== */
 window.DU_LIEU = {
-  phienBan: "5.11",
+  phienBan: "5.12",
   capNhat: "08/11/2026",
   tenHeThong: "Smart Navigation",
   donVi: "Trường TH&THCS Vĩnh Gia 2",
@@ -13,8 +13,10 @@ window.DU_LIEU = {
   email: "c2vinhgia2.vinhgia@angiang.gov.vn",
   ngayHoc: [1, 2, 3, 4, 5],
   hienDuLieuMau: true,                 // true = hiện cả điểm "mau: true"; false = chỉ hiện điểm đã xác minh
-  /* Dấu tác giả hiện ở cuối các trang. Để trống ten và email thì dòng này tự ẩn. */
-  tacGia: { ten: "", email: "", nam: "2026" },
+  /* Dòng bản quyền hiện ở cuối mọi mục (Tổng quan, Bản đồ, Các ấp, Báo cáo, Dịch vụ).
+     Để banQuyen là "" thì dòng này tự ẩn. */
+  tacGia: { ten: "TTDH (Hyn)", email: "", nam: "2026" },
+  banQuyen: "© 2026 TTDH (Hyn). All rights reserved.",
   hotlineTreEm: "111",                 // chỉ hiện khi chọn địa điểm thuộc nhóm Trường học
   trangMacDinh: "tong-quan",        // bỏ dấu // để mở trang Tổng quan đầu tiên (mặc định mở Bản đồ)
 
@@ -43,7 +45,7 @@ window.DU_LIEU = {
                  người dân chỉ cần bấm Gửi. Cách lấy mã: xem hướng dẫn. */
   baoCao: {
     donViNhan: "Đoàn Thanh niên xã Vĩnh Gia",
-    email: "", sdt: "", zalo: "", bieuMau: "", bieuMauEntry: "",
+    email: "doanvinhgia1725@gmail.com", sdt: "", zalo: "", bieuMau: "", bieuMauEntry: "",
     loai: ["Rác thải tồn đọng, bãi rác tự phát", "Đốt rác, đốt rơm rạ gây khói bụi", "Nước thải, ô nhiễm nguồn nước", "Mùi hôi từ chăn nuôi, nhà máy, cơ sở sản xuất", "Xả thải trái phép ra kênh, rạch", "Chai lọ, bao bì thuốc bảo vệ thực vật bỏ bừa bãi", "Xác động vật, dịch bệnh", "Vấn đề khác"],
     mucDo: ["Nhẹ", "Trung bình", "Nghiêm trọng"]
   },
