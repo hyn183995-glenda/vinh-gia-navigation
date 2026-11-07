@@ -4,8 +4,8 @@
    Diện tích, dân số: KHÔNG đưa vào hệ thống (do UBND xã tự công bố khi cần).
    ===================================================================== */
 window.DU_LIEU = {
-  phienBan: "5.8",
-  capNhat: "07/11/2026",
+  phienBan: "5.9",
+  capNhat: "08/11/2026",
   tenHeThong: "Smart Navigation",
   donVi: "Trường TH&THCS Vĩnh Gia 2",
   xa: "Xã Vĩnh Gia, tỉnh An Giang",

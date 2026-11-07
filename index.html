@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' 'sha256-n5Cm4ULxgvRTQ4x6uc0nY8Q+UkxbW+BjtyPRv8xeyJ0='; style-src 'unsafe-inline'; img-src 'self' data: blob: https://*.tile.openstreetmap.org https://tile.openstreetmap.org; connect-src 'none'; base-uri 'none'; form-action 'none'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' 'sha256-nswK8ZWS32li/+jF98qfzuZC+T7u7kRmaUyJ6oW9jKk='; style-src 'unsafe-inline'; img-src 'self' data: blob: https://*.tile.openstreetmap.org https://tile.openstreetmap.org; connect-src 'none'; base-uri 'none'; form-action 'none'">
 <meta name="referrer" content="no-referrer">
 <meta name="theme-color" content="#0b2545">
 <title>Bản đồ số xã Vĩnh Gia</title>
@@ -968,6 +968,26 @@ h2.sh{font-size:1.1rem;margin:26px 2px 12px}
 .hub>*{position:absolute;left:18px;right:18px;z-index:1}
 .hub .hb{top:16px;right:auto;background:var(--vy);color:#5a0a0d;font-weight:800;font-size:.78rem;padding:4px 12px;border-radius:12px}
 .hub b{bottom:44px;font-size:clamp(1.25rem,4.5vw,2rem)}.hub small{bottom:16px;font-size:.84rem}
+/* ---- v5.9: chữ rõ hơn, thẻ ấp, robot ---- */
+:root{--mute:#33435f;--line:#bccae0}
+@media(prefers-color-scheme:dark){:root{--ink:#fff;--mute:#dbe5f8;--line:#46609a;--card:#16264a}.apc .ok{color:#6ee7b0}.apc .pd{color:#ffd166}}
+.apc b{font-size:1.02rem;font-weight:800}.apc small{font-size:.82rem;font-weight:600}.apc u{font-size:.8rem;font-weight:800}
+.apc .ok{color:#0a6b43}.apc .pd{color:#8a5a00}
+.apph{width:100%;height:auto;aspect-ratio:4/3;border-radius:12px;background-size:cover;background-position:center}
+#nav button{color:#4a1215;font-weight:800}#nav button.on{color:#fff}
+.ph2 p,.hero2 p{opacity:1;font-weight:500}.pc .t small,.tile small,.meta{color:var(--mute)}
+#rb{position:fixed;left:12px;right:12px;bottom:calc(env(safe-area-inset-bottom,0px) + 98px);z-index:30;display:flex;gap:10px;align-items:flex-end;pointer-events:none}
+@media(min-width:801px){#rb{left:24px;right:auto;max-width:430px;bottom:24px}}
+#rb>*{pointer-events:auto}
+.rbot{flex:none;width:58px;height:58px;border-radius:50%;display:grid;place-items:center;font-size:32px;background:radial-gradient(circle at 30% 25%,#fff3b0,#ffcd1f 55%,#e9a400);box-shadow:0 0 0 3px #fff,0 0 22px rgba(255,205,31,.95),0 6px 14px rgba(0,0,0,.35);animation:rbob 2.2s ease-in-out infinite}
+@keyframes rbob{50%{transform:translateY(-6px)}}
+.rbub{position:relative;background:#fff;color:#4a1215;border:2px solid #ffcd1f;border-radius:20px 20px 20px 6px;padding:11px 36px 12px 14px;font-size:.95rem;line-height:1.45;font-weight:700;box-shadow:0 8px 24px rgba(125,13,18,.4);transform-origin:0 100%;animation:rpop .5s cubic-bezier(.2,1.4,.4,1)}
+@keyframes rpop{from{transform:scale(.4);opacity:0}}
+.rbub:before{content:"";position:absolute;left:-11px;bottom:12px;border:7px solid transparent;border-left:0;border-right:10px solid #ffcd1f}
+.rbub small{display:block;font-size:.72rem;color:#d7261e;font-weight:800;margin-bottom:2px}
+.rbub .x{position:absolute;top:6px;right:8px;border:0;background:none;font-size:1.1rem;color:#7d0d12;cursor:pointer}
+.rbg{margin-top:8px;padding:8px 14px;border-radius:12px;border:0;background:linear-gradient(135deg,#d7261e,#8f1015);color:#fff;font:inherit;font-size:.85rem;font-weight:800;cursor:pointer}
+@media(prefers-reduced-motion:reduce){.rbot,.rbub{animation:none}}
 </style>
 </head>
 <body>
@@ -1224,7 +1244,7 @@ const cntNhom=g=>ALL.filter(d=>nhomOf(d)===g).length;
 function showPage(p){
   if(!PAGES[p])p="ban-do";
   if(p!=="ban-do")stopTour();
-  page=p;
+  page=p;rbShow(p==="tong-quan");
   Object.keys(PAGES).forEach(k=>{PAGES[k].hidden=k!==p});
   document.querySelectorAll("#nav button").forEach(b=>b.classList.toggle("on",b.dataset.p===p));
   if(p!=="ban-do")history.replaceState(null,"","#"+p);
@@ -1253,7 +1273,7 @@ function renderTongQuan(){
   const launch=LAUNCH.map((l,i)=>`<button class="lc ${l.hot?"hot":""}" data-i="${i}" style="--c:${l.c}"><span>${l.ic}</span><b>${esc(l.t)}</b></button>`).join("");
   const feat=ALL.filter(d=>d.anh&&d.loai!=="ap"&&d.id!=="ubnd-xa").map(d=>{const t=D.loai[d.loai];return `<button class="pc" data-id="${esc(d.id)}"><div class="ph" style="background-image:url('${esc(d.anh)}')"><span class="bd" style="background:${esc(t.mau)}">${esc(D.nhom[t.nhom].icon)} ${esc(t.ten)}</span></div><div class="t"><b>${esc(d.ngan)}</b><small>${d.ap&&d.loai!=="ap"?"🏘️ Ấp "+esc(d.ap):"📍 "+esc(TENXA)}</small></div></button>`}).join("");
   const U0=byId("ubnd-xa"),hub=U0?`<h2 class="sh">🏛️ Trung tâm hành chính</h2><button class="hub" data-id="ubnd-xa" style="background-image:url('${esc(U0.anh)}')"><span class="hb">🏛️ Trung tâm hành chính</span><b>${esc(U0.ngan)}</b><small>📍 ${esc(X.truSoUBND)}</small></button>`:"";
-  const apc=ALL.filter(d=>d.loai==="ap").map(d=>`<button class="pc" data-id="${esc(d.id)}"><div class="ph" style="background-image:${d.anh?`url('${esc(d.anh)}'),`:""}linear-gradient(135deg,#d7261e,#ee5a24)"><span class="bd" style="background:#51627d">🏘️ Ấp</span></div><div class="t"><b>${esc(d.ngan)}</b><small>📍 ${esc(TENXA)}</small></div></button>`).join("");
+  const apc=ALL.filter(d=>d.loai==="ap").map((d,i)=>`<button class="pc" data-id="${esc(d.id)}"><div class="ph" style="background-image:${d.anh?`url('${esc(d.anh)}'),`:""}${art(i)}"><span class="bd" style="background:#51627d">🏘️ Ấp</span></div><div class="t"><b>${esc(d.ngan)}</b><small>📍 ${esc(TENXA)}</small></div></button>`).join("");
   const cats=Object.keys(D.nhom).map(g=>{const n=cntNhom(g),G=D.nhom[g];return `<button class="cat" data-g="${esc(g)}" style="--c:${esc(G.mau)}"><span>${esc(G.icon)}</span>${esc(G.ten)}<em>${n||"–"}</em></button>`}).join("");
   const info=[["🆔","Mã định danh",esc(X.maDinhDanh)],["📮","Mã bưu chính",esc(X.maBuuChinh)],["🏛️","Loại đơn vị",esc(X.loaiDonVi)],["🗓️","Hiệu lực từ",esc(X.hieuLuc)],["🧩","Hình thành từ",X.hopNhatTu.map(esc).join(" · ")],["🏢","Trụ sở UBND",esc(X.truSoUBND)],["🧭","Toạ độ trung tâm",`${X.tamBan[0]}°, ${X.tamBan[1]}° · <a href="https://www.google.com/maps?q=${X.tamBan[0]}%2C${X.tamBan[1]}" target="_blank" rel="noopener noreferrer">Google Maps</a>`]]
     .map(r=>`<div class="ir"><i>${r[0]}</i><div><small>${r[1]}</small><b>${r[2]}</b></div></div>`).join("");
@@ -1285,14 +1305,20 @@ $("p-tong-quan").addEventListener("click",e=>{
 
 /* ---- Các ấp ---- */
 function renderAp(){
-  const done=ALL.filter(d=>d.loai==="ap"&&hasXY(d)).length,withPhoto=D.ap.filter(a=>a.anh).length;
+  const done=ALL.filter(d=>d.loai==="ap"&&hasXY(d)).length,withPhoto=0;
   const cells=D.ap.map((a,i)=>{const id=slug(a.ten),n=ALL.filter(d=>d.ap===a.ten&&d.loai!=="ap").length,hue=`hsl(${(i*37+200)%360} 58% 42%)`,xy=typeof a.lat==="number";
-    return `<button class="apc" data-a="${esc(a.ten)}" style="--c:${hue}"><div class="apph" style="${a.anh?`background-image:url('${esc(a.anh)}')`:""}">${a.anh?"":`<span class="av">${esc(a.ten.split(" ").map(w=>w[0]).join("").slice(0,2))}</span>`}</div>
+    return `<button class="apc" data-a="${esc(a.ten)}" style="--c:${hue}"><div class="apph" style="background-image:${a.anh?`url('${esc(a.anh)}'),`:""}${art(i)}"></div>
     <b>🏘️ Ấp ${esc(a.ten)}</b><small>${n?"📍 "+n+" địa điểm":"📍 Chưa có địa điểm"}</small><u class="${xy?"ok":"pd"}">${xy?(a.gannDung?"Vị trí gần đúng":"Có trên bản đồ"):"Chờ toạ độ"}</u></button>`}).join("");
   $("p-cac-ap").innerHTML=`<div class="wrap2"><div class="ph2"><small>🏘️ ${esc(X.ten.toUpperCase())}</small><h2>${D.ap.length} ấp trên địa bàn</h2><p>Chạm vào một ấp để xem ảnh văn phòng ấp, địa điểm trong ấp và dẫn đường.</p>
   <div class="prog"><i style="width:${Math.round(withPhoto/D.ap.length*100)}%"></i></div><span class="pl">📷 ${withPhoto}/${D.ap.length} ấp đã có ảnh · 📍 ${done}/${D.ap.length} ấp đã có toạ độ</span></div>
   <div class="apgrid">${cells}</div><div id="apd"></div>${CR()}</div>`;
+  phCount();
 }
+function art(i){const h=(i*29+10)%360,c=(o,l)=>`hsl(${(h+o)%360} 75% ${l}%)`;
+  const s=`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300" preserveAspectRatio="xMidYMid slice"><defs><linearGradient id="a" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="${c(0,38)}"/><stop offset="1" stop-color="${c(40,78)}"/></linearGradient></defs><rect width="400" height="300" fill="url(#a)"/><circle cx="${90+i%4*60}" cy="95" r="34" fill="#ffe27a"/><path d="M0 200Q100 170 200 200T400 190V300H0Z" fill="${c(150,34)}"/><path d="M0 235Q120 205 230 235T400 225V300H0Z" fill="${c(160,26)}"/><path d="M0 268Q150 245 400 268V300H0Z" fill="#1a6b5a"/><path d="M250 206v-26h44v26zM244 182l28-22 28 22z" fill="#fff"/><path d="M60 215v-48M60 167q-22-6-30 8M60 167q22-6 30 8M60 167q-4-20-24-22M60 167q4-20 24-22" stroke="#0e4d3b" stroke-width="5" fill="none" stroke-linecap="round"/></svg>`;
+  return `url('data:image/svg+xml,${encodeURIComponent(s)}')`}
+function phCount(){let ok=0;const n=D.ap.length,up=()=>{const p=document.querySelector("#p-cac-ap .prog i"),l=document.querySelector("#p-cac-ap .pl");if(p)p.style.width=Math.round(ok/n*100)+"%";if(l)l.textContent=`📷 ${ok}/${n} ấp đã có ảnh thật · 📍 ${ALL.filter(d=>d.loai==="ap"&&hasXY(d)).length}/${n} ấp đã có toạ độ`};
+  D.ap.forEach(a=>{if(!a.anh)return;const im=new Image();im.onload=()=>{ok++;up()};im.src=a.anh});up()}
 function apDetail(name){
   const d=byId(slug(name)),ps=ALL.filter(x=>x.ap===name&&x.loai!=="ap");
   $("apd").innerHTML=`<div class="apd"><h3>🏘️ Ấp ${esc(name)}</h3>
@@ -1411,11 +1437,19 @@ $("p-dich-vu").addEventListener("click",e=>{
 });
 $("nav").addEventListener("click",e=>{const b=e.target.closest("button");if(b)showPage(b.dataset.p)});
 
+const rb=document.createElement("div");rb.id="rb";rb.hidden=true;
+rb.innerHTML='<div class="rbot" aria-hidden="true">🤖</div><div class="rbub" role="status"><small>Trợ lý bản đồ số</small><span id="rbt"></span><button class="x" aria-label="Đóng">✕</button><br><button class="rbg" id="rbgo">🗺️ Mở bản đồ</button></div>';
+document.body.appendChild(rb);
+const MSG="Chào mừng bạn đến với công cụ bản đồ số, chỉ dẫn đường đi tại xã Vĩnh Gia";let rbDone=false,rbOff=false,rbT=null;
+function rbShow(on){if(rbOff)return;rb.hidden=!on;clearInterval(rbT);if(!on)return;
+  const el=$("rbt");if(rbDone||matchMedia("(prefers-reduced-motion:reduce)").matches){el.textContent=MSG;rbDone=true;return}
+  let i=0;el.textContent="";rbT=setInterval(()=>{el.textContent=MSG.slice(0,++i);if(i>=MSG.length){clearInterval(rbT);rbDone=true}},38)}
+rb.addEventListener("click",e=>{if(e.target.closest(".x")){rbOff=true;rb.hidden=true}if(e.target.closest("#rbgo"))showPage("ban-do")});
 /* ---------- khởi động ---------- */
 renderTongQuan();renderAp();renderBaoCao();renderDv();
 list();
 const h0=decodeURIComponent(location.hash.slice(1));
-const start=PAGES[h0]?h0:(h0&&byId(h0)?"ban-do":(D.trangMacDinh||"ban-do"));
+const start=h0&&byId(h0)?"ban-do":"tong-quan";
 showPage(start);
 if(h0&&byId(h0))open(h0);
 window.addEventListener("hashchange",()=>{const x=decodeURIComponent(location.hash.slice(1));
