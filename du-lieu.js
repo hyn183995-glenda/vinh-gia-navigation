@@ -4,7 +4,7 @@
    Diện tích, dân số: KHÔNG đưa vào hệ thống (do UBND xã tự công bố khi cần).
    ===================================================================== */
 window.DU_LIEU = {
-  phienBan: "5.23",
+  phienBan: "5.24",
   capNhat: "08/11/2026",
   tenHeThong: "Smart Navigation",
   donVi: "Trường TH&THCS Vĩnh Gia 2",
