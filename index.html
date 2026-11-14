@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' 'sha256-1GP045eYUjSL3VKTHneeQij5V2dfSZZuSK4dopgc3CU='; style-src 'unsafe-inline'; img-src 'self' data: blob: https://*.tile.openstreetmap.org https://tile.openstreetmap.org; connect-src 'none'; base-uri 'none'; form-action 'none'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' 'sha256-LQZxYjkshYkoBZFhvWNkObg8n1L1HDJHheJM+Z0n7lA='; style-src 'unsafe-inline'; img-src 'self' data: blob: https://*.tile.openstreetmap.org https://tile.openstreetmap.org; connect-src https://script.google.com https://script.googleusercontent.com https://docs.google.com https://api.web3forms.com; base-uri 'none'; form-action 'none'">
 <meta name="referrer" content="no-referrer">
 <meta name="theme-color" content="#0b2545">
 <title>Bản đồ số xã Vĩnh Gia</title>
@@ -1046,7 +1046,7 @@ h2.sh{font-size:1.1rem;margin:26px 2px 12px}
 <nav id="nav" aria-label="Điều hướng"><button data-p="tong-quan"><span>🏠</span>Tổng quan</button><button data-p="ban-do"><span>🗺️</span>Bản đồ</button><button data-p="cac-ap"><span>🏘️</span>Các ấp</button><button data-p="bao-cao"><span>🚨</span>Báo cáo</button><button data-p="dich-vu"><span>🧾</span>Dịch vụ</button></nav>
 <div id="toast" hidden></div>
 <div id="lb" hidden><img alt="Ảnh phóng to"></div>
-<script src="du-lieu.js?v=5.18"></script>
+<script src="du-lieu.js?v=5.23"></script>
 <script>/* @preserve
  * Leaflet 1.9.4, a JS library for interactive maps. https://leafletjs.com
  * (c) 2010-2023 Vladimir Agafonkin, (c) 2010-2011 CloudMade
@@ -1386,7 +1386,7 @@ function renderBaoCao(){
    <label>📝 Mô tả tình trạng<textarea id="rp-mt" maxlength="600" rows="4" placeholder="Điểm đen là gì, kéo dài bao lâu, ảnh hưởng thế nào…"></textarea></label><div class="meta" id="rp-cnt">0/600</div>
    <div class="lbl2">📷 Ảnh (tối đa 3)</div><input id="rp-ph" type="file" accept="image/*" multiple><div class="thumbs" id="rp-th"></div>
    <label>👤 Liên hệ (không bắt buộc)<input id="rp-lh" maxlength="80" placeholder="Họ tên / số điện thoại để cán bộ liên hệ lại"></label>
-   <div class="row"><button type="button" class="btn go" id="rp-go">🚨 Tạo báo cáo</button></div>
+   <div class="row"><button type="button" class="btn go" id="rp-go">📨 Gửi báo cáo</button></div>
    <div class="meta" id="rp-err" role="alert"></div></div>
   <div id="rpres" hidden></div>
   ${nDen?`<div class="row"><button class="btn alt" id="rp-map">🗺️ Xem ${nDen} điểm đen đã tiếp nhận trên bản đồ</button></div>`:""}
@@ -1408,15 +1408,19 @@ function rpMake(){
   if(!$("rp-ap").value&&!rpLoc&&!$("rp-vt").value.trim()){err.textContent="Vui lòng chọn ấp, lấy vị trí hoặc mô tả vị trí.";return}
   if($("rp-mt").value.trim().length<10){err.textContent="Vui lòng mô tả tình trạng (ít nhất 10 ký tự).";return}
   const code="BC-"+new Date().toISOString().slice(2,10).replace(/-/g,"")+"-"+Math.random().toString(36).slice(2,6).toUpperCase();
-  const msg=rpMsg(code),r=$("rpres");
+  const msg=rpMsg(code),r=$("rpres"),direct=!!(B.guiThang||B.khoaWeb3||(B.bieuMau&&B.bieuMauEntry));
   const mail=B.email?`mailto:${B.email}?subject=${encodeURIComponent("Báo cáo điểm đen môi trường "+code)}&body=${encodeURIComponent(msg.slice(0,1500))}`:"";
-  r.innerHTML=`<div class="card2 ok2"><h3>✅ Đã tạo báo cáo ${esc(code)}</h3><p class="meta">Bấm một nút bên dưới để gửi. Nên ghi nhớ mã báo cáo để hỏi lại tiến độ.</p>
+  r.innerHTML=`<div class="card2 ok2"><h3 id="rp-st">${direct?"⏳ Đang gửi báo cáo":"✅ Đã tạo báo cáo"} ${esc(code)}</h3><p class="meta" id="rp-sub">${direct?"Báo cáo đang được gửi tới "+esc(B.donViNhan)+".":"Hãy bấm nút “Gửi (Zalo / ứng dụng khác)” bên dưới để chuyển báo cáo tới cán bộ phụ trách."} Nên ghi nhớ mã báo cáo để hỏi lại tiến độ.</p>
   <textarea id="rpout" readonly rows="9">${esc(msg)}</textarea>
-  <div class="row"><button type="button" class="btn go" id="rp-share">📤 Gửi (Zalo / ứng dụng khác)</button>${mail?`<a class="btn alt" href="${esc(mail)}">✉ Gửi email</a>`:""}${B.zalo?`<a class="btn alt" href="https://zalo.me/${esc(B.zalo)}" target="_blank" rel="noopener noreferrer">💬 Mở Zalo</a>`:""}${B.sdt?`<a class="btn alt" href="tel:${esc(B.sdt)}">📞 Gọi ${esc(B.donViNhan)}</a>`:""}${B.bieuMau?`<button type="button" class="btn alt" id="rp-form">📋 Gửi qua biểu mẫu của Đoàn</button>`:""}<button type="button" class="btn alt" id="rp-copy">📋 Sao chép nội dung</button><button type="button" class="btn alt" id="rp-new">➕ Báo cáo mới</button></div>
-  ${rpFiles.length?'<p class="meta">📷 Ảnh sẽ được đính kèm khi bạn gửi bằng nút “Gửi (Zalo / ứng dụng khác)”. Với email, hãy đính kèm ảnh thủ công.</p>':""}
-  ${B.email||B.zalo||B.sdt||B.bieuMau?"":'<p class="meta">ℹ️ ${esc(B.donViNhan)} chưa cấu hình nơi nhận trực tiếp. Hãy dùng nút Gửi để chuyển báo cáo tới cán bộ phụ trách.</p>'}</div>`;
+  <div class="row"><button type="button" class="btn go" id="rp-share">📤 Gửi (Zalo / ứng dụng khác)</button>${mail&&B.hienNutEmail?`<a class="btn alt" href="${esc(mail)}">✉ Gửi email</a>`:""}${B.zalo?`<a class="btn alt" href="https://zalo.me/${esc(B.zalo)}" target="_blank" rel="noopener noreferrer">💬 Mở Zalo</a>`:""}${B.sdt?`<a class="btn alt" href="tel:${esc(B.sdt)}">📞 Gọi ${esc(B.donViNhan)}</a>`:""}${B.bieuMau?`<button type="button" class="btn alt" id="rp-form">📋 Gửi qua biểu mẫu của Đoàn</button>`:""}<button type="button" class="btn alt" id="rp-copy">📋 Sao chép nội dung</button><button type="button" class="btn alt" id="rp-new">➕ Báo cáo mới</button></div>
+  ${rpFiles.length?(direct?'<p class="meta">📷 Ảnh chưa được gửi kèm. Muốn gửi ảnh, bấm nút “Gửi (Zalo / ứng dụng khác)”.</p>':'<p class="meta">📷 Ảnh sẽ được đính kèm khi bạn gửi bằng nút “Gửi (Zalo / ứng dụng khác)”. Với email, hãy đính kèm ảnh thủ công.</p>'):""}
+  ${direct||B.zalo||B.sdt||B.bieuMau?"":'<p class="meta">ℹ️ ${esc(B.donViNhan)} chưa cấu hình nơi nhận trực tiếp. Hãy dùng nút Gửi để chuyển báo cáo tới cán bộ phụ trách.</p>'}</div>`;
   r.hidden=false;$("rpform").hidden=true;r.dataset.msg=msg;r.dataset.code=code;
   r.scrollIntoView&&r.scrollIntoView({block:"start"});
+  if(direct){const st=$("rp-st"),sb=$("rp-sub"),ent=/^entry\./.test(B.bieuMauEntry||"")?B.bieuMauEntry:"entry."+B.bieuMauEntry,fu=B.guiThang?"":safeUrl(B.bieuMau).replace(/\/viewform.*$/,"/formResponse"),W3=()=>fetch("https://api.web3forms.com/submit",{method:"POST",headers:{"Content-Type":"application/json",Accept:"application/json"},body:JSON.stringify({access_key:B.khoaWeb3,subject:"Báo cáo điểm đen môi trường "+code,from_name:"Bản đồ số xã Vĩnh Gia",message:msg})}).then(r=>r.json()).then(j=>{if(!j.success)throw 0});
+    (B.guiThang?fetch(B.guiThang,{method:"POST",mode:"no-cors",headers:{"Content-Type":"text/plain;charset=utf-8"},body:JSON.stringify({code:code,msg:msg})}):B.khoaWeb3?W3():fetch(fu,{method:"POST",mode:"no-cors",headers:{"Content-Type":"application/x-www-form-urlencoded"},body:encodeURIComponent(ent)+"="+encodeURIComponent(msg.slice(0,4000))}))
+     .then(()=>{st.textContent="✅ Đã gửi báo cáo "+code;sb.textContent="Báo cáo đã được gửi đi. Hãy ghi nhớ mã báo cáo để hỏi lại tiến độ. Muốn chắc chắn hơn, bạn có thể gửi thêm qua nút bên dưới."})
+     .catch(()=>{st.textContent="⚠️ Chưa gửi được báo cáo "+code;sb.textContent="Có thể do mất mạng. Bạn hãy bấm một nút bên dưới để gửi theo cách khác."})}
 }
 $("p-bao-cao").addEventListener("click",async e=>{
   const m=e.target.closest("#rp-muc button");if(m){rpMuc=m.dataset.m;document.querySelectorAll("#rp-muc button").forEach(b=>b.setAttribute("aria-pressed",b===m));return}

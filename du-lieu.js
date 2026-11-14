@@ -4,7 +4,7 @@
    Diện tích, dân số: KHÔNG đưa vào hệ thống (do UBND xã tự công bố khi cần).
    ===================================================================== */
 window.DU_LIEU = {
-  phienBan: "5.18",
+  phienBan: "5.23",
   capNhat: "08/11/2026",
   tenHeThong: "Smart Navigation",
   donVi: "Trường TH&THCS Vĩnh Gia 2",
@@ -41,11 +41,15 @@ window.DU_LIEU = {
        zalo    : số Zalo của Đoàn (dạng 0xxxxxxxxx)
        bieuMau : đường dẫn Google Form của Đoàn, dạng https://docs.google.com/forms/d/e/.../viewform
                  (KHÔNG dùng link rút gọn forms.gle). Báo cáo tự lưu vào Google Sheets và gửi email thông báo.
+                  Nếu điền CẢ bieuMau và bieuMauEntry (dạng entry.123456789) thì nút "Gửi báo cáo" gửi THẲNG vào biểu mẫu, người dân chỉ bấm 1 lần.
        bieuMauEntry : mã ô "Nội dung báo cáo" trong biểu mẫu, dạng entry.1234567890 — để hệ thống điền sẵn nội dung,
                  người dân chỉ cần bấm Gửi. Cách lấy mã: xem hướng dẫn. */
   baoCao: {
     donViNhan: "Đoàn Thanh niên xã Vĩnh Gia",
-    email: "doanvinhgia1725@gmail.com", sdt: "", zalo: "", bieuMau: "", bieuMauEntry: "",
+    email: "hyn183995@gmail.com",
+    khoaWeb3: "",   /* (tuỳ chọn) khoá truy cập Web3Forms: báo cáo gửi THẲNG tới email đăng ký khoá, không mở ứng dụng mail */
+    hienNutEmail: false,   /* true = hiện thêm nút "Gửi email" (mở ứng dụng mail) */
+    guiThang: "",   /* (tuỳ chọn) dán địa chỉ Apps Script vào đây để báo cáo gửi THẲNG, không cần mở ứng dụng email */ sdt: "", zalo: "", bieuMau: "https://docs.google.com/forms/d/e/1FAIpQLSc643n9EtF-DeZ9f38ULs_ghyVrZWQP-I2wRfdRwLlSJ8XsOQ/viewform", bieuMauEntry: "entry.208395157",
     loai: ["Rác thải tồn đọng, bãi rác tự phát", "Đốt rác, đốt rơm rạ gây khói bụi", "Nước thải, ô nhiễm nguồn nước", "Mùi hôi từ chăn nuôi, nhà máy, cơ sở sản xuất", "Xả thải trái phép ra kênh, rạch", "Chai lọ, bao bì thuốc bảo vệ thực vật bỏ bừa bãi", "Xác động vật, dịch bệnh", "Vấn đề khác"],
     mucDo: ["Nhẹ", "Trung bình", "Nghiêm trọng"]
   },
